@@ -1,0 +1,14 @@
+#b1 {
+  margin-left: 6px;
+  padding: 4px 15px;
+  background-color: #4D6D7F;
+  color: white;
+  border: 1px solid #4D6D7F;
+  transition: ease-in-out background-color 250ms, ease-in-out color 250ms;
+}
+
+#b1:hover {
+  cursor: pointer;
+  background-color: white;
+  color: rgb(70, 153, 179);
+}
