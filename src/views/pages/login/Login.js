@@ -22,7 +22,8 @@ const Login = () => (
       setTimeout(async () => {
         try {
           // console.log(values)
-          const res = await axios.post("auth/login", values)
+          const res = await axios.post("auth/login",
+            values)
           // console.log(res.data)
           if (res.data.code === 200) {
             // console.log(res.data.auth_token)
