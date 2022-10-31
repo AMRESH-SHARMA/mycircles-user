@@ -1,0 +1,89 @@
+#ct1 {
+  margin: -5px 0px 0px -2px;
+  font-size: 85%;
+}
+
+#d1 {
+  margin: -4px 0px -5px 0px;
+  font-size: 90%;
+}
+
+#cb1 {
+  margin: -10px 0px 0px 5px;
+  font-size: 95%;
+}
+
+#cmtf1 {
+  margin: 0% 5%;
+  overflow-y: scroll;
+  max-height: 265px;
+}
+
+#cf1 {
+  background-color: white;
+}
+
+.showallcmt {
+  margin: -2px 0px 0px 10px;
+  font-size: 80%;
+  text-decoration: none;
+  color: black;
+}
+
+#showcomments {
+  border-radius: 150px 150px;
+  background: #e7e8e9;
+  border-style: hidden;
+  margin: 8px 0px;
+  padding-left: 15px;
+  /* width: 350px; */
+  max-height: 65px;
+  font-size: 82%;
+  overflow: clip;
+
+}
+
+#hr1 {
+  margin: 5px 0px 5px 0px;
+}
+
+#cmttitle {
+  padding-top: 5px;
+}
+
+#cmtbody {
+  padding: 1px 0px 10px 0px;
+  font-size: 90%;
+}
+
+#commentbtn {
+  margin-left: 6px;
+  margin-top: 8px;
+  padding: 4px;
+  height: 35px;
+  background-color: #4D6D7F;
+  color: white;
+  border: 1px solid #4D6D7F;
+  transition: ease-in-out background-color 250ms, ease-in-out color 250ms;
+}
+
+#commentbtn:hover {
+  cursor: pointer;
+  background-color: white;
+  color: rgb(70, 153, 179);
+}
+
+.likereply {
+  margin: -10px 20px 0px 20px;
+  font-size: 80%;
+  text-decoration: none;
+  color: black;
+}
+
+#cardcard {
+  width: "35rem";
+}
+
+#commentshow {
+  color: black;
+}

@@ -1,0 +1,170 @@
+.modal-content {
+  border-radius: 5px;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.forminput {
+  border: 2px solid #d7dcdf;
+  width: 100%;
+  min-height: 35px;
+  padding: 6px 12px;
+  font-size: 14px;
+  background-color: #fff;
+  border-radius: 4px;
+  margin-bottom: 0;
+}
+
+.forminput:focus {
+  border: 2px solid #21A1B3;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: none;
+}
+
+.newCircleModalbtn {
+  padding: 4px 15px;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: #4D6D7F;
+  color: white;
+  border: 1px solid #4D6D7F;
+  border-radius: 3px;
+  transition: ease-in-out background-color 250ms, ease-in-out color 250ms;
+}
+
+.newCircleModalbtn:hover {
+  cursor: pointer;
+  background-color: white;
+  color: rgb(70, 153, 179);
+}
+
+#advsettingModalid {
+  font-size: 12px;
+  color: #21A1B3;
+  display: flex;
+  justify-content: left;
+}
+
+#advsettingModalBody {
+  border: none;
+}
+
+.createcirclecont {
+  display: block;
+  position: relative;
+  /* padding-left: 35px; */
+  /* margin-bottom: 12px; */
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.createcirclecont input {
+  position: absolute;
+  cursor: pointer;
+  height: 10px;
+  width: 10px;
+}
+
+.createcircleradiolabel {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 3px;
+  margin-left: 20px;
+}
+
+.createcirclehtag {
+  display: flex;
+  justify-content: flex-start;
+}
+
+#createcircledropdown {
+  position: relative;
+  max-height: 142px;
+  overflow-y: scroll;
+}
+
+#createnewcirclebtn {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  padding: 0px;
+  margin: 0px 5px 0px 5px;
+  background-color: #21A1B3;
+  font-weight: 500;
+  color: white;
+}
+
+#createcirclesearchbox {
+  margin: -2px 0px 5px 5px;
+  border-radius: 3px;
+  border: 2px solid #d7dcdf;
+  display: block;
+  height: 34px;
+  font-size: 14px;
+  color: #d7dcdf;
+  outline: none;
+
+}
+
+#createcirclesearchbox:focus {
+  border: 2px solid #21A1B3;
+}
+
+.homeNavTabs {
+  padding-right: 8px;
+}
+
+.homeNavTabs :hover {
+  background-color: rgb(233, 230, 230);
+  border-color: white;
+  border-radius: 0px;
+}
+
+.homeNavTabsTitle {
+  margin-bottom: 0px;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.navbarr {
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.5)
+}
+
+.noborder {
+  border: none;
+}
+
+.bi-caret-down-fill{
+  font-size: 10px;
+}
+
+.navitems {
+  margin-left: 25px;
+
+}
+
+.navitem {
+  margin-top: -15px;
+  font-size: 14px;
+}
+
+.text {
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+#invitebtn{
+border: none;
+font-weight: 600;
+color: white;
+background-color: #4D6D7F;
+margin-top: 5px;
+}

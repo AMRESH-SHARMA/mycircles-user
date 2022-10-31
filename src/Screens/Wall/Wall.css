@@ -1,0 +1,15 @@
+@media screen and (max-width: 775px) {
+  #wallcardtwo {
+    display: none;
+  }
+}
+@media screen and (min-width: 600px) {
+  #wallcardone {
+    min-width: 35rem;
+    margin-left: -50px;
+  }
+}
+#wallcardtwo {
+  min-width: 15rem;
+  max-width: 20rem;
+}
