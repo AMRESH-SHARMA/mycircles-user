@@ -32,7 +32,7 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "lint": "eslint \"src/**/*.js\"",
-    "start": "serve -s build",
+    "start": "serve build",
     "test": "react-scripts test",
     "heroku-postbuild": "npm run build"
   },
