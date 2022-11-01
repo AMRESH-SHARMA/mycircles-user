@@ -1,9 +1,11 @@
 import React from 'react'
 import { Formik } from "formik";
 import * as Yup from "yup";
-// import axios from "axios";
+import axios from "axios";
+import registerUrl from "../../API";
 
 const RegisterPanel = () => {
+
   return (<>
     <div className="panel" id="register-form">
       <div className="panel-heading"><div className='bold'>Sign</div> up</div>
@@ -14,21 +16,17 @@ const RegisterPanel = () => {
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(async () => {
               try {
-                console.log(values)
-                // const res = await axios.post("auth/login", values)
-                // console.log(res.data)
-                // if (res.data.code === 200) {
-                //   console.log(res.data.auth_token)
-                //   localStorage.setItem("authToken", res.data.auth_token)
-                //   window.location.reload()
-                // }
-                alert("done")
+                // console.log(values)
+                let resapi = await axios.post(`${registerUrl}/invite/gettoken`, values)
+                console.log(resapi)
+                if (resapi.status === 200) {
+                }
               }
               catch {
                 alert("Invalid credentials")
               }
               setSubmitting(false);
-            }, 1500);
+            }, 1000);
           }}
 
           validationSchema={Yup.object().shape({
@@ -41,7 +39,9 @@ const RegisterPanel = () => {
             const {
               values, touched, errors, isSubmitting, handleChange, handleBlur, handleSubmit
             } = props;
-
+            if (isSubmitting) {
+              var disableStyle = { cursor: "not-allowed", }
+            }
 
             return (
               <div>
@@ -61,7 +61,7 @@ const RegisterPanel = () => {
                   )}
 
                   <div className="loginfooter">
-                    <button className="btnlogin" type="submit" disabled={isSubmitting}>{isSubmitting ? "Wait" : "Register"}</button>
+                    <button className="btnlogin" style={disableStyle} type="submit" disabled={isSubmitting}>{isSubmitting ? "Wait" : "Register"}</button>
                   </div>
 
                 </form>

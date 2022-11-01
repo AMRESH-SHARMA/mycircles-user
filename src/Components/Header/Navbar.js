@@ -252,11 +252,10 @@ export default function Navbar() {
             </NavItem>
             <NavItem className="navitems" >
               <button id='invitebtn' onClick={handleShow}><i class="bi bi-cursor-fill" aria-hidden="true">Invite</i></button>
-              {show ? <InviteModal show={show} handleClose={handleClose}></InviteModal> : null}
+              {show && <InviteModal show={show} handleClose={handleClose} />}
             </NavItem>
           </>
           }
-
         </div>
       </div>
     </div>

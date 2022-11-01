@@ -54,3 +54,13 @@ input.error {
   background-color: white;
   color: rgb(70, 153, 179);
 }
+
+#invalidtokencard {
+  display: block;
+  margin: auto;
+  margin-top: 150px;
+  width: 50%;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: white;
+}
