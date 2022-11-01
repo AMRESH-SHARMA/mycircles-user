@@ -251,7 +251,7 @@ export default function Navbar() {
               <h5 className="navitem">Followers</h5>
             </NavItem>
             <NavItem className="navitems" >
-              <button id='invitebtn' onClick={handleShow}><i class="bi bi-cursor-fill" aria-hidden="true">Invite</i></button>
+              <button className='globalbtn' style={{marginTop:"5px"}} onClick={handleShow}><i class="bi bi-cursor-fill">Invite</i></button>
               {show && <InviteModal show={show} handleClose={handleClose} />}
             </NavItem>
           </>

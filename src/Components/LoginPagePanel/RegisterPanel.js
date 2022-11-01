@@ -39,6 +39,7 @@ const RegisterPanel = () => {
             const {
               values, touched, errors, isSubmitting, handleChange, handleBlur, handleSubmit
             } = props;
+
             if (isSubmitting) {
               var disableStyle = { cursor: "not-allowed", }
             }

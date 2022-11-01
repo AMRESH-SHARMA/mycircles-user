@@ -11,41 +11,61 @@ const TaskandPostLayout = () => {
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   const [Message, setMessage] = useState();
+  const [isPostingMessage, setIsPostingMessage] = useState(false);
+  console.log(Message);
 
-  async function handleSubmit(e) {
-    try {
-      let postData = {
-        data: {
-          message: Message,
-        },
-      };
-      const result = await axios.post(`/post/container/${id[5]}`, postData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-        },
-      });
-      console.log("Post", result.data);
-    } catch (ex) {
-      alert(ex);
-      console.log(ex);
+  // MESSAGE SUBMIT HANDLER
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (Message) {
+      setIsPostingMessage(true);
+      console.log(Message.trim())
+      try {
+        let postData = {
+          data: {
+            message: Message.trim(),
+          },
+        };
+        let resapi = await axios.post(`/post/container/${id[5]}`, postData, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        });
+        console.log("Post", resapi);
+      } catch (ex) {
+        alert(ex);
+        console.log(ex);
+      }
+      setIsPostingMessage(false)
+      setMessage('');
     }
-  }
+  };
 
   return (
     <>
-      <div className="card mt-3 mx-5">
-        <form>
-          <input
-            onChange={(e) => setMessage(e.target.value)}
-            type="text"
-            placeholder="Whats On Your Mind" />
-          <hr />
-          <button className="btnaddpost" onClick={(e) => handleSubmit(e)}>
-            Submit
-          </button>
-        </form>
-      </div>
+      <div id="cardcard" className="card mt-3 mx-5">
+        <div className="">
+          <form className="scform" onSubmit={handleSubmit()}>
+            <input
+            id="addpostinput"
+              value={Message}
+              onChange={(e) => setMessage(e.target.value)}
+              type="text"
+              placeholder="Whats On Your Mind ?" />
 
+            <button className="globalbtn" onClick={(e) => handleSubmit(e)}>
+              {isPostingMessage ?
+                <div class="spinner-border text-danger" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div> :
+                'Submit'}
+            </button>
+          </form>
+
+
+        </div>
+      </div>
 
       <div id="cardcard" className="card mt-3 mx-5">
         <div className="card-header d-flex" style={{ background: "white" }}>
@@ -55,7 +75,9 @@ const TaskandPostLayout = () => {
         <div className="d-flex justify-content-between card-body">
           <p className="card-text">Create and assign tasks - organize and schedule individual and
             collaborative projects.</p>
-          <button className="btnaddpost" onClick={handleShow}>ADD</button>
+          <button className="globalbtn" onClick={handleShow}>
+            ADD
+          </button>
           <PopupModal show={show} handleClose={handleClose}></PopupModal>
         </div>
 

@@ -1,11 +1,12 @@
-.btnaddpost{
-  padding: 6px 6px;
-  min-width: 75px;
-  background-color: #435F6F;
-  color: white;
-  border: 1px solid #435F6F;
-  border-radius: 4px;
-  transition: ease-in-out background-color 250ms, ease-in-out color 250ms;
-  font-size: 15px;
-  font-weight: 500;
+.scform{
+  margin: 10px 10px;
+  display: block;
+}
+#addpostinput{
+  width: 145%;
+}
+@media screen and (max-width: 1199px) {
+  #addpostinput{
+    width: 95%;
+  }
 }

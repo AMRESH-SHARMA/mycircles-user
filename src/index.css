@@ -1,4 +1,14 @@
-
+.globalbtn{
+  height: 30px;
+  width: 75px;
+  background-color: #435F6F;
+  color: white;
+  border: 1px solid #435F6F;
+  border-radius: 4px;
+  transition: ease-in-out background-color 250ms, ease-in-out color 250ms;
+  font-size: 15px;
+  font-weight: 500;
+}
 
 
 

@@ -160,11 +160,3 @@
   display: flex;
   justify-content: center;
 }
-
-#invitebtn{
-border: none;
-font-weight: 600;
-color: white;
-background-color: #4D6D7F;
-margin-top: 5px;
-}

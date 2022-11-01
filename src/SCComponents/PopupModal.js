@@ -13,7 +13,6 @@ const PopupModal = (props) => {
   const [EndDate, setEndDate] = useState();
   const [EndTime, setEndTime] = useState();
   const [Description, setDescription] = useState();
-  console.log(localStorage.getItem("authToken"));
   async function handleSubmit() {
     try {
       let payLoad = {
