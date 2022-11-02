@@ -5,6 +5,7 @@ import WallCard from "../../Components/WallCard/WallCard";
 import Navbar from "../../Components/Header/Navbar";
 import Header from "../../Components/Header/Header";
 import "./Wall.css";
+import Spinner from "../../aspinner/Spinner";
 
 const Wall = () => {
 
@@ -39,21 +40,22 @@ const Wall = () => {
       <div className="d-flex justify-content-around">
 
         <div id='wallcardone' className="pt-2 flex-grow-1 bd-highlight">
-          {!loading && (
-            <>
-              {error ?
-                "<ServerError />" :
-                <>
-                  {posts.length ? (
-                    posts.map((posts, index) => (
-                      <WallCard posts={posts} key={index} />
-                    ))
-                  ) : (
-                    "<NoResults />"
-                  )}
-                </>}
-            </>
-          )}
+          {loading ?
+            <div id='wallscrspinner'><Spinner /></div> : (
+              <>
+                {error ?
+                  "<ServerError />" :
+                  <>
+                    {posts.length ? (
+                      posts.map((posts, index) => (
+                        <WallCard posts={posts} key={index} />
+                      ))
+                    ) : (
+                      "<NoResults />"
+                    )}
+                  </>}
+              </>
+            )}
         </div>
 
         <div id='wallcardtwo' className="pt-2 flex bd-highlight">

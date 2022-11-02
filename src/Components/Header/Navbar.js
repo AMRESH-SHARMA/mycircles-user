@@ -5,6 +5,7 @@ import axios from "axios";
 import { isAuthenticatedToken, isAutheticated } from '../../auth/Auth'
 import { NavItem } from "react-bootstrap"
 import InviteModal from "./InviteModal";
+import Spinner from '../../aspinner/Spinner';
 import './Navbar.css';
 
 
@@ -124,7 +125,9 @@ export default function Navbar() {
                 <button type="submit" className="btn bi bi-search homeNavTabs"></button>
               </form>
               <div id='createcircledropdown'>
-                {!loading && (
+                {loading ? 
+                <div id="navdropspinner"><Spinner /></div>
+                : (
                   <>
                     {error ?
                       "<ServerError />" :

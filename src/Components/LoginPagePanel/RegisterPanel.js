@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import registerUrl from "../../API";
+import Spinner from "../../aspinner/Spinner";
 
 const RegisterPanel = () => {
 
@@ -62,7 +63,10 @@ const RegisterPanel = () => {
                   )}
 
                   <div className="loginfooter">
-                    <button className="btnlogin" style={disableStyle} type="submit" disabled={isSubmitting}>{isSubmitting ? "Wait" : "Register"}</button>
+                    <div className='registerbtn'>
+                      <button className="globalbtn" style={disableStyle} type="submit" disabled={isSubmitting}>{isSubmitting ? <div className='globalbtnspin'><Spinner /></div> : "Register"}</button>
+                    </div>
+
                   </div>
 
                 </form>

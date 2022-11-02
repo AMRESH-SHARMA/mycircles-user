@@ -2,6 +2,7 @@ import { React, useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import Spinner from "../../aspinner/Spinner";
 
 const LoginPanel = () => {
 
@@ -93,7 +94,7 @@ const LoginPanel = () => {
                   {/* <label><input type="checkbox" id="login-rememberme" value="1" checked /> Remember me</label> */}
 
                   <div className="loginfooter">
-                    <button className="btnlogin" style={disableStyle} type="submit" disabled={isSubmitting}>{isSubmitting ? "Wait" : "Sign in"}</button>
+                    <button className="btnlogin" style={disableStyle} type="submit" disabled={isSubmitting}>{isSubmitting ? <div className="globalbtnspin"><Spinner/></div> : "Sign in"}</button>
                     <a href='/' onClick={handleForgot} className="alogin">Forgot your password?</a>
                   </div>
 

@@ -1,7 +1,8 @@
 import { React, useState } from 'react'
 import "./TaskCard.css"
-import TaskCommentBody from '../TaskCommentBody/TaskCommentBody';
+import TaskCommentBody from './TaskCommentBody/TaskCommentBody';
 import axios from 'axios';
+import Spinner from '../../aspinner/Spinner';
 
 export const TaskCard = (props) => {
   var { id, description, end_datetime, created_by, status, content } = props.obj
@@ -139,7 +140,11 @@ export const TaskCard = (props) => {
                   placeholder='Add comment..'
                 />
                 <button id='commentbtn' onClick={addComment}>
-                  {isPostingComment ? 'Commenting...' : 'Comment'}
+                  {isPostingComment ?
+                    <div className="globalbtnspin">
+                      <Spinner/>
+                    </div> :
+                    'Comment'}
                 </button>
               </form>
             </div>

@@ -4,6 +4,7 @@ import { TaskCard } from '../../Components/TaskCard/TaskCard';
 import "./Task.css"
 import Navbar from "../../Components/Header/Navbar";
 import Header from "../../Components/Header/Header";
+import Spinner from "../../aspinner/Spinner";
 
 const Tasks = () => {
 
@@ -47,7 +48,8 @@ const Tasks = () => {
           ) : (
             <div>No result</div>
           )}
-        </> : <div>Loading</div>}
+        </> :
+          <div id='taskscrspinner'><Spinner /></div>}
       </div>
     </div>
   </>
