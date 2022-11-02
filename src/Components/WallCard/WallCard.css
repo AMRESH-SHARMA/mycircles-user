@@ -44,7 +44,7 @@
 }
 
 #hr1 {
-  margin: 5px 0px 5px 0px;
+  margin: 0px 0px 0px 0px;
 }
 
 #cmttitle {
@@ -61,6 +61,7 @@
   margin-top: 8px;
   padding: 4px;
   height: 35px;
+  width: 80px;
   background-color: #4D6D7F;
   color: white;
   border: 1px solid #4D6D7F;
@@ -86,4 +87,8 @@
 
 #commentshow {
   color: black;
+}
+.wallcmtbtnspin{
+  /* display: flex;
+  justify-content: center; */
 }

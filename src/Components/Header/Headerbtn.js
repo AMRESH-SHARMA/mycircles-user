@@ -52,13 +52,14 @@ const Headerbtn = () => {
         }
       </a>
       <ul className="dropdown-menu text-small" style={{ background: "#4D6D7F" }}>
-        <li><a className="dropdown-item" href="/" style={{ color: "white" }}>My Profile</a></li>
-        <li><a className="dropdown-item" href="/" style={{ color: "white" }}>Account Settings</a></li>
-        <li><a className="dropdown-item" href="/" style={{ color: "white" }}>Administration</a></li>
+        <li><a href="/">My Profile</a></li>
+        <li><a href="/">Account Settings</a></li>
+        <li><a href="/">Administration</a></li>
         <li><hr className="dropdown-divider" /></li>
-        <li className="dropdown-item" style={{ color: "white" }} onClick={handleLogOut}>Log out</li>
+        <li><a href="/" onClick={handleLogOut}>Log out</a></li>
       </ul>
     </div>
+
   </>
   )
 }

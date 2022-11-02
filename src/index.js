@@ -1,14 +1,14 @@
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.js'
 import '../node_modules/bootstrap-icons/font/bootstrap-icons.css'
 import '@coreui/coreui/dist/css/coreui.min.css'
-import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import axios from 'axios'
+import "./index.css";
 
 const setupAxios = () => {
-  axios.defaults.baseURL = 'http://206.189.133.189:8080/api/spaces/v1/';
+  axios.defaults.baseURL = 'http://139.59.0.99:8080/api/spaces/v1/';
   // axios.defaults.auth= {
   //   username: 'ramki',
   //   password: 'Infy@1234'

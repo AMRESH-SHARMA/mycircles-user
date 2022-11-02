@@ -5,6 +5,7 @@ import axios from "axios";
 import { isAuthenticatedToken, isAutheticated } from '../../auth/Auth'
 import { NavItem } from "react-bootstrap"
 import InviteModal from "./InviteModal";
+import Spinner from '../../aspinner/Spinner';
 import './Navbar.css';
 
 
@@ -108,13 +109,13 @@ export default function Navbar() {
                     alt="img"
                     width="30"
                     height="30"
-                    className="profile"
+                    className="navprofile"
                   /><i className="bi bi-caret-down-fill" />
                 </NavLink>
                 :
                 <NavLink to="/" className="btn bi bi-record-circle px-2 noborder"
                   data-bs-toggle="dropdown" aria-expanded="false">
-                  <p className="homeNavTabsTitle">All CIRCLES<i className="bi bi-caret-down-fill"/></p>
+                  <p className="homeNavTabsTitle">All CIRCLES<i className="bi bi-caret-down-fill" /></p>
                 </NavLink>
             }
 
@@ -124,7 +125,9 @@ export default function Navbar() {
                 <button type="submit" className="btn bi bi-search homeNavTabs"></button>
               </form>
               <div id='createcircledropdown'>
-                {!loading && (
+                {loading ? 
+                <div id="navdropspinner"><Spinner /></div>
+                : (
                   <>
                     {error ?
                       "<ServerError />" :
@@ -251,8 +254,11 @@ export default function Navbar() {
               <h5 className="navitem">Followers</h5>
             </NavItem>
             <NavItem className="navitems" >
-              <button id='invitebtn' onClick={handleShow}><i class="bi bi-cursor-fill" aria-hidden="true">Invite</i></button>
-              {show && <InviteModal show={show} handleClose={handleClose} />}
+              <div className='navinvitebtn'>
+                <button className='globalbtn' style={{ marginTop: "5px" }} onClick={handleShow}><i className="bi bi-cursor-fill">Invite</i></button>
+                {show && <InviteModal show={show} handleClose={handleClose} />}
+              </div>
+
             </NavItem>
           </>
           }

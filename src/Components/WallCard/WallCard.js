@@ -4,6 +4,7 @@ import CommentsBody from './CommentsBody';
 import axios from 'axios';
 import emoji from 'emoji-dictionary'
 import './WallCard.css';
+import Spinner from '../../aspinner/Spinner';
 
 const Card = (props) => {
 
@@ -112,8 +113,8 @@ const Card = (props) => {
               />
               <button id='commentbtn' onClick={addComment}>
                 {isPostingComment ?
-                  <div class="spinner-border text-danger" role="status">
-                    <span class="visually-hidden">Loading...</span>
+                  <div className="globalbtnspin">
+                    <Spinner />
                   </div> :
                   'Comment'}
               </button>

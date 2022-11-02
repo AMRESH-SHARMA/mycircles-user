@@ -43,7 +43,6 @@ const SingleCircle = () => {
       <div className="container mt-4">
         <div className="d-flex justify-content-around">
           <div id="wallcardone" className="pt-2 flex-grow-1 bd-highlight">
-            {/* <TaskandPostLayout /> */}
             <AddPost />
           </div>
 
@@ -54,7 +53,6 @@ const SingleCircle = () => {
                   <div className="flex-grow-1">
                     <strong>Getting </strong>Started
                   </div>
-                  {/* <Dropdown /> */}
                 </div>
                 <p className="card-text">
                   Some quick example text to build on the card title and make up
@@ -90,7 +88,6 @@ const SingleCircle = () => {
                     <strong>Latest </strong>Activities
                   </div>
                 </div>
-                {/* <Collapse /> */}
               </div>
             </div>
           </div>

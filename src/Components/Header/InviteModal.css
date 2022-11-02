@@ -3,3 +3,7 @@
 .invitebtn {
   margin-bottom: 10px;
 }
+.invitemodalbtn{
+  display: flex;
+  justify-content: center;
+}
