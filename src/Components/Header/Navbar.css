@@ -141,22 +141,32 @@
   border: none;
 }
 
-.bi-caret-down-fill{
+.bi-caret-down-fill {
   font-size: 10px;
 }
 
 .navitems {
   margin-left: 25px;
-
 }
 
 .navitem {
-  margin-top: -15px;
+  margin-top: -20px;
   font-size: 14px;
 }
 
 .text {
   font-size: 15px;
+  font-weight: 700;
+  color: #21A1B3;
   display: flex;
   justify-content: center;
+  margin-top: 5px;
+}
+
+.navprofile{
+  margin-top: 5px;
+}
+
+.navinvitebtn{
+  margin-top: 5px;
 }

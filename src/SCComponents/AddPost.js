@@ -12,7 +12,6 @@ const TaskandPostLayout = () => {
   const handleClose = () => setShow(false);
   const [Message, setMessage] = useState();
   const [isPostingMessage, setIsPostingMessage] = useState(false);
-  console.log(Message);
 
   // MESSAGE SUBMIT HANDLER
   const handleSubmit = async (e) => {
@@ -46,7 +45,7 @@ const TaskandPostLayout = () => {
     <>
       <div id="cardcard" className="card mt-3 mx-5">
         <div className="">
-          <form className="scform" onSubmit={handleSubmit()}>
+          <form className="scform" onSubmit={handleSubmit}>
             <input
             id="addpostinput"
               value={Message}
@@ -56,8 +55,8 @@ const TaskandPostLayout = () => {
 
             <button className="globalbtn" onClick={(e) => handleSubmit(e)}>
               {isPostingMessage ?
-                <div class="spinner-border text-danger" role="status">
-                  <span class="visually-hidden">Loading...</span>
+                <div className="spinner-border text-danger" role="status">
+                  <span className="visually-hidden">Loading...</span>
                 </div> :
                 'Submit'}
             </button>

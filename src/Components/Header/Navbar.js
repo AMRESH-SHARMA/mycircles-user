@@ -108,13 +108,13 @@ export default function Navbar() {
                     alt="img"
                     width="30"
                     height="30"
-                    className="profile"
+                    className="navprofile"
                   /><i className="bi bi-caret-down-fill" />
                 </NavLink>
                 :
                 <NavLink to="/" className="btn bi bi-record-circle px-2 noborder"
                   data-bs-toggle="dropdown" aria-expanded="false">
-                  <p className="homeNavTabsTitle">All CIRCLES<i className="bi bi-caret-down-fill"/></p>
+                  <p className="homeNavTabsTitle">All CIRCLES<i className="bi bi-caret-down-fill" /></p>
                 </NavLink>
             }
 
@@ -251,8 +251,11 @@ export default function Navbar() {
               <h5 className="navitem">Followers</h5>
             </NavItem>
             <NavItem className="navitems" >
-              <button className='globalbtn' style={{marginTop:"5px"}} onClick={handleShow}><i class="bi bi-cursor-fill">Invite</i></button>
-              {show && <InviteModal show={show} handleClose={handleClose} />}
+              <div className='navinvitebtn'>
+                <button className='globalbtn' style={{ marginTop: "5px" }} onClick={handleShow}><i className="bi bi-cursor-fill">Invite</i></button>
+                {show && <InviteModal show={show} handleClose={handleClose} />}
+              </div>
+
             </NavItem>
           </>
           }

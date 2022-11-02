@@ -81,7 +81,6 @@ const Wall = () => {
                   <strong>Latest </strong>Activities
                 </div>
               </div>
-              {/* <Collapse /> */}
             </div>
           </div>
         </div>

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import axios from "axios";
 
 const PopupModal = (props) => {
@@ -101,12 +100,12 @@ const PopupModal = (props) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleSubmit}>
+          <button className="globalbtn" onClick={handleSubmit}>
             Done
-          </Button>
-          <Button variant="secondary" onClick={props.handleClose}>
+          </button>
+          <button className="globalbtn" onClick={props.handleClose}>
             Close
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
     </>
