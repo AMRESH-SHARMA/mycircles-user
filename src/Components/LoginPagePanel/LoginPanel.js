@@ -3,9 +3,10 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import Spinner from "../../aspinner/Spinner";
+import { useNavigate } from "react-router-dom"
 
 const LoginPanel = () => {
-
+  const navigate = useNavigate();
   const handleForgot = () => {
     window.location.href = '/forgot'
   }
@@ -32,7 +33,7 @@ const LoginPanel = () => {
                   localStorage.setItem("authToken", res.data.auth_token)
                   //window.location.reload()
                   console.log(window.location.href)
-                  window.location.href = window.location.href;
+                  navigate("/")
                 }
               }
               catch {

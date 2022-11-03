@@ -125,23 +125,23 @@ export default function Navbar() {
                 <button type="submit" className="btn bi bi-search homeNavTabs"></button>
               </form>
               <div id='createcircledropdown'>
-                {loading ? 
-                <div id="navdropspinner"><Spinner /></div>
-                : (
-                  <>
-                    {error ?
-                      "<ServerError />" :
-                      <>
-                        {circles.length ? (
-                          circles.map((item) => (
-                            <Dropdown obj={item} key={item.id} />
-                          ))
-                        ) : (
-                          "<NoResults />"
-                        )}
-                      </>}
-                  </>
-                )}
+                {loading ?
+                  <div id="navdropspinner"><Spinner /></div>
+                  : (
+                    <>
+                      {error ?
+                        "<ServerError />" :
+                        <>
+                          {circles && circles.length ? (
+                            circles.map((item) => (
+                              <Dropdown obj={item} key={item.id} />
+                            ))
+                          ) : (
+                              "<NoResults />"
+                            )}
+                        </>}
+                    </>
+                  )}
               </div>
               <li><hr className="dropdown-divider" /></li>
               <li><a id="createnewcirclebtn" data-bs-toggle="modal" data-bs-target="#newCircleModal" href="/" >Create New Circle</a></li>
