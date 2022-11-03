@@ -8,7 +8,7 @@ import axios from 'axios'
 import "./index.css";
 
 const setupAxios = () => {
-  axios.defaults.baseURL = 'http://139.59.0.99:8080/api/spaces/v1/';
+  axios.defaults.baseURL = 'http://localhost:8080/api/spaces/v1/';
   // axios.defaults.auth= {
   //   username: 'ramki',
   //   password: 'Infy@1234'

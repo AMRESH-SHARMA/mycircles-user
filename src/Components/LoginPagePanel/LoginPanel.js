@@ -30,14 +30,16 @@ const LoginPanel = () => {
                 if (res.status === 200) {
                   console.log(res.data.auth_token)
                   localStorage.setItem("authToken", res.data.auth_token)
-                  window.location.reload()
+                  //window.location.reload()
+                  console.log(window.location.href)
+                  window.location.href = window.location.href;
                 }
               }
               catch {
                 alert("Invalid credentials")
               }
               setSubmitting(false);
-            }, 5000);
+            }, 10000);
           }}
 
           validationSchema={Yup.object().shape({
@@ -94,7 +96,7 @@ const LoginPanel = () => {
                   {/* <label><input type="checkbox" id="login-rememberme" value="1" checked /> Remember me</label> */}
 
                   <div className="loginfooter">
-                    <button className="btnlogin" style={disableStyle} type="submit" disabled={isSubmitting}>{isSubmitting ? <div className="globalbtnspin"><Spinner/></div> : "Sign in"}</button>
+                    <button className="btnlogin" style={disableStyle} type="submit" disabled={isSubmitting}>{isSubmitting ? <div className="globalbtnspin"><Spinner /></div> : "Sign in"}</button>
                     <a href='/' onClick={handleForgot} className="alogin">Forgot your password?</a>
                   </div>
 

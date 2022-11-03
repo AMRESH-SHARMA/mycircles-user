@@ -21,7 +21,7 @@ function App() {
     <Router>
       <Suspense fallback={loading}>
         <Routes>
-        <Route path="/" element={ <Navigate to="/wall" /> } />
+          <Route path="/" element={<Navigate to="/wall" />} />
           <Route exact path="/wall" element={<Wall />} />
           <Route exact path="/members" name="members" element={<Members />} />
           <Route exact path="/tasks" name="tasks" element={<Tasks />} />
