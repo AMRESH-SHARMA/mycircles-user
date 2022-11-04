@@ -35,9 +35,9 @@ export default function Navbar() {
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
-  // const url = window.location.href;
   const url = window.location.href;
   const id = url.split("/")[5];
+  console.log("url",url);
   console.log("id",id);
 
   if (submitting) {

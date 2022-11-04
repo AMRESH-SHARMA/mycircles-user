@@ -7,13 +7,12 @@ import axios from "axios";
 import registerUrl from "../../API";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-
+import Select from 'react-select';
 import "./InviteModal.css";
 
 const InviteModal = (props) => {
 
   const [key, setKey] = useState('PickUsers');
-  const [inputText, setInputText] = useState("");
   const [data, setdata] = useState('')
 
   useEffect(() => {
@@ -34,21 +33,12 @@ const InviteModal = (props) => {
   }, [])
 
   if (data.length > 0) {
-    var filteredData = data.filter((el) => {
-      if (inputText === '') {
-        return null;
-      } else {
-        return el.display_name.toLowerCase().includes(inputText)
-      }
+    var filteredData = []
+    data.map((item) => {
+      return filteredData.push({ value: item.display_name, label: item.display_name });
     })
+    // console.log("abc",filteredData)
   }
-
-
-  let inputHandler = (e) => {
-    //convert input text to lower case
-    var lowerCase = e.target.value.toLowerCase();
-    setInputText(lowerCase);
-  };
 
   return (
     <>
@@ -67,16 +57,13 @@ const InviteModal = (props) => {
               <Form>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>Invites</Form.Label>
-                  <input
-                    onChange={inputHandler}
-                    // value={inputextvalue}
-                    placeholder="Select User.."
+                  <Select
+                    isMulti
+                    name="colors"
+                    options={filteredData}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
                   />
-                  {data.length > 0 &&
-                    filteredData.map((item, index) => (
-                      <p key={index}>{item.display_name}item</p>
-                    ))
-                  }
                 </Form.Group>
               </Form>
             </Modal.Body>
