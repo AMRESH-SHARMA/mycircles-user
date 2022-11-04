@@ -1,6 +1,5 @@
 import { React, useEffect, useState } from 'react';
 import axios from "axios";
-import { isAuthenticatedToken, isAutheticated } from '../../auth/Auth'
 import WallCard from "../../Components/WallCard/WallCard";
 import Navbar from "../../Components/Header/Navbar";
 import Header from "../../Components/Header/Header";
@@ -14,11 +13,11 @@ const Wall = () => {
   const [loading, setLoading] = useState(true)
   useEffect(() => {
     const getPosts = async () => {
-      if (isAutheticated()) {
+      if (localStorage.getItem("authToken")) {
         try {
           const result = await axios.get('/post', {
             headers: {
-              Authorization: `Bearer ${isAuthenticatedToken()}`,
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
             },
           })
           setPosts(result.data.results)

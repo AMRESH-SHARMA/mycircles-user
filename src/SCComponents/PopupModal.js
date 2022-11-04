@@ -42,43 +42,43 @@ const PopupModal = (props) => {
     <>
       <Modal show={props.show} onHide={props.handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Add Task</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className="mb-3" controlId="exampleinputInput1">
               <Form.Label>Title</Form.Label>
-              <Form.Control
+              <input
                 onChange={(e) => setTitle(e.target.value)}
                 type="email"
                 placeholder="name@example.com"
                 autoFocus
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className="mb-3" controlId="exampleinputInput1">
               <Form.Label>Start Date</Form.Label>
-              <Form.Control
+              <input
                 onChange={(e) => setStartDate(e.target.value)}
                 type="Date"
                 placeholder="name@example.com"
                 autoFocus
               />
               <Form.Label>Start time</Form.Label>
-              <Form.Control
+              <input
                 onChange={(e) => setStartTime(e.target.value)}
                 type="Time"
                 placeholder="name@example.com"
                 autoFocus
               />
               <Form.Label>End Date</Form.Label>
-              <Form.Control
+              <input
                 onChange={(e) => setEndDate(e.target.value)}
                 type="Date"
                 placeholder="name@example.com"
                 autoFocus
               />
               <Form.Label>End time</Form.Label>
-              <Form.Control
+              <input
                 onChange={(e) => setEndTime(e.target.value)}
                 type="Time"
                 placeholder="name@example.com"
@@ -88,10 +88,10 @@ const PopupModal = (props) => {
 
             <Form.Group
               className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
+              controlId="exampleinputTextarea1"
             >
               <Form.Label>Description</Form.Label>
-              <Form.Control
+              <input
                 onChange={(e) => setDescription(e.target.value)}
                 as="textarea"
                 rows={3}

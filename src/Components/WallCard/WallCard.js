@@ -8,7 +8,7 @@ import Spinner from '../../aspinner/Spinner';
 
 const Card = (props) => {
 
-  console.log(props.posts)
+  // console.log(props.posts)
   const { id, message, content } = props.posts
 
   const [commentButton, setCommentButton] = useState(false);

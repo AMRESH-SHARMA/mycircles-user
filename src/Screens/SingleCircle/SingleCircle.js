@@ -1,7 +1,7 @@
 import React from "react";
-import Navbar from "../../../Components/Header/Navbar";
-import Header from "../../../Components/Header/Header";
-import AddPost from "../../../SCComponents/AddPost";
+import Navbar from "../../Components/Header/Navbar";
+import Header from "../../Components/Header/Header";
+import AddPost from "../../SCComponents/AddPost";
 // import axios from "axios";
 const SingleCircle = () => {
   // const url = window.location.href;

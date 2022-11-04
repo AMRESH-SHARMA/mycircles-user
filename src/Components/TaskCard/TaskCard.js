@@ -126,10 +126,11 @@ export const TaskCard = (props) => {
         </div>
 
         {commentButton && (
-          <>        <hr id='taskhr1' />
+          <>
+            <hr id='taskhr1' />
             <div id='taskcmtbody'>
-              <a className='showallcmt' href='/' >Show all 11 comment</a>
-              <TaskCommentBody />
+              {/* <a className='showallcmt' href='/' >Show all 11 comment</a> */}
+              <TaskCommentBody contentId={content.id} />
             </div>
             <div id='cf1' className="card-footer">
               <form onSubmit={addComment} className="d-flex justify-content-between" id="cmtinputform">
@@ -142,7 +143,7 @@ export const TaskCard = (props) => {
                 <button id='commentbtn' onClick={addComment}>
                   {isPostingComment ?
                     <div className="globalbtnspin">
-                      <Spinner/>
+                      <Spinner />
                     </div> :
                     'Comment'}
                 </button>

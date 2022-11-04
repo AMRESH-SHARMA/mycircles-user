@@ -1,6 +1,5 @@
 import { React, useEffect } from 'react';
 import { useNavigate } from "react-router-dom"
-import { isAutheticated } from '../../auth/Auth';
 import LoginPanel from '../../Components/LoginPagePanel/LoginPanel';
 import RegisterPanel from '../../Components/LoginPagePanel/RegisterPanel';
 import './Login.css';
@@ -8,8 +7,7 @@ import './Login.css';
 const Login = () => {
   const navigate = useNavigate();
   useEffect(() => {
-      if (isAutheticated()) {
-        console.log("Login Status:", isAutheticated())
+      if (localStorage.getItem("authToken")) {
         navigate("/")
       }
   }, [navigate])

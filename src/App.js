@@ -5,7 +5,7 @@ import Wall from "./Screens/Wall/Wall";
 import Members from "./Screens/Members/Members";
 import Tasks from "./Screens/Tasks/Tasks";
 import Login from './Screens/Login/Login';
-import SingleCircle from './Screens/Pages/SingleCircle/SingleCircle';
+import SingleCircle from './Screens/SingleCircle/SingleCircle';
 import Register from './Screens/Register/Register';
 
 const loading = (
@@ -14,7 +14,7 @@ const loading = (
   </div>
 )
 
-const Page404 = React.lazy(() => import('./Screens/Pages/Page404/Page404'))
+const Page404 = React.lazy(() => import('./Screens/Error/Page404'))
 
 function App() {
   return (

@@ -2,7 +2,6 @@ import { React, useEffect, useState } from 'react';
 import { NavLink } from "react-router-dom";
 import Dropdown from '../Dropdown/Dropdown';
 import axios from "axios";
-import { isAuthenticatedToken, isAutheticated } from '../../auth/Auth'
 import { NavItem } from "react-bootstrap"
 import InviteModal from "./InviteModal";
 import Spinner from '../../aspinner/Spinner';
@@ -36,8 +35,10 @@ export default function Navbar() {
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
+  // const url = window.location.href;
   const url = window.location.href;
   const id = url.split("/")[5];
+  console.log("id",id);
 
   if (submitting) {
     var disableStyle = { cursor: "not-allowed", }
@@ -55,13 +56,12 @@ export default function Navbar() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(isAuthenticatedToken())
     setSubmitting(true);
     setTimeout(async () => {
       try {
         const res = await axios.post("/space", inputs, {
           headers: {
-            Authorization: `Bearer ${isAuthenticatedToken()}`,
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         })
         console.log(res)
@@ -75,11 +75,11 @@ export default function Navbar() {
 
   useEffect(() => {
     const getUser = async () => {
-      if (isAutheticated()) {
+      if (localStorage.getItem("authToken")) {
         try {
           const result = await axios.get('/space', {
             headers: {
-              Authorization: `Bearer ${isAuthenticatedToken()}`,
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
             },
           })
           setCircles(result.data.results)
@@ -255,10 +255,9 @@ export default function Navbar() {
             </NavItem>
             <NavItem className="navitems" >
               <div className='navinvitebtn'>
-                <button className='globalbtn' style={{ marginTop: "5px" }} onClick={handleShow}><i className="bi bi-cursor-fill">Invite</i></button>
+                <button className='globalbtn' style={{ marginTop: "2px" }} onClick={handleShow}><i className="bi bi-cursor-fill">Invite</i></button>
                 {show && <InviteModal show={show} handleClose={handleClose} />}
               </div>
-
             </NavItem>
           </>
           }

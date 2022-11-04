@@ -4,7 +4,6 @@ import axios from 'axios'
 import { useState } from 'react'
 
 const CommentsBody = (props) => {
-  // console.log("propse",props)
   const { contentId } = props
   const [commentData, setCommentData] = useState('')
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { Formik } from "formik";
@@ -7,10 +7,49 @@ import axios from "axios";
 import registerUrl from "../../API";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+
 import "./InviteModal.css";
 
 const InviteModal = (props) => {
+
   const [key, setKey] = useState('PickUsers');
+  const [inputText, setInputText] = useState("");
+  const [data, setdata] = useState('')
+
+  useEffect(() => {
+    const getuserlist = async () => {
+      try {
+        const resapi = await axios.get(`/user`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        })
+        setdata(resapi.data.results);
+        // console.log(resapi.data.results);
+      } catch (err) {
+        console.warn(err)
+      }
+    }
+    getuserlist()
+  }, [])
+
+  if (data.length > 0) {
+    var filteredData = data.filter((el) => {
+      if (inputText === '') {
+        return null;
+      } else {
+        return el.display_name.toLowerCase().includes(inputText)
+      }
+    })
+  }
+
+
+  let inputHandler = (e) => {
+    //convert input text to lower case
+    var lowerCase = e.target.value.toLowerCase();
+    setInputText(lowerCase);
+  };
+
   return (
     <>
       <Modal show={props.show} onHide={props.handleClose}>
@@ -28,10 +67,16 @@ const InviteModal = (props) => {
               <Form>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>Invites</Form.Label>
-                  <Form.Control
+                  <input
+                    onChange={inputHandler}
+                    // value={inputextvalue}
                     placeholder="Select User.."
-                    autoFocus
                   />
+                  {data.length > 0 &&
+                    filteredData.map((item, index) => (
+                      <p key={index}>{item.display_name}item</p>
+                    ))
+                  }
                 </Form.Group>
               </Form>
             </Modal.Body>

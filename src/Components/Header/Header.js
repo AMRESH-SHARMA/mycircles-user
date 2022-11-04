@@ -2,13 +2,10 @@ import React from 'react'
 import { useNavigate, Link } from 'react-router-dom';
 import Headerbtn from './Headerbtn';
 import './Headerbtn.css';
-import { isAutheticated } from '../../auth/Auth'
-
 
 export default function Header() {
 
   const navigate = useNavigate();
-  // console.log("Login Status", isAutheticated())
   return (<>
     <header className="p-2 border-bottom" style={{ background: "#4D6D7F" }}>
       <div className="container">
@@ -19,7 +16,7 @@ export default function Header() {
 
           <div className=" me-lg-auto">
           </div>
-          {isAutheticated() ?
+          {localStorage.getItem("authToken") ?
             <Headerbtn /> :
             <>
               <Link to="/user/login"><button id='b1'>Sign in / up</button></Link>
