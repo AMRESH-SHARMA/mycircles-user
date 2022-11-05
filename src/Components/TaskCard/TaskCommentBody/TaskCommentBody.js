@@ -27,14 +27,14 @@ const TaskCommentBody = (props) => {
   }, [contentId])
 
   //handler replytocommentbtn BUTTON HANDLER
-  const handlereplytocommentbtn = (e) =>{
+  const handlereplytocommentbtn = (e) => {
     e.preventDefault();
     return setreplytocommentbtn(!replytocommentbtn)
   };
-  
+
   return (<>
-    {commentData.length > 1 && <a className='showallcmt' href='/' >Show all {commentData.length} comments</a>}
-    {commentData.length > 0 &&
+    {commentData && commentData.length > 1 && <a className='showallcmt' href='/' >Show all {commentData.length} comments</a>}
+    {commentData && commentData.length > 0 &&
       commentData.map((item, index) => (
         <div key={index}>
           <div className="d-flex-row justify-content-start" id='showcomments' >
@@ -48,7 +48,7 @@ const TaskCommentBody = (props) => {
           <div className="d-flex justify-content-start">
             <a className="likereply" href='...'>Like ({item.likes.total})</a>
             <a className="likereply" href='/' onClick={(e) => handlereplytocommentbtn(e)}>Reply</a>
-            {replytocommentbtn?"inputbox":null}
+            {replytocommentbtn ? "inputbox" : null}
           </div>
         </div>
       ))}

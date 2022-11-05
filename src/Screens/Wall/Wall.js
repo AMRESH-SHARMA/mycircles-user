@@ -45,13 +45,13 @@ const Wall = () => {
                 {error ?
                   "<ServerError />" :
                   <>
-                    {posts.length ? (
+                    {posts && posts.length ? (
                       posts.map((posts, index) => (
                         <WallCard posts={posts} key={index} />
                       ))
                     ) : (
-                      "<NoResults />"
-                    )}
+                        "<NoResults />"
+                      )}
                   </>}
               </>
             )}

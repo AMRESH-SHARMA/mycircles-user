@@ -25,8 +25,8 @@ const CommentsBody = (props) => {
   }, [contentId])
 
   return (<>
-    {commentData.length > 0 && <a className='showallcmt' href='/' >Show all {commentData.length} comments</a>}
-    {commentData.length > 0 &&
+    {commentData && commentData.length > 0 && <a className='showallcmt' href='/' >Show all {commentData.length} comments</a>}
+    {commentData && commentData.length > 0 &&
       commentData.map((item, index) => (
         <div key={index}>
           <div className="d-flex-row justify-content-start" id='showcomments' >

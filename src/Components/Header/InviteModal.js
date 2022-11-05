@@ -32,7 +32,7 @@ const InviteModal = (props) => {
     getuserlist()
   }, [])
 
-  if (data.length > 0) {
+  if (data && data.length > 0) {
     var filteredData = []
     data.map((item) => {
       return filteredData.push({ value: item.display_name, label: item.display_name });
