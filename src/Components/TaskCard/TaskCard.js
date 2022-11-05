@@ -3,6 +3,8 @@ import "./TaskCard.css"
 import TaskCommentBody from './TaskCommentBody/TaskCommentBody';
 import axios from 'axios';
 import Spinner from '../../aspinner/Spinner';
+import pdf from "./test.pdf"
+import PdfViewer from './PdfViewer'
 
 export const TaskCard = (props) => {
   var { id, description, end_datetime, created_by, status, content } = props.obj
@@ -14,6 +16,7 @@ export const TaskCard = (props) => {
   const [commentButton, setCommentButton] = useState(false);
   const [commentValue, setCommentValue] = useState('');
   const [isPostingComment, setIsPostingComment] = useState(false);
+  const [showPdf, setShowPdf] = useState(false);
 
   const texttoimg = async (name) => {
     let str = name.split(" ")
@@ -116,6 +119,20 @@ export const TaskCard = (props) => {
           </div>
           <div className='subtitle'>Due Date:<p className='subtitle-description'>&nbsp;{end_datetime && end_datetime.slice(0, 10)}</p></div>
           <div className='subtitle'>Description:</div><p className='subtitle-description'>{description}</p>
+          <div className="taskimg-file">
+
+          <img src="/img.jpg" alt='' width="40" height="50"></img>
+          </div>
+          <div className="task-file">
+
+            <img src="/adobe.png" alt='' width="40" height="40" style={{ margin: "5px" }}></img>
+            <PdfViewer pdf={pdf}
+              onCancel={() => setShowPdf(false)}
+              visible={showPdf}
+            />
+            <p className="FileName" onClick={() => setShowPdf(!showPdf)}>Dummy File : click to open</p>
+          </div>
+
         </div>
 
         <div className="card-footer d-flex justify-content-between" style={{ background: "white" }}>

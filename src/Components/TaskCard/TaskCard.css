@@ -6,7 +6,7 @@
 }
 
 @media screen and (min-width: 766px) {
-  #taskcontainer{
+  #taskcontainer {
     /* display: none; */
     display: flex;
     justify-content: center;
@@ -96,4 +96,35 @@
   margin: 0px;
   /* font-weight: 600; */
   font-size: 13px;
+}
+
+.taskimg-file {
+  margin-top: 20px;
+}
+
+.task-file {
+
+  border: 1px solid black;
+  width: 250px;
+  height: 50px;
+  border-radius: 5px;
+  margin-top: -50px;
+  margin-left: 50px;
+  display: flex;
+}
+
+.pdfWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.FileName {
+  cursor: pointer;
 }
