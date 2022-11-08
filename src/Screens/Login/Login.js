@@ -1,25 +1,21 @@
-import { React, useEffect } from 'react';
-import { useNavigate } from "react-router-dom"
+import { React } from 'react';
 import LoginPanel from '../../Components/LoginPagePanel/LoginPanel';
 import RegisterPanel from '../../Components/LoginPagePanel/RegisterPanel';
+import Alreadyloggedin from '../Error/Alreadyloggedin';
 import './Login.css';
 
 const Login = () => {
-  const navigate = useNavigate();
-  useEffect(() => {
-      if (localStorage.getItem("authToken")) {
-        navigate("/")
-      }
-  }, [navigate])
 
   return (
     <>
-      <div className='Loginpagecontainer'>
-        <h1 id='app-title'>MyCircles</h1>
-        <LoginPanel />
-        <RegisterPanel />
-      </div>
-
+      {localStorage.getItem("authToken") ?
+        <Alreadyloggedin /> :
+        <div className='Loginpagecontainer'>
+          <h1 id='app-title'>MyCircles</h1>
+          <LoginPanel />
+          <RegisterPanel />
+        </div>
+      }
     </>
   )
 }

@@ -46,7 +46,7 @@ const TaskandPostLayout = () => {
       setimage(URL.createObjectURL(event.target.files[0]));
     }
   }
-  console.log("Image", image);
+  // console.log("Image", image);
 
   return (
     <>
@@ -70,7 +70,7 @@ const TaskandPostLayout = () => {
                   'Submit'}
               </button>
 
-              <label for="showimage" className="bi bi-upload"></label>
+              <label htmlFor="showimage" className="bi bi-upload"></label>
               <input onChange={onImageChange} type="file" accept="image/*" id="showimage" style={{ display: "none", visibility: "none" }}>
               </input>
             </div>

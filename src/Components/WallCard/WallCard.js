@@ -5,10 +5,11 @@ import axios from 'axios';
 import emoji from 'emoji-dictionary'
 import './WallCard.css';
 import Spinner from '../../aspinner/Spinner';
+import { noofdays } from '../../aHelper/Helper';
 
 const Card = (props) => {
 
-  // console.log(props.posts)
+  console.log(props)
   const { id, message, content } = props.posts
 
   const [commentButton, setCommentButton] = useState(false);
@@ -45,6 +46,7 @@ const Card = (props) => {
               "message": `${commentValue.trim()}`
             }
           }
+          console.log("payload", input)
           const resapi = await axios.post("/comment", input, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -63,15 +65,6 @@ const Card = (props) => {
     }
   };
 
-  function noofdays(param) {
-    let a = new Date().toISOString().slice(0, 10).replace('-', '').replace('-', '');
-    let currentDate = parseInt(a);
-    let b = param.slice(0, 10).replace('-', '').replace('-', '');
-    let postDate = parseInt(b);
-    // console.log(currentDate-postDate)
-    return (currentDate - postDate)
-  }
-
   return (<>
     <div id="cardcard" className="card mt-3 mx-5">
       <div className="card-header d-flex" style={{ background: "white" }}>
@@ -79,7 +72,7 @@ const Card = (props) => {
 
           <div id='ct1' className='card-title'>
             <strong>postid{id}{content.metadata.created_by.display_name}</strong>
-            <div id='d1'>{noofdays(content.metadata.created_at)} days</div>
+            <div id='d1'>{noofdays(content.metadata.created_at)}</div>
           </div>
         </div>
         <i className="bi bi-three-dots"></i>
@@ -100,9 +93,9 @@ const Card = (props) => {
 
       {commentButton && (
         <><hr id='hr1' />
-          <div id='cmtf1'>
-            <CommentsBody contentId={content.id} />
-          </div>
+
+          <CommentsBody contentId={content.id} />
+
           <div id='cf1' className="card-footer">
             <form onSubmit={addComment} className="d-flex justify-content-between" id="cmtinputform">
               <input

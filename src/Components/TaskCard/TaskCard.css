@@ -5,13 +5,7 @@
   }
 }
 
-@media screen and (min-width: 766px) {
-  #taskcontainer {
-    /* display: none; */
-    display: flex;
-    justify-content: center;
-  }
-}
+
 
 
 #taskcard {
@@ -82,7 +76,9 @@
   overflow: clip;
 
 }
-
+.card-header{
+  background-color: white;
+}
 .subtitle {
   font-weight: 600;
   font-size: 15px;

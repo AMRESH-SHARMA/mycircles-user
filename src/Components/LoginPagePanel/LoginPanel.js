@@ -3,11 +3,13 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import Spinner from "../../aspinner/Spinner";
+import { useNavigate } from "react-router-dom";
 
 const LoginPanel = () => {
 
+  const navigate = useNavigate()
   const handleForgot = () => {
-    window.location.href = '/forgot'
+    navigate('/user/forgot')
   }
 
   const [passwordShown, setPasswordShown] = useState(false);
@@ -26,15 +28,16 @@ const LoginPanel = () => {
               try {
                 console.log(values)
                 const res = await axios.post("auth/login", values)
-                console.log(res.data)
-                if (res.status === 200) {
-                  console.log(res.data.auth_token)
-                  localStorage.setItem("authToken", res.data.auth_token)
-                  window.location.reload()
+                console.log(res)
+                if (res.data.auth_token) {
+                  console.log(res.data.auth_token);
+                  localStorage.setItem("authToken", res.data.auth_token);
+                  navigate('/');
                 }
               }
-              catch {
-                alert("Invalid credentials")
+              catch (err){
+                console.log(err);
+                alert("Invalid credentials");
               }
               setSubmitting(false);
             }, 5000);
@@ -94,7 +97,7 @@ const LoginPanel = () => {
                   {/* <label><input type="checkbox" id="login-rememberme" value="1" checked /> Remember me</label> */}
 
                   <div className="loginfooter">
-                    <button className="btnlogin" style={disableStyle} type="submit" disabled={isSubmitting}>{isSubmitting ? <div className="globalbtnspin"><Spinner/></div> : "Sign in"}</button>
+                    <button className="btnlogin" style={disableStyle} type="submit" disabled={isSubmitting}>{isSubmitting ? <div className="globalbtnspin"><Spinner /></div> : "Sign in"}</button>
                     <a href='/' onClick={handleForgot} className="alogin">Forgot your password?</a>
                   </div>
 

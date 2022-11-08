@@ -25,20 +25,18 @@ export default function Navbar() {
 
 
   const [circles, setCircles] = useState('')
-  const [error, setError] = useState(false)
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
   const [inputs, setInputs] = useState({});
   const [visibility, setVisibility] = useState(0);
   const [joinPolicy, setJoinPolicy] = useState(0);
   const [show, setShow] = useState(false);
+  // const [circleId, setcircleId] = useState('');
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
-  const url = window.location.href;
-  const id = url.split("/")[5];
-  console.log("url", url);
-  console.log("id", id);
+  var url = window.location.href;
+  var circleId = url.split("/")[5];
 
   if (submitting) {
     var disableStyle = { cursor: "not-allowed", }
@@ -75,22 +73,18 @@ export default function Navbar() {
 
   useEffect(() => {
     const getUser = async () => {
-      if (localStorage.getItem("authToken")) {
-        try {
-          const result = await axios.get('/space', {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-            },
-          })
-          setCircles(result.data.results)
-          setLoading(false)
-          // console.log("result:", result.data.results)
-        } catch (err) {
-          setLoading(false)
-          setError(true)
-          console.warn(err)
-        }
+      try {
+        const result = await axios.get('/space', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        })
+        setCircles(result.data.results)
+        // console.log("result:", result.data.results)
+      } catch (err) {
+        console.warn(err)
       }
+      setLoading(false)
     }
     getUser()
   }, [])
@@ -101,7 +95,7 @@ export default function Navbar() {
         <div className="nav">
           <div className="dropdown text-end mx-3">
             {
-              id ?
+              circleId ?
                 <NavLink to="/" className="btn noborder"
                   data-bs-toggle="dropdown" aria-expanded="false">
                   <img
@@ -126,22 +120,15 @@ export default function Navbar() {
               </form>
               <div id='createcircledropdown'>
                 {loading ?
-                  <div id="navdropspinner"><Spinner /></div>
-                  : (
-                    <>
-                      {error ?
-                        "<ServerError />" :
-                        <>
-                          {circles && circles.length ? (
-                            circles.map((item) => (
-                              <Dropdown obj={item} key={item.id} />
-                            ))
-                          ) : (
-                              "<NoResults />"
-                            )}
-                        </>}
-                    </>
-                  )}
+                  <div id="navdropspinner"><Spinner /></div> :
+                  <>
+                    {circles && circles.length ? (
+                      circles.map((item) => (
+                        <Dropdown obj={item} key={item.id} />
+                      ))
+                    ) : null}
+                  </>
+                }
               </div>
               <li><hr className="dropdown-divider" /></li>
               <li><a id="createnewcirclebtn" data-bs-toggle="modal" data-bs-target="#newCircleModal" href="/" >Create New Circle</a></li>
@@ -239,7 +226,7 @@ export default function Navbar() {
             </NavLink>
           </li>
 
-          {id && <>
+          {circleId && <>
             <div className='col-lg'></div>
             <NavItem className="navitems" >
               <p className="text">1026</p>
@@ -256,7 +243,7 @@ export default function Navbar() {
             <NavItem className="navitems" >
               <div className='navinvitebtn'>
                 <button className='globalbtn' style={{ marginTop: "2px" }} onClick={handleShow}><i className="bi bi-cursor-fill">Invite</i></button>
-                {show && <InviteModal show={show} handleClose={handleClose} />}
+                {show && <InviteModal show={show} id={circleId} handleClose={handleClose} />}
               </div>
             </NavItem>
           </>

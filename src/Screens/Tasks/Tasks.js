@@ -5,6 +5,7 @@ import "./Task.css"
 import Navbar from "../../Components/Header/Navbar";
 import Header from "../../Components/Header/Header";
 import Spinner from "../../aspinner/Spinner";
+import Welcome from '../Error/Welcome';
 
 const Tasks = () => {
 
@@ -13,8 +14,7 @@ const Tasks = () => {
 
 
   useEffect(() => {
-    const getTasks = async () => {
-      // if(localStorage.getItem("authToken")){
+    (async () => {
       try {
         const res = await axios.get('/tasks', {
           headers: {
@@ -23,34 +23,37 @@ const Tasks = () => {
         })
         setTask(res.data.results)
         setLoading(false)
-        // console.log("result:", res.data.results)
+        console.log("result:", res)
       } catch (err) {
         setLoading(false)
-        // setError(true)
         console.warn(err)
       }
-      // }
-    }
-    getTasks()
+    })()
   }, [])
 
 
   return (<>
     <Header />
     <Navbar />
-    <div id='taskcontainer' className="container">
-      <div className="d-flex-col justify-content-around">
-        {!loading ? <>
-          {task.length ? (
-            task.map((item, index) => (
-              <TaskCard obj={item} key={index} />
-            ))
-          ) : (
-            <div>No result</div>
-          )}
+    <div className='container' style={{ paddingTop: "2rem" }}>
+      {localStorage.getItem("authToken") ?
+        <>
+          {loading ?
+            <div id='taskscrspinner'>< Spinner /></div> :
+            <>
+              {task && task.length ?
+                <div id='taskcontainer'>
+                  <div className="d-flex-col justify-content-around">
+                    {task.map((item, index) => (
+                      <TaskCard obj={item} key={index} />
+                    ))
+                    }
+                  </div>
+                </div>
+                : null}
+            </>}
         </> :
-          <div id='taskscrspinner'><Spinner /></div>}
-      </div>
+        <Welcome />}
     </div>
   </>
   )

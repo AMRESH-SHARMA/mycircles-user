@@ -17,8 +17,8 @@ const RegisterPanel = () => {
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(async () => {
               try {
-                // console.log(values)
-                let resapi = await axios.post(`${registerUrl}/invite/gettoken`, values)
+                console.log(values)
+                let resapi = await axios.post(`${registerUrl}/gettoken`, values)
                 console.log(resapi)
                 if (resapi.status === 200) {
                 }

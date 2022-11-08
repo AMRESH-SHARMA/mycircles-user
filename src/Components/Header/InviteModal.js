@@ -14,6 +14,8 @@ const InviteModal = (props) => {
 
   const [key, setKey] = useState('PickUsers');
   const [data, setdata] = useState('')
+  const [selectvalue, setselectvalue] = useState('')
+  const [isSubmittingMulti, setisSubmittingMulti] = useState(false)
 
   useEffect(() => {
     const getuserlist = async () => {
@@ -23,8 +25,8 @@ const InviteModal = (props) => {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         })
+        console.log(resapi);
         setdata(resapi.data.results);
-        // console.log(resapi.data.results);
       } catch (err) {
         console.warn(err)
       }
@@ -35,16 +37,43 @@ const InviteModal = (props) => {
   if (data && data.length > 0) {
     var filteredData = []
     data.map((item) => {
-      return filteredData.push({ value: item.display_name, label: item.display_name });
+      return filteredData.push({ value: item.id, label: item.display_name });
     })
-    // console.log("abc",filteredData)
+  }
+
+  const handleInput = (newValue) => {
+    setselectvalue(newValue)
+  }
+
+  const handleSubmitmuti = (e) => {
+
+    (async () => {
+      e.preventDefault()
+      console.log(selectvalue)
+      selectvalue.map(async (i) => {
+        console.log(i.value)
+        try {
+          // https://circlenowdev.xyz/api/v1/space/5/membership/25
+          let resapi = await axios.post(`/space/${props.id}/membership/${i.value}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
+          })
+          .then(()=>console.log(resapi))
+        } catch (err) {
+          console.warn(err)
+        }
+      })
+      setisSubmittingMulti(false);
+
+    })()
   }
 
   return (
     <>
       <Modal show={props.show} onHide={props.handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title><strong>Invite</strong> Members</Modal.Title>
+          <Modal.Title><strong>Add</strong> Members</Modal.Title>
         </Modal.Header>
         <Tabs
           id="controlled-tab-example"
@@ -53,18 +82,22 @@ const InviteModal = (props) => {
           className="mb-3">
           <Tab eventKey="PickUsers" title="Pick User">
             <Modal.Body>
-              <p>To invite users to this space, please type their names below to find and pick them.</p>
-              <Form>
+              <p>To Add users to this space, please type their names below to find and pick them.</p>
+              <Form onSubmit={handleSubmitmuti}>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>Invites</Form.Label>
                   <Select
                     isMulti
-                    name="colors"
+                    name="useradd"
                     options={filteredData}
+                    onChange={handleInput}
                     className="basic-multi-select"
                     classNamePrefix="select"
                   />
                 </Form.Group>
+                <div className="invitemodalbtn">
+                  <button className="globalbtn" type="submit">{isSubmittingMulti ? "Wait" : "Add"}</button>
+                </div>
               </Form>
             </Modal.Body>
           </Tab>
@@ -78,14 +111,13 @@ const InviteModal = (props) => {
                 onSubmit={(values, { setSubmitting }) => {
                   setTimeout(async () => {
                     try {
-                      // console.log(values)
+                      console.log(values)
                       let resapi = await axios.post(`${registerUrl}/invite/gettoken`, values)
                       console.log(resapi)
-                      if (resapi.status === 200) {
-                      }
                     }
-                    catch {
-                      alert("Invalid credentials")
+                    catch (err) {
+                      console.log(err);
+                      alert("Invalid credentials");
                     }
                     setSubmitting(false);
                   }, 1000);

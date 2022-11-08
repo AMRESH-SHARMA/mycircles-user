@@ -10,6 +10,11 @@
   font-size: 15px;
   font-weight: 500;
 }
+.globalbtn:hover{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+  cursor: pointer;
+  background-color: #344a57;
+}
 .globalbtnspin{
   display: flex;
   justify-content: center;
