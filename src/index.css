@@ -20,4 +20,14 @@
   justify-content: center;
 }
 
-
+/* Disable css */
+button{
+  /* margin: 0px;
+  padding: 0px; */
+  border: none;
+  /* background-color: white; */
+}
+.colors{
+  color: #3f5b6d;
+  border-left: 3px solid #21A1B3;
+}

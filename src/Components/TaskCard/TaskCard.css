@@ -31,31 +31,11 @@
   border-radius: 5px;
 }
 
-.taskprivatepublic {
-  margin: -2px 0px;
-  font-size: 14px;
-  color: blue;
-  background-color: #e7e8e9;
-}
-
-.taskprivatepublictext {
-  margin: 0px;
-  padding-top: 10px;
-  font-size: 14px;
-  color: blue;
-  background-color: #e7e8e9;
-}
-
-#privatepublicbtn {
-  border: none;
-  color: black;
-}
-
 #taskhr1 {
   margin: 0px 0px 0px 0px;
 }
 
-#taskcmtbody {
+#taskcmtbody{
   margin: 0% 0%;
   overflow: clip;
   max-height: 190px;
@@ -89,26 +69,27 @@
   font-size: 13px;
 }
 
-.taskimg-file {
-  margin-top: 20px;
+.taskfileimg {
+  margin-top: 50px;
+  display: flex;
+  justify-content: left;
+}
+.taskfile-img {
+  border-radius: 8px;
 }
 
 .task-file {
-
-  border: 1px solid black;
+  border: 1px solid #c2c8ca;
   width: 250px;
-  height: 50px;
-  border-radius: 5px;
-  margin-top: -50px;
-  margin-left: 50px;
+  border-radius: 8px;
+  margin-left: 10px;
   display: flex;
 }
 
-.pdfWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow-x: auto;
+.task-file-text{
+  font-size: 15px;
+  margin: -5px 0px;
+  padding: 0px;
 }
 
 .footer {
@@ -116,6 +97,39 @@
   justify-content: space-between;
 }
 
-.FileName {
-  cursor: pointer;
+/* Dropdown */
+#task-dots-dropdown-content{
+  display:block;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+  border-radius: 5px;
+}
+ .tdbtn {
+  display: block;
+  background-color: #f9f9f9;
+  font-weight: 600;
+}
+ .tdbtn:hover {
+  color: #176a75;
+}
+ .tdbtndel {
+  display: block;
+  background-color: #f9f9f9;
+  font-weight: 600;
+
+}
+ .tdbtndel:hover {
+  color: red;
+}
+
+/* transition task cmt */
+.taskcmtbodyanimate{
+  display:block;
+}
+.globaldisplaynone{
+  display: none;
 }

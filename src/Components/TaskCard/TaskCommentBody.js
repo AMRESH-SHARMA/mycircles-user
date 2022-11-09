@@ -19,7 +19,9 @@ const TaskCommentBody = (props) => {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         })
-        setCommentData(resapi.data.results.reverse());
+        if(resapi.data.results){
+          setCommentData(resapi.data.results.reverse());
+        }
         console.log("allcmts", resapi.data.results);
       } catch (err) {
         console.warn(err)

@@ -12,7 +12,6 @@ const Tasks = () => {
   const [task, setTask] = useState('');
   const [loading, setLoading] = useState(true)
 
-
   useEffect(() => {
     (async () => {
       try {

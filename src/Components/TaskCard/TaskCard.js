@@ -3,21 +3,40 @@ import "./TaskCard.css"
 import TaskCommentBody from './TaskCommentBody';
 import axios from 'axios';
 import Spinner from '../../aspinner/Spinner';
-import pdf from "./test.pdf"
-import PdfViewer from './PdfViewer'
 
 export const TaskCard = (props) => {
+
   var { id, description, end_datetime, created_by, status, content } = props.obj
   // console.log(props.obj)
   const imgtext = created_by.display_name
   // console.log(imgtext)
-  const [privatetask, setPrivatetask] = useState(true);
   const [TaskStatus, setTaskStatus] = useState(status);
   const [commentButton, setCommentButton] = useState(false);
   const [commentValue, setCommentValue] = useState('');
   const [isPostingComment, setIsPostingComment] = useState(false);
-  const [showPdf, setShowPdf] = useState(false);
   const [rendercomp, setrendercomp] = useState(false);
+
+  //Dropdown
+  const displaynone = { display: "none" }
+  const [ithreedots, setithreedots] = useState(false);
+
+
+  const handleDelTask = async () => {
+    try {
+      console.log('del', id)
+      const resapi = await axios.delete(`/tasks/task/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      })
+      console.log("resapi", resapi)
+      if (resapi.data.code === 200) {
+        setrendercomp(!rendercomp)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   const texttoimg = async (name) => {
     let str = name.split(" ")
@@ -82,10 +101,6 @@ export const TaskCard = (props) => {
     }
   };
 
-  const handleVisibility = async () => {
-    setPrivatetask(!privatetask)
-  }
-
 
   return (
     <>
@@ -104,15 +119,17 @@ export const TaskCard = (props) => {
             <div className="col-auto"><i className='btn bi bi-hand-thumbs-up-fill taskheaderbtn' /></div>
             <div className="col-auto"><i className='btn bi bi-paperclip taskheaderbtn' /></div>
             <div className="col-auto"><i className='btn bi bi-chat-right-dots-fill taskheaderbtn' /></div>
-            <div className="col-auto"><i className='btn bi bi-three-dots taskheaderbtn' /></div>
+            <div className="col-auto">
+              <i className='btn bi bi-three-dots taskheaderbtn' onClick={() => setithreedots(!ithreedots)} />
+              <div id="task-dots-dropdown-content" style={!ithreedots ? displaynone : null}>
+                <button className='tdbtn'>Edit</button>
+                <button className='tdbtn'>Make&nbsp;public&#47;Make&nbsp;Private</button>
+                <button className='tdbtn'>Add tags</button>
+                <button className='tdbtn'>Move content</button>
+                <button className='tdbtndel' onClick={handleDelTask}>Delete</button>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="taskprivatepublic row">
-          <i className='btn bi bi-lock-fill col-auto me-1' />
-          {privatetask ?
-            <p className="card-text taskprivatepublictext col-auto me-auto">This task is private to you</p> :
-            <p className="card-text taskprivatepublictext col-auto me-auto">This task is visible to everyone in Prominds</p>}
-          <a id="privatepublicbtn" href='/' className="col-auto btn" onClick={handleVisibility}>{privatetask ? "Make Public" : "Make private"}</a>
         </div>
 
         <div className="card-footer" style={{ background: "white" }}>
@@ -121,20 +138,21 @@ export const TaskCard = (props) => {
           </div>
           <div className='subtitle'>Due Date:<p className='subtitle-description'>&nbsp;{end_datetime && end_datetime.slice(0, 10)}</p></div>
           <div className='subtitle'>Description:</div><p className='subtitle-description'>{description}</p>
-          <div className="taskimg-file">
 
-          <img src="/img.jpg" alt='' width="40" height="50"></img>
+          <div className='taskfileimg'>
+
+            <img src="/img.jpg" alt='' width="60" height="45" className="taskfile-img" />
+
+            <div className="task-file">
+              <img src="/adobe.png" alt='' width="40" height="30" className="taskfile-img" style={{ margin: "5px" }} />
+
+              <div className='task-file-text' style={{ marginTop: "5px" }}>
+                <p className='task-file-text'>Dummy File</p>
+                <a className='task-file-text' href='/' style={{ color: "#21A1B3", textDecoration: "none" }}>Download</a>
+
+              </div>
+            </div>
           </div>
-          <div className="task-file">
-
-            <img src="/adobe.png" alt='' width="40" height="40" style={{ margin: "5px" }}></img>
-            <PdfViewer pdf={pdf}
-              onCancel={() => setShowPdf(false)}
-              visible={showPdf}
-            />
-            <p className="FileName" onClick={() => setShowPdf(!showPdf)}>Dummy File : click to open</p>
-          </div>
-
         </div>
 
         <div className="card-footer d-flex justify-content-between" style={{ background: "white" }}>
@@ -144,8 +162,9 @@ export const TaskCard = (props) => {
           <i className='btn bi bi-send-fill my-0 py-0' style={{ border: "none" }}></i>
         </div>
 
-        {commentButton && (
-          <>
+        <>
+
+          <div className={commentButton ? 'taskcmtbodyanimate' : 'globaldisplaynone'}>
             <hr id='taskhr1' />
             <div id='taskcmtbody'>
               <TaskCommentBody contentId={content.id} st={rendercomp} />
@@ -167,8 +186,9 @@ export const TaskCard = (props) => {
                 </button>
               </form>
             </div>
-          </>
-        )}
+          </div>
+        </>
+
 
       </div>
     </>
