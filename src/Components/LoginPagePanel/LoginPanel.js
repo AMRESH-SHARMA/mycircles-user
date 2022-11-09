@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 const LoginPanel = () => {
 
   const navigate = useNavigate()
+
   const handleForgot = () => {
     navigate('/user/forgot')
   }
@@ -40,7 +41,7 @@ const LoginPanel = () => {
                 alert("Invalid credentials");
               }
               setSubmitting(false);
-            }, 5000);
+            }, 10000);
           }}
 
           validationSchema={Yup.object().shape({
