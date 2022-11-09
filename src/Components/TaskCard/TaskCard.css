@@ -5,9 +5,6 @@
   }
 }
 
-
-
-
 #taskcard {
   margin: 50px 0px;
   /* width: 35rem; */
@@ -59,10 +56,9 @@
 }
 
 #taskcmtbody {
-  /* margin: auto; */
-  margin: 0% 5%;
+  margin: 0% 0%;
   overflow: clip;
-  max-height: 265px;
+  max-height: 190px;
 }
 
 #showtaskcomments {
@@ -71,10 +67,9 @@
   border-style: hidden;
   margin: 8px 0px;
   padding-left: 15px;
-  max-height: 65px;
+  max-height: 55px;
   font-size: 82%;
   overflow: clip;
-
 }
 .card-header{
   background-color: white;

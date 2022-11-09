@@ -6,6 +6,7 @@ import "./Register.css";
 import axios from "axios";
 import registerUrl from "../../API";
 import Spinner from "../../aspinner/Spinner";
+import InvalidToken from "../Error/InvalidToken";
 
 const Register = () => {
   const [loading, setloading] = useState(true)
@@ -40,14 +41,7 @@ const Register = () => {
           <Spinner />
         </div> :
         error ?
-          <div id="invalidtokenpage">
-            <div id="invalidtokencard">
-              <h1>Invalid Token</h1>
-              <div className="d-flex justify-content-between">
-                <button className="btnlogin" onClick={handleLogin}>Login</button>
-              </div>
-            </div>
-          </div>
+          <InvalidToken/>
           :
           <Formik
             initialValues={{ username: "", email: "", password: "", confirm_password: "" }}

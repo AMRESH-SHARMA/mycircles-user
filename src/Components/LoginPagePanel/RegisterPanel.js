@@ -4,8 +4,10 @@ import * as Yup from "yup";
 import axios from "axios";
 import registerUrl from "../../API";
 import Spinner from "../../aspinner/Spinner";
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPanel = () => {
+  const navigate = useNavigate();
 
   return (<>
     <div className="panel" id="register-form">
@@ -20,7 +22,8 @@ const RegisterPanel = () => {
                 console.log(values)
                 let resapi = await axios.post(`${registerUrl}/gettoken`, values)
                 console.log(resapi)
-                if (resapi.status === 200) {
+                if (resapi.data.data.affectedRows === 2) {
+                  navigate('/user/tokenstatus')
                 }
               }
               catch {

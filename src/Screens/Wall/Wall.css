@@ -6,6 +6,7 @@
 @media screen and (min-width: 600px) {
   #wallcardone {
     min-width: 35rem;
+    max-width: 40rem;
     margin-left: -50px;
   }
 }
@@ -16,4 +17,7 @@
 
 #wallscrspinner{
 margin-left: 50%;
+}
+#cmtinputform{
+  width:100%;
 }

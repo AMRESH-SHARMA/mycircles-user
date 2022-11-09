@@ -4,8 +4,8 @@ import './Error.css'
 const Welcome = () => {
   return (
     <>
-      <div class="ercard">
-          <div class="ercontainer">
+      <div className="ercard">
+          <div className="ercontainer">
             <h4><b>Welcome to MyCircles</b></h4>
             <p>Please Sign in</p>
           </div>

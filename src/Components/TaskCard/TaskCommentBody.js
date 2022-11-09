@@ -4,10 +4,12 @@ import axios from 'axios'
 import { useState } from 'react'
 import { noofdays } from '../../aHelper/Helper';
 
-const CommentsBody = (props) => {
-  const { contentId } = props
+const TaskCommentBody = (props) => {
+  // console.log(props)
+  const { contentId, st } = props
   const [commentData, setCommentData] = useState('')
   const [overflow, setoverflow] = useState(false)
+  const [replytocommentbtn, setreplytocommentbtn] = useState(false)
 
   useEffect(() => {
     const getCardComments = async () => {
@@ -17,30 +19,37 @@ const CommentsBody = (props) => {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         })
-        setCommentData(resapi.data.results);
-        console.log("allcmts", resapi);
+        setCommentData(resapi.data.results.reverse());
+        console.log("allcmts", resapi.data.results);
       } catch (err) {
         console.warn(err)
       }
     }
     getCardComments()
-  }, [contentId])
+  }, [contentId, st])
 
+  //handler replytocommentbtn BUTTON HANDLER
+  const handlereplytocommentbtn = (e) => {
+    e.preventDefault();
+    return setreplytocommentbtn(!replytocommentbtn)
+  };
   const handlecmtstyle=(e)=>{
     e.preventDefault()
     console.log(overflow);
     setoverflow(!overflow)
   }
+
   const overflowstyle = { overflowY:"scroll" };
   const overflowstylehide = { overflowY:"hidden" };
 
   return (<>
+
     <div id='cmtf1' style={overflow === true ? overflowstyle : overflowstylehide} >
-      {commentData && commentData.length > 0 && <a className='showallcmt' href='/' onClick={(e)=>handlecmtstyle(e)} >Show all {commentData.length} comments</a>}
+      {commentData && commentData.length > 0 && <a className='showallcmt' href='/' onClick={(e) => handlecmtstyle(e)} >Show all {commentData.length} comments</a>}
       {commentData && commentData.length > 0 &&
         commentData.map((item, index) => (
           <div key={index}>
-            <div className="d-flex-row justify-content-start" id='showcomments' >
+            <div className="d-flex-row justify-content-start" id='showtaskcomments' >
               <div id='cmttitle' >
                 <strong >{item.createdBy.display_name}</strong> &nbsp; {noofdays(item.createdAt)}
               </div>
@@ -50,14 +59,14 @@ const CommentsBody = (props) => {
             </div>
             <div className="d-flex justify-content-start">
               <a className="likereply" href='...'>Like ({item.likes.total})</a>
-              <a className="likereply" href='...'>Reply</a>
+              <a className="likereply" href='/' onClick={(e) => handlereplytocommentbtn(e)}>Reply</a>
+              {replytocommentbtn ? "inputbox" : null}
             </div>
           </div>
         ))}
     </div>
   </>
-
   )
 }
 
-export default CommentsBody
+export default TaskCommentBody

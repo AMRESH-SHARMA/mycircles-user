@@ -8,7 +8,7 @@ import Login from './Screens/Login/Login';
 import SingleCircle from './Screens/SingleCircle/SingleCircle';
 import Register from './Screens/Register/Register';
 import Page404 from './Screens/Register/Register';
-
+import TokenSend from './Screens/Error/TokenSend';
 
 function App() {
 
@@ -22,6 +22,7 @@ function App() {
         <Route exact path="/c/:circle/:id" element={<SingleCircle />} />
         <Route exact path="/user/login" name="Login Page" element={<Login />} />
         <Route exact path="/user/registeration" name="Register Page" element={<Register />} />
+        <Route exact path="/user/tokenstatus" name="TokenSend Page" element={<TokenSend />} />
         <Route exact path="*" element={<Page404 />} />
       </Routes>
     </Router>

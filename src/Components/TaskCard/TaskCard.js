@@ -1,6 +1,6 @@
 import { React, useState } from 'react'
 import "./TaskCard.css"
-import TaskCommentBody from './TaskCommentBody/TaskCommentBody';
+import TaskCommentBody from './TaskCommentBody';
 import axios from 'axios';
 import Spinner from '../../aspinner/Spinner';
 import pdf from "./test.pdf"
@@ -17,6 +17,7 @@ export const TaskCard = (props) => {
   const [commentValue, setCommentValue] = useState('');
   const [isPostingComment, setIsPostingComment] = useState(false);
   const [showPdf, setShowPdf] = useState(false);
+  const [rendercomp, setrendercomp] = useState(false);
 
   const texttoimg = async (name) => {
     let str = name.split(" ")
@@ -67,6 +68,7 @@ export const TaskCard = (props) => {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
             },
           })
+          setrendercomp(!rendercomp)
           console.log("resapi", resapi)
           // console.log(input)
         }
@@ -146,8 +148,7 @@ export const TaskCard = (props) => {
           <>
             <hr id='taskhr1' />
             <div id='taskcmtbody'>
-              {/* <a className='showallcmt' href='/' >Show all 11 comment</a> */}
-              <TaskCommentBody contentId={content.id} />
+              <TaskCommentBody contentId={content.id} st={rendercomp} />
             </div>
             <div id='cf1' className="card-footer">
               <form onSubmit={addComment} className="d-flex justify-content-between" id="cmtinputform">

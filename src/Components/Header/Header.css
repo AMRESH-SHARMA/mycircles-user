@@ -30,3 +30,9 @@
 .dropdown-header:hover .dropdown-header-content {
   display: block;
 }
+#headerdropsec{
+  min-width:130px;
+}
+#headerrightbtns{
+  display: flex;
+}

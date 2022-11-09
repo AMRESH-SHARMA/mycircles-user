@@ -31,12 +31,9 @@ export default function Navbar() {
   const [visibility, setVisibility] = useState(0);
   const [joinPolicy, setJoinPolicy] = useState(0);
   const [show, setShow] = useState(false);
-  // const [circleId, setcircleId] = useState('');
+  const [circleIId, setcircleIId] = useState('');
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
-
-  var url = window.location.href;
-  var circleId = url.split("/")[5];
 
   if (submitting) {
     var disableStyle = { cursor: "not-allowed", }
@@ -86,8 +83,26 @@ export default function Navbar() {
       }
       setLoading(false)
     }
+    (async () => {
+      let url = window.location.href;
+      let id = url.split("/")[5];
+      setcircleIId(id)
+      if (circleIId) {
+        try {
+          const resapi = await axios.get(`/space/${circleIId}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
+          })
+          console.log('r', resapi)
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    })
+      ()
     getUser()
-  }, [])
+  }, [circleIId])
 
   return (<>
     <div className="border-bottom navbarr" style={{ background: "white" }}>
@@ -95,7 +110,7 @@ export default function Navbar() {
         <div className="nav">
           <div className="dropdown text-end mx-3">
             {
-              circleId ?
+              circleIId ?
                 <NavLink to="/" className="btn noborder"
                   data-bs-toggle="dropdown" aria-expanded="false">
                   <img
@@ -227,7 +242,7 @@ export default function Navbar() {
             </NavLink>
           </li>
 
-          {circleId && <>
+          {circleIId && <>
             <div className='col-lg'></div>
             <NavItem className="navitems" >
               <p className="text">1026</p>
@@ -244,7 +259,7 @@ export default function Navbar() {
             <NavItem className="navitems" >
               <div className='navinvitebtn'>
                 <button className='globalbtn' style={{ marginTop: "2px" }} onClick={handleShow}><i className="bi bi-cursor-fill">Invite</i></button>
-                {show && <InviteModal show={show} id={circleId} handleClose={handleClose} />}
+                {show && <InviteModal show={show} id={circleIId} handleClose={handleClose} />}
               </div>
             </NavItem>
           </>
