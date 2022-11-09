@@ -1,2 +1,2 @@
-const registerUrl = "http://localhost:8080/api"
+const registerUrl = "http://206.189.133.189/api/invite"
 export default registerUrl

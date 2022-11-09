@@ -3,12 +3,14 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import Spinner from "../../aspinner/Spinner";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const LoginPanel = () => {
-  const navigate = useNavigate();
+
+  const navigate = useNavigate()
+
   const handleForgot = () => {
-    window.location.href = '/forgot'
+    navigate('/user/forgot')
   }
 
   const [passwordShown, setPasswordShown] = useState(false);
@@ -27,17 +29,16 @@ const LoginPanel = () => {
               try {
                 console.log(values)
                 const res = await axios.post("auth/login", values)
-                console.log(res.data)
-                if (res.status === 200) {
-                  console.log(res.data.auth_token)
-                  localStorage.setItem("authToken", res.data.auth_token)
-                  //window.location.reload()
-                  console.log(window.location.href)
-                  navigate("/")
+                console.log(res)
+                if (res.data.auth_token) {
+                  console.log(res.data.auth_token);
+                  localStorage.setItem("authToken", res.data.auth_token);
+                  navigate('/');
                 }
               }
-              catch {
-                alert("Invalid credentials")
+              catch (err){
+                console.log(err);
+                alert("Invalid credentials");
               }
               setSubmitting(false);
             }, 10000);

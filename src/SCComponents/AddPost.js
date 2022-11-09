@@ -12,7 +12,7 @@ const TaskandPostLayout = () => {
   const handleClose = () => setShow(false);
   const [Message, setMessage] = useState();
   const [isPostingMessage, setIsPostingMessage] = useState(false);
-
+  const [image, setimage] = useState();
   // MESSAGE SUBMIT HANDLER
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,25 +41,41 @@ const TaskandPostLayout = () => {
     }
   };
 
+  const onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setimage(URL.createObjectURL(event.target.files[0]));
+    }
+  }
+  // console.log("Image", image);
+
   return (
     <>
       <div id="cardcard" className="card mt-3 mx-5">
         <div className="">
           <form className="scform" onSubmit={handleSubmit}>
             <input
-            id="addpostinput"
+              id="addpostinput"
               value={Message}
               onChange={(e) => setMessage(e.target.value)}
               type="text"
               placeholder="Whats On Your Mind ?" />
+            {image ? <img style={{ marginLeft: "40px" }} alt='ico' src={image} width="200" height="200" /> : null}
 
-            <button className="globalbtn" onClick={(e) => handleSubmit(e)}>
-              {isPostingMessage ?
-                <div className="spinner-border text-danger" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </div> :
-                'Submit'}
-            </button>
+            <div className="d-flex">
+              <button className="globalbtn" onClick={(e) => handleSubmit(e)}>
+                {isPostingMessage ?
+                  <div className="spinner-border text-danger" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div> :
+                  'Submit'}
+              </button>
+
+              <label htmlFor="showimage" className="bi bi-upload"></label>
+              <input onChange={onImageChange} type="file" accept="image/*" id="showimage" style={{ display: "none", visibility: "none" }}>
+              </input>
+            </div>
+
+
           </form>
 
 

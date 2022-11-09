@@ -1,17 +1,17 @@
 import React from 'react'
 import Navbar from "../../Components/Header/Navbar";
 import Header from "../../Components/Header/Header";
-import Spinner from "../../aspinner/Spinner";
+// import Spinner from "../../aspinner/Spinner";
+import Welcome from '../Error/Welcome';
 
 const Members = () => {
   return (<>
     <Header />
     <Navbar />
-    <div className="container mt-4">
-      Members
-      <Spinner />
+    <div className="container" style={{paddingTop:"2rem"}}>
+      <Welcome />
     </div>
- 
+
   </>
 
 

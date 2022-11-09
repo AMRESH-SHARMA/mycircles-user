@@ -10,3 +10,11 @@
     width: 95%;
   }
 }
+.inputbtn{
+  width: 90%;
+  margin-left: 30px;
+}
+.submitbtn{
+  display: flex;
+  margin-left: 780px;
+}

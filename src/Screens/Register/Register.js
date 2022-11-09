@@ -5,13 +5,14 @@ import * as Yup from "yup";
 import "./Register.css";
 import axios from "axios";
 import registerUrl from "../../API";
+import Spinner from "../../aspinner/Spinner";
 
 const Register = () => {
   const [loading, setloading] = useState(true)
   const [error, seterror] = useState(false)
 
   useEffect(() => {
-    const tokenCheck = async () => {
+    (async () => {
       if (!window.location.href.split('=')[1]) {
         return window.location.replace("/user/login");
       }
@@ -24,8 +25,7 @@ const Register = () => {
         seterror(true);
       }
       setloading(false)
-    };
-    tokenCheck()
+    })()
   }, [])
 
 
@@ -36,8 +36,8 @@ const Register = () => {
   return (
     <>
       {loading ?
-        <div className="spinner-border text-danger" role="status">
-          <span className="visually-hidden">Loading...</span>
+        <div className="">
+          <Spinner />
         </div> :
         error ?
           <div id="invalidtokenpage">
@@ -79,7 +79,7 @@ const Register = () => {
               const {
                 values, touched, errors, isSubmitting, handleChange, handleBlur, handleSubmit
               } = props;
-              
+
               if (isSubmitting) {
                 var disableStyle = { cursor: "not-allowed", }
               }
