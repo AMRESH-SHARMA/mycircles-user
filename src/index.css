@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap");
 .globalbtn{
   height: 30px;
   min-width: 75px;
@@ -19,13 +20,16 @@
   display: flex;
   justify-content: center;
 }
-
+.cardcard{
+  display: block;
+  background-color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+}
 /* Disable css */
 button{
-  /* margin: 0px;
-  padding: 0px; */
   border: none;
-  /* background-color: white; */
 }
 .colors{
   color: #3f5b6d;

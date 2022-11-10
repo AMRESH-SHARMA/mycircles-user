@@ -11,21 +11,39 @@ const Tasks = () => {
 
   const [task, setTask] = useState('');
   const [loading, setLoading] = useState(true)
+  // const container_iid = localStorage.getItem("container_iid");
 
   useEffect(() => {
     (async () => {
-      try {
-        const res = await axios.get('/tasks', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
-        })
-        setTask(res.data.results)
-        setLoading(false)
-        console.log("result:", res)
-      } catch (err) {
-        setLoading(false)
-        console.warn(err)
+      if (!localStorage.getItem("container_iid")) {
+        try {
+          const res = await axios.get('/tasks', {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
+          })
+          setTask(res.data.results)
+          setLoading(false)
+          console.log("result:", res)
+        } catch (err) {
+          setLoading(false)
+          console.warn(err)
+        }
+      }
+      else if (localStorage.getItem("container_iid")) {
+        try {
+          const res = await axios.get('/tasks/container/' + localStorage.getItem("container_iid"), {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
+          })
+          setTask(res.data.results)
+          setLoading(false)
+          console.log("result:", res.data.results)
+        } catch (err) {
+          setLoading(false)
+          console.warn(err)
+        }
       }
     })()
   }, [])

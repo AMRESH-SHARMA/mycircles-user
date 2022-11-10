@@ -10,31 +10,49 @@ import Welcome from '../Error/Welcome';
 const Wall = () => {
 
   const [posts, setPosts] = useState('')
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
+  // const container_iid = localStorage.getItem("container_iid");
+
   useEffect(() => {
-    const getPosts = async () => {
-      // if (localStorage.getItem("authToken")) {
-      try {
-        const result = await axios.get('/post', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
-        })
-        setPosts(result.data.results)
-        setLoading(false)
-        // console.log("result:", result)
-      } catch (err) {
-        setLoading(false)
-        console.warn(err)
+    (async () => {
+      if (!localStorage.getItem("container_iid")) {
+        try {
+          const result = await axios.get('/post', {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
+          })
+          setPosts(result.data.results)
+          setLoading(false)
+          // console.log("result:", result)
+        } catch (err) {
+          setLoading(false)
+          console.warn(err)
+        }
       }
-      // }
-    }
-    getPosts()
+      else if (localStorage.getItem("container_iid")) {
+        try {
+          const result = await axios.get('/post/container/' + localStorage.getItem("container_iid"), {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
+          })
+          console.log(result.data);
+          setPosts(result.data.results)
+          setLoading(false)
+          // console.log("result:", result)
+        } catch (err) {
+          setLoading(false)
+          console.warn(err)
+        }
+
+      }
+    })()
   }, [])
   return (<>
     <Header />
     <Navbar />
-    <div className="container" style={{paddingTop:"2rem"}}>
+    <div className="container" style={{ paddingTop: "2rem" }}>
 
       {localStorage.getItem("authToken") ?
         <div className="d-flex justify-content-around">
@@ -47,7 +65,7 @@ const Wall = () => {
                     posts.map((posts, index) => (
                       <WallCard posts={posts} key={index} />
                     ))
-                  ) :null}
+                  ) : null}
                 </>
               )}
           </div>
