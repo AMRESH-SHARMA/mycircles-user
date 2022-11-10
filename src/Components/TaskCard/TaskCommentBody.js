@@ -47,7 +47,7 @@ const TaskCommentBody = (props) => {
   return (<>
 
     <div id='cmtf1' style={overflow === true ? overflowstyle : overflowstylehide} >
-      {commentData && commentData.length > 0 && <a className='showallcmt' href='/' onClick={(e) => handlecmtstyle(e)} >Show all {commentData.length} comments</a>}
+      {commentData && commentData.length > 2 && <a className='showallcmt' href='/' onClick={(e) => handlecmtstyle(e)} >Show all {commentData.length} comments</a>}
       {commentData && commentData.length > 0 &&
         commentData.map((item, index) => (
           <div key={index}>
