@@ -34,7 +34,7 @@ const Members = () => {
 
   }
   const Users =
-    users.filter(data =>
+    users?.filter(data =>
       data.display_name.toLowerCase().includes(search.toLowerCase())
     )
 

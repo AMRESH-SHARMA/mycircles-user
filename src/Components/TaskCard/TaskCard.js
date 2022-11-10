@@ -6,7 +6,7 @@ import Spinner from '../../aspinner/Spinner';
 
 export const TaskCard = (props) => {
 
-  var { id, description, end_datetime, created_by, status, content } = props.obj
+  const { id, description, end_datetime, created_by, status, content } = props.obj
   // console.log(props.obj)
   const imgtext = created_by.display_name
   // console.log(imgtext)
@@ -104,10 +104,10 @@ export const TaskCard = (props) => {
 
   return (
     <>
-      <div id='taskcard' className="card">
+      <div id='taskcard' className="cardcard">
         <div className="card-header">
           <div className="d-flex" >
-            <i className='bi bi-list-check' style={{ margin: "10px" }} />
+            <i className='bi bi-list-check' style={{ marginTop: "10px", marginRight: "10px" }} />
             <div className='card-title pt-2'>
               <strong>Run Marketing Programs to Promote This Circle </strong>
               <div>Prominds</div>
@@ -163,7 +163,6 @@ export const TaskCard = (props) => {
         </div>
 
         <>
-
           <div className={commentButton ? 'taskcmtbodyanimate' : 'globaldisplaynone'}>
             <hr id='taskhr1' />
             <div id='taskcmtbody'>
@@ -188,8 +187,6 @@ export const TaskCard = (props) => {
             </div>
           </div>
         </>
-
-
       </div>
     </>
   )

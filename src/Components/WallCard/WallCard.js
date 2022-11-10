@@ -17,7 +17,10 @@ const Card = (props) => {
   const [isPostingComment, setIsPostingComment] = useState(false);
   const [rendercomp, setrendercomp] = useState(false);
 
-  //
+  //Dropdown
+  const displaynone = { display: "none" }
+  const [ithreedots, setithreedots] = useState(false);
+
   useEffect(() => {
 
     async function getImgeurl() {
@@ -140,6 +143,22 @@ const Card = (props) => {
   //   }
   //   return await innerFunction()
   // }
+  const handleDelPost = async () => {
+    try {
+      console.log('del', id)
+      const resapi = await axios.delete(`/post/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      })
+      console.log("resapi", resapi)
+      if (resapi.data.code === 200) {
+        setrendercomp(!rendercomp)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return (<>
     <div id="cardcard" className="card mt-3 mx-5">
@@ -151,7 +170,14 @@ const Card = (props) => {
             <div id='d1'>{noofdays(content.metadata.created_at)}</div>
           </div>
         </div>
-        <i className="bi bi-three-dots"></i>
+        <div>
+          <i className='btn bi bi-three-dots taskheaderbtn' onClick={() => setithreedots(!ithreedots)} />
+          <div id="task-dots-dropdown-content" style={!ithreedots ? displaynone : null}>
+            <button className='tdbtn'>Edit</button>
+            <button className='tdbtndel' onClick={handleDelPost}>Delete</button>
+          </div>
+        </div>
+
       </div>
       <div id='cb1' className="card-body">
         <p className="card-text">  {textToEmoji(message).split(':').join('')}</p>

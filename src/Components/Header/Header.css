@@ -13,7 +13,7 @@
   color: rgb(70, 153, 179);
 }
 
-.dropdown-menu li a {
+.dropdown-menu >li >a {
   color: black;
   padding: 4px 15px;
   text-decoration: none;
@@ -21,10 +21,9 @@
   font-weight: 500;
 }
 
-.dropdown-menu li:hover {
+.dropdown-menu >li:hover {
   background-color: #3f5b6d;
   border-left: 3px solid #21A1B3;
-
 }
 
 .dropdown-header:hover .dropdown-header-content {

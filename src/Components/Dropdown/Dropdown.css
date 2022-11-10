@@ -1,3 +1,13 @@
-.profile{
+.profile {
   margin-right: 10px;
+}
+
+.allcirdd-items>li>a {
+  text-decoration: none;
+  padding: 5px;
+}
+
+.allcirdd-items>li:hover {
+  display: block;
+  background-color: #d7dcdf;
 }

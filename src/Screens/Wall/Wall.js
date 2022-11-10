@@ -51,9 +51,10 @@ const Wall = () => {
   return (<>
     <Header />
     <Navbar />
-    <div className="container" style={{ paddingTop: "2rem" }}>
 
-      {localStorage.getItem("authToken") ?
+
+    {localStorage.getItem("authToken") ?
+      <div className="container" style={{ paddingTop: "2rem" }}>
         <div className="d-flex justify-content-around">
           <div id='wallcardone' className="pt-2 flex-grow-1 bd-highlight">
             {loading ?
@@ -101,11 +102,14 @@ const Wall = () => {
           </>}
 
         </div>
-        :
+      </div>
+      :
+      <div style={{ margin: "50px" }}>
         <Welcome />
-      }
+      </div>
+    }
 
-    </div>
+
   </>
   )
 }

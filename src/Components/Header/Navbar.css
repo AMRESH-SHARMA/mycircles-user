@@ -87,7 +87,9 @@
 #createcircledropdown {
   position: relative;
   max-height: 142px;
+  width: 260px;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 #createnewcirclebtn {
@@ -96,21 +98,31 @@
   text-decoration: none;
   padding: 0px;
   margin: 0px 5px 0px 5px;
-  background-color: #21A1B3;
+  background-color: #3f5b6d;
   font-weight: 500;
   color: white;
+  border-radius: 5px;
+}
+
+#createnewcirclebtn:hover {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+  background-color: #3f5b6d;
+}
+
+#createcirclesearchboxdiv {
+  margin: 5px 10px;
+
 }
 
 #createcirclesearchbox {
-  margin: -2px 0px 5px 5px;
   border-radius: 3px;
+  margin: 0px;
   border: 2px solid #d7dcdf;
   display: block;
-  height: 34px;
   font-size: 14px;
-  color: #d7dcdf;
+  color: black;
   outline: none;
-
+  position: relative
 }
 
 #createcirclesearchbox:focus {
@@ -163,13 +175,14 @@
   margin-top: 5px;
 }
 
-.navprofile{
+.navprofile {
   margin-top: 5px;
 }
 
-.navinvitebtn{
+.navinvitebtn {
   margin-top: 5px;
 }
-#navdropspinner{
+
+#navdropspinner {
   margin-left: 50%;
 }

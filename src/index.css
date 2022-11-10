@@ -10,6 +10,7 @@
   transition: ease-in-out background-color 250ms, ease-in-out color 250ms;
   font-size: 15px;
   font-weight: 500;
+  padding: 2px;
 }
 .globalbtn:hover{
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
@@ -32,6 +33,7 @@ button{
   border: none;
 }
 .colors{
+  color: #d7dcdf;
   color: #3f5b6d;
   border-left: 3px solid #21A1B3;
 }

@@ -143,16 +143,14 @@ export default function Navbar() {
             }
 
             <ul className="dropdown-menu text-small">
-              <form className="d-flex">
+              <div id="createcirclesearchboxdiv">
                 <input
                   onChange={handleSearch}
                   id="createcirclesearchbox"
                   type="search"
                   placeholder="Search"
                   autoComplete="off" />
-
-                <button type="submit" className="btn bi bi-search homeNavTabs"></button>
-              </form>
+              </div>
               <div id='createcircledropdown'>
                 {loading ?
                   <div id="navdropspinner"><Spinner /></div> :
@@ -167,7 +165,7 @@ export default function Navbar() {
 
               </div>
               <li><hr className="dropdown-divider" /></li>
-              <li><a id="createnewcirclebtn" data-bs-toggle="modal" data-bs-target="#newCircleModal" href="/" >Create New Circle</a></li>
+              <a id="createnewcirclebtn" data-bs-toggle="modal" data-bs-target="#newCircleModal" href="/" >Create New Circle</a>
             </ul>
 
             <div className="modal fade" id="newCircleModal" tabIndex="-1" aria-labelledby="newCircleModal" aria-hidden="true">

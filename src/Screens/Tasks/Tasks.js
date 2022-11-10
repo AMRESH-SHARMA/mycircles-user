@@ -52,9 +52,10 @@ const Tasks = () => {
   return (<>
     <Header />
     <Navbar />
-    <div className='container' style={{ paddingTop: "2rem" }}>
-      {localStorage.getItem("authToken") ?
-        <>
+
+    {localStorage.getItem("authToken") ?
+      <>
+        <div className='container' style={{ paddingTop: "3rem" }}>
           {loading ?
             <div id='taskscrspinner'>< Spinner /></div> :
             <>
@@ -69,9 +70,13 @@ const Tasks = () => {
                 </div>
                 : null}
             </>}
-        </> :
-        <Welcome />}
-    </div>
+        </div>
+      </> :
+      <div style={{margin:"50px"}}>
+        <Welcome />
+      </div>}
+
+
   </>
   )
 }

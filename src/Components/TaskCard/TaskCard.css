@@ -6,7 +6,7 @@
 }
 
 #taskcard {
-  margin: 50px 0px;
+  margin-bottom: 50px;
   /* width: 35rem; */
   max-width: 35rem;
   min-width: 20rem;
@@ -133,3 +133,23 @@
 .globaldisplaynone{
   display: none;
 }
+#taskcmtreplybox{
+  display:block;
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  margin-top: 10px;
+  padding: 2px 2px;
+  z-index: 1;
+  /* border: 1px solid black; */
+  border-radius: 5px;
+  width: fit-content;
+}
+#taskcmtreplybox-input{
+  margin: 3px 0px;
+  max-width: 350px;
+  min-width: 300px;
+}
+/* #taskcmtreplybox-form{
+  width: fit-content;
+} */
