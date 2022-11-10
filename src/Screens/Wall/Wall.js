@@ -11,10 +11,13 @@ const Wall = () => {
 
   const [posts, setPosts] = useState('')
   const [error, setError] = useState(false)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
+  const container_id = localStorage.getItem("container_id");
+
+  console.log();
   useEffect(() => {
     const getPosts = async () => {
-      if (isAutheticated()) {
+      if (isAutheticated() && !container_id) {
         try {
           const result = await axios.get('/post', {
             headers: {
@@ -29,6 +32,24 @@ const Wall = () => {
           setError(true)
           console.warn(err)
         }
+      }
+      else if(isAutheticated() && container_id){
+        try {
+          const result = await axios.get('/post/container/'+container_id, {
+            headers: {
+              Authorization: `Bearer ${isAuthenticatedToken()}`,
+            },
+          })
+          console.log(result.data);
+          setPosts(result.data.results)
+          setLoading(false)
+          // console.log("result:", result)
+        } catch (err) {
+          setLoading(false)
+          setError(true)
+          console.warn(err)
+        }
+
       }
     }
     getPosts()

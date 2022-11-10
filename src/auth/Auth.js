@@ -37,6 +37,7 @@ export const isAuthenticatedToken = () => {
 
 export const signout = () => {
   localStorage.removeItem("authToken");
+  localStorage.removeItem("container_id")
   // localStorage.removeItem("userData");
   window.location.reload();
   return true;

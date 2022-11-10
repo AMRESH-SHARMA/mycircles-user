@@ -6,7 +6,7 @@ import "./TaskandPost.css";
 const TaskandPostLayout = () => {
   const url = window.location.href;
   const id = url.split("/");
-
+  localStorage.setItem("container_id",id[5]);
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);

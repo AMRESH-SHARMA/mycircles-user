@@ -1,14 +1,44 @@
-import { React, useState } from 'react'
+import { React, useEffect, useState } from 'react'
 import Likebtn from '../Likebtn/Likebtn';
 import CommentsBody from './CommentsBody';
 import axios from 'axios';
 import emoji from 'emoji-dictionary'
 import './WallCard.css';
 import Spinner from '../../aspinner/Spinner';
+import { isAuthenticatedToken, isAutheticated } from '../../auth/Auth'
 
 const Card = (props) => {
+  useEffect(()=>{
+    async function getUrls(objectUrl, id) {
+    }
+    async function getImgeurl (){
+      if (props.posts.content.files.length > 0) {
+                    if (!props.posts.content.files[0].mime_type.includes('video')) {
+                        console.log(props.posts.content.files[0].mime_type)
+                        var blob = await axios.get("https://circlenowdev.xyz/file/file/download?guid=" + props.posts.content.files[0].guid, {
+                            headers: {
+                                'Authorization': `Bearer ${localStorage.getItem("authToken")}`
+                            },
+                            responseType: 'blob'
+                        })
+                        var fr = new FileReader();
+                        fr.readAsDataURL(blob.data)
+                        fr.onloadend = () => {
+                            var base64Url = fr.result
+                            console.log(base64Url);
+                            // getUrls(base64Url, props.posts.content.id)
+                            // imageUrl = imageUrl + "OUT" + base64Url
+                            // ids = ids + "OUT" + props.posts.content.id
 
-  console.log(props.posts)
+                        }
+                    }
+                }
+    }
+    getImgeurl();
+    
+  })
+
+  console.log(props.posts.content.files[0]?.mime_type)
   const { id, message, content } = props.posts
 
   const [commentButton, setCommentButton] = useState(false);
@@ -71,6 +101,50 @@ const Card = (props) => {
     // console.log(currentDate-postDate)
     return (currentDate - postDate)
   }
+//   async function getPosts(token) {
+//     async function innerFunction() {
+//         console.log('token..' + token)
+//         const resultOut = await axios.get(postEndpoint, {
+//             headers: {
+//                 'Content-type': 'application/json',
+//                 'Authorization': `Bearer ${token}`
+//             },
+//         })
+
+//         if (resultOut.status != 200) {
+//             alert('User not exists, please register..!')
+//         } else {
+
+//             resultsArray = await resultOut.data
+//             await Promise.all(resultOut.data.results.map(async (result, i) => {
+//                 if (result.content.files.length > 0) {
+//                     if (!result.content.files[0].mime_type.includes('video')) {
+//                         console.log(result.content.files[0].mime_type)
+//                         var blob = await axios.get("https://circlenowdev.xyz/file/file/download?guid=" + result.content.files[0].guid, {
+//                             headers: {
+//                                 'Authorization': `Bearer ${token}`
+//                             },
+//                             responseType: 'blob'
+//                         })
+//                         var fr = new FileReader();
+//                         fr.readAsDataURL(blob.data)
+//                         fr.onloadend = () => {
+//                             var base64Url = fr.result
+//                             getUrls(base64Url, result.content.id)
+//                             imageUrl = imageUrl + "OUT" + base64Url
+//                             ids = ids + "OUT" + result.content.id
+
+//                         }
+//                     }
+//                 }
+//                 else {
+//                 }
+//             }))
+//         }
+//         return { posts: resultsArray, imageUrls: imageUrl, ids_imageUrls: ids }
+//     }
+//     return await innerFunction()
+// }
 
   return (<>
     <div id="cardcard" className="card mt-3 mx-5">
