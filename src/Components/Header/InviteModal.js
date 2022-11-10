@@ -9,6 +9,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Select from 'react-select';
 import "./InviteModal.css";
+import Spinner from "../../aspinner/Spinner";
 
 const InviteModal = (props) => {
 
@@ -25,8 +26,8 @@ const InviteModal = (props) => {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         })
-        console.log(resapi);
         setdata(resapi.data.results);
+        console.log(resapi);
       } catch (err) {
         console.warn(err)
       }
@@ -59,7 +60,7 @@ const InviteModal = (props) => {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
             },
           })
-          .then(()=>console.log(resapi))
+          console.log(resapi)
         } catch (err) {
           console.warn(err)
         }
@@ -112,7 +113,7 @@ const InviteModal = (props) => {
                   setTimeout(async () => {
                     try {
                       console.log(values)
-                      let resapi = await axios.post(`${registerUrl}/invite/gettoken`, values)
+                      let resapi = await axios.post(`${registerUrl}/gettoken`, values)
                       console.log(resapi)
                     }
                     catch (err) {
@@ -155,7 +156,7 @@ const InviteModal = (props) => {
                           <div className="input-feedback">{errors.email}</div>
                         )}
                         <div className="invitemodalbtn">
-                          <button className="globalbtn" style={disableStyle} type="submit" disabled={isSubmitting}>{isSubmitting ? "Wait" : "Submit"}</button>
+                          <button className="globalbtn" style={disableStyle} type="submit" disabled={isSubmitting}>{isSubmitting ?<div className="globalbtnspin"><Spinner/></div>  : "Submit"}</button>
                         </div>
                       </form>
                     </div>

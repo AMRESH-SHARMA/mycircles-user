@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import PopupModal from "./PopupModal";
 import "./TaskandPost.css";
+import Spinner from "../aspinner/Spinner";
 
 const TaskandPostLayout = () => {
   const url = window.location.href;
@@ -10,7 +11,7 @@ const TaskandPostLayout = () => {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
-  const [Message, setMessage] = useState();
+  const [Message, setMessage] = useState('');
   const [isPostingMessage, setIsPostingMessage] = useState(false);
   const [image, setimage] = useState();
   // MESSAGE SUBMIT HANDLER
@@ -32,6 +33,7 @@ const TaskandPostLayout = () => {
           },
         });
         console.log("Post", resapi);
+        alert("done");
       } catch (ex) {
         alert(ex);
         console.log(ex);
@@ -62,8 +64,8 @@ const TaskandPostLayout = () => {
             <div className="addpostbtngroup">
               <button className="globalbtn" onClick={(e) => handleSubmit(e)}>
                 {isPostingMessage ?
-                  <div className="spinner-border text-danger" role="status">
-                    <span className="visually-hidden">Loading...</span>
+                  <div className="globalbtnspin">
+                    <Spinner/>
                   </div> :
                   'Submit'}
               </button>
