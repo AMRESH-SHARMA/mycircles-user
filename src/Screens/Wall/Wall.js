@@ -32,7 +32,7 @@ const Wall = () => {
       }
       else if (localStorage.getItem("container_iid")) {
         try {
-          const result = await axios.get('/post/container/' + localStorage.getItem("container_iid"), {
+          const result = await axios.get(`/post/container/${localStorage.getItem("container_iid")}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
             },
@@ -41,11 +41,10 @@ const Wall = () => {
           setPosts(result.data.results)
           setLoading(false)
           // console.log("result:", result)
-        } catch (err) {
+        } catch (error) {
           setLoading(false)
-          console.warn(err)
+          console.warn(error)
         }
-
       }
     })()
   }, [])

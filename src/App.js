@@ -21,7 +21,7 @@ function App() {
         <Route exact path="/tasks" name="tasks" element={<Tasks />} />
         <Route exact path="/c/:circle/:id" element={<SingleCircle />} />
         <Route exact path="/user/login" name="Login Page" element={<Login />} />
-        <Route exact path="/user/registeration" name="Register Page" element={<Register />} />
+        <Route exact path="/user/registration" name="Register Page" element={<Register />} />
         <Route exact path="/user/tokenstatus" name="TokenSend Page" element={<TokenSend />} />
         <Route exact path="*" element={<Page404 />} />
       </Routes>
