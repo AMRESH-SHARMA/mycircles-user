@@ -7,6 +7,7 @@ import Spinner from "../aspinner/Spinner";
 const TaskandPostLayout = () => {
   const url = window.location.href;
   const id = url.split("/");
+  localStorage.setItem("container_iid",id[5]);
 
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);

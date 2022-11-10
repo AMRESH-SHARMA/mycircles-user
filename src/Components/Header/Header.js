@@ -39,6 +39,7 @@ export default function Header() {
       <div className="d-flex  justify-content-between ">
 
         <h5 style={{ color: "white" }} onClick={() => {
+          localStorage.removeItem("container_iid")
           navigate("/", { replace: true });
         }}>MyCircles</h5>
 
@@ -64,7 +65,7 @@ export default function Header() {
 
               <div className="dropdown" id='headerdropsec'>
                 <a href="/" className="d-block link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src={currentUser ? `https://circlenowdev.xyz/uploads/profile_image/${currentUser.guid}.jpg?m=1666002574`: '/img.jpg'} alt="" width="32" height="32" className="rounded-circle" />{currentUser.display_name
+                  <img src={currentUser ? `https://circlenowdev.xyz/uploads/profile_image/${currentUser.guid}.jpg?m=1666002574` : '/img.jpg'} alt="" width="32" height="32" className="rounded-circle" />{currentUser.display_name
                   }
                 </a>
                 <ul className="dropdown-menu text-small" style={{ background: "#4D6D7F" }}>

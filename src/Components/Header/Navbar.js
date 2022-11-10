@@ -24,7 +24,7 @@ export default function Navbar() {
   };
 
 
-  const [circles, setCircles] = useState('')
+  const [circles, setCircles] = useState([])
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
   const [inputs, setInputs] = useState({});
@@ -32,8 +32,11 @@ export default function Navbar() {
   const [joinPolicy, setJoinPolicy] = useState(0);
   const [show, setShow] = useState(false);
   const [circleIId, setcircleIId] = useState('');
+  const [search, setSearch] = useState('');
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
+
+  const container_iid = localStorage.getItem("container_iid");
 
   if (submitting) {
     var disableStyle = { cursor: "not-allowed", }
@@ -47,6 +50,10 @@ export default function Navbar() {
       join_policy: joinPolicy
     }
     setInputs(values => ({ ...values, [name]: value, ...radioBoxValues }))
+  }
+
+  function handleSearch(e) {
+    setSearch(e.target.value);
   }
 
   const handleSubmit = (e) => {
@@ -104,13 +111,20 @@ export default function Navbar() {
     getUser()
   }, [circleIId])
 
+  console.log(circles);
+
+  const Filteredcircles =
+    circles?.filter(item =>
+      item.name.toLowerCase().includes(search.toLowerCase())
+    )
+
   return (<>
     <div className="border-bottom navbarr" style={{ background: "white" }}>
       <div className="container">
         <div className="nav">
           <div className="dropdown text-end mx-3">
             {
-              circleIId ?
+              container_iid ?
                 <NavLink to="/" className="btn noborder"
                   data-bs-toggle="dropdown" aria-expanded="false">
                   <img
@@ -130,7 +144,13 @@ export default function Navbar() {
 
             <ul className="dropdown-menu text-small">
               <form className="d-flex">
-                <input id="createcirclesearchbox" type="search" placeholder="Search" />
+                <input
+                  onChange={handleSearch}
+                  id="createcirclesearchbox"
+                  type="search"
+                  placeholder="Search"
+                  autoComplete="off" />
+
                 <button type="submit" className="btn bi bi-search homeNavTabs"></button>
               </form>
               <div id='createcircledropdown'>
@@ -138,7 +158,7 @@ export default function Navbar() {
                   <div id="navdropspinner"><Spinner /></div> :
                   <>
                     {circles && circles.length ? (
-                      circles.map((item) => (
+                      Filteredcircles?.map((item) => (
                         <Dropdown obj={item} key={item.id} />
                       ))
                     ) : null}
