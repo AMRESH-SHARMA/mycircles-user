@@ -20,14 +20,14 @@ export default function Header() {
           },
         })
         console.log(result.data)
-        if(result.data.status===401){
+        if (result.data.status === 401) {
           localStorage.removeItem("authToken");
         }
         setCurrentUser(result.data)
       } catch (err) {
         console.warn(err)
       }
-    }) ()
+    })()
   }, [])
 
   const handleLogOut = () => {
@@ -35,20 +35,16 @@ export default function Header() {
   };
 
   return (<>
-
     <header className="p-2 border-bottom" style={{ background: "#4D6D7F" }}>
-      <div className="container">
-        <div className="d-flex flex-wrap align-items-center justify-content-between justify-content-lg-start">
-          
-          <h5 style={{ color: "white" }} onClick={() => {
-            navigate("/", { replace: true });
-          }}>My Circles</h5>
+      <div className="d-flex  justify-content-between ">
 
-          <div className=" me-lg-auto">
-          </div>
-          
-          {localStorage.getItem("authToken") ?
-            <>
+        <h5 style={{ color: "white" }} onClick={() => {
+          navigate("/", { replace: true });
+        }}>MyCircles</h5>
+
+        {localStorage.getItem("authToken") ?
+          <>
+            <div id='headerrightbtns'>
               <div className="dropdown text-end mx-3" style={{ background: "#54768a" }}>
                 <Notification currentUserID={currentUser.id} />
               </div>
@@ -66,9 +62,9 @@ export default function Header() {
                 </ul>
               </div>
 
-              <div className="dropdown text-end mx-3" >
+              <div className="dropdown" id='headerdropsec'>
                 <a href="/" className="d-block link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="img.jpg" alt="" width="32" height="32" className="rounded-circle" />{currentUser.display_name
+                  <img src={currentUser ? `https://circlenowdev.xyz/uploads/profile_image/${currentUser.guid}.jpg?m=1666002574`: '/img.jpg'} alt="" width="32" height="32" className="rounded-circle" />{currentUser.display_name
                   }
                 </a>
                 <ul className="dropdown-menu text-small" style={{ background: "#4D6D7F" }}>
@@ -80,12 +76,12 @@ export default function Header() {
                 </ul>
               </div>
 
-            </>
-            :
-            <>
-              <Link to="/user/login"><button id='b1'>Sign in / up</button></Link>
-            </>}
-        </div>
+            </div>
+          </>
+          :
+          <>
+            <Link to="/user/login"><button id='b1'>Sign in / up</button></Link>
+          </>}
       </div>
     </header>
   </>

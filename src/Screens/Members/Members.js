@@ -1,7 +1,6 @@
 import React from 'react'
 import Navbar from "../../Components/Header/Navbar";
 import Header from "../../Components/Header/Header";
-// import Spinner from "../../aspinner/Spinner";
 import Welcome from '../Error/Welcome';
 
 const Members = () => {

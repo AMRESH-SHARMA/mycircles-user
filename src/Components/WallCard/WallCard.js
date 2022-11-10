@@ -1,6 +1,6 @@
 import { React, useState } from 'react'
 import Likebtn from '../Likebtn/Likebtn';
-import CommentsBody from './CommentsBody';
+import WallCommentBody from './WallCommentBody';
 import axios from 'axios';
 import emoji from 'emoji-dictionary'
 import './WallCard.css';
@@ -15,6 +15,7 @@ const Card = (props) => {
   const [commentButton, setCommentButton] = useState(false);
   const [commentValue, setCommentValue] = useState('');
   const [isPostingComment, setIsPostingComment] = useState(false);
+  const [rendercomp, setrendercomp] = useState(false);
 
   //TEXT TO EMOJI 
   const textToEmoji = (comment) => {
@@ -52,6 +53,7 @@ const Card = (props) => {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
             },
           })
+          setrendercomp(!rendercomp)
           console.log("resapi", resapi)
           // console.log(input)
         }
@@ -93,9 +95,9 @@ const Card = (props) => {
 
       {commentButton && (
         <><hr id='hr1' />
-
-          <CommentsBody contentId={content.id} />
-
+          <div id='wallcmtbody'>
+            <WallCommentBody contentId={content.id} st={rendercomp} />
+          </div>
           <div id='cf1' className="card-footer">
             <form onSubmit={addComment} className="d-flex justify-content-between" id="cmtinputform">
               <input

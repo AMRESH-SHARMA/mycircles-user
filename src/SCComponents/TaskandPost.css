@@ -1,14 +1,8 @@
-.scform{
-  margin: 10px 10px;
+.cardcard{
   display: block;
-}
-#addpostinput{
-  width: 145%;
-}
-@media screen and (max-width: 1199px) {
-  #addpostinput{
-    width: 95%;
-  }
+  background-color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
 }
 .inputbtn{
   width: 90%;
@@ -17,4 +11,8 @@
 .submitbtn{
   display: flex;
   margin-left: 780px;
+}
+.addpostbtngroup{
+  display: flex;
+  justify-content: space-between;
 }

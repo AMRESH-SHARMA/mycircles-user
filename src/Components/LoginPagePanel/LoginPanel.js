@@ -41,7 +41,7 @@ const LoginPanel = () => {
                 alert("Invalid credentials");
               }
               setSubmitting(false);
-            }, 10000);
+            }, 5000);
           }}
 
           validationSchema={Yup.object().shape({

@@ -50,18 +50,16 @@ const TaskandPostLayout = () => {
 
   return (
     <>
-      <div id="cardcard" className="card mt-3 mx-5">
-        <div className="">
-          <form className="scform" onSubmit={handleSubmit}>
+      <div className="cardcard mt-3 mx-5">
+          <form onSubmit={handleSubmit}>
             <input
-              id="addpostinput"
               value={Message}
               onChange={(e) => setMessage(e.target.value)}
               type="text"
               placeholder="Whats On Your Mind ?" />
             {image ? <img style={{ marginLeft: "40px" }} alt='ico' src={image} width="200" height="200" /> : null}
 
-            <div className="d-flex">
+            <div className="addpostbtngroup">
               <button className="globalbtn" onClick={(e) => handleSubmit(e)}>
                 {isPostingMessage ?
                   <div className="spinner-border text-danger" role="status">
@@ -70,19 +68,16 @@ const TaskandPostLayout = () => {
                   'Submit'}
               </button>
 
-              <label htmlFor="showimage" className="bi bi-upload"></label>
+              <button className="globalbtn"><label style={{cursor: 'pointer'}} htmlFor="showimage"><i className="bi bi-upload" /></label></button>
               <input onChange={onImageChange} type="file" accept="image/*" id="showimage" style={{ display: "none", visibility: "none" }}>
               </input>
             </div>
 
 
           </form>
-
-
-        </div>
       </div>
 
-      <div id="cardcard" className="card mt-3 mx-5">
+      <div className="cardcard mt-3 mx-5">
         <div className="card-header d-flex" style={{ background: "white" }}>
           <h1><strong>Task</strong></h1>
 
