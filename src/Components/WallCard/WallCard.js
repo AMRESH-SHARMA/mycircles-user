@@ -24,7 +24,7 @@ const Card = (props) => {
       if (props.posts.content.files.length > 0) {
         if (!props.posts.content.files[0].mime_type.includes('video')) {
           console.log(props.posts.content.files[0].mime_type)
-          var blob = await axios.get("https://circlenowdev.xyz/file/file/download?guid=" + props.posts.content.files[0].guid, {
+          var blob = await axios.get("http://206.189.133.189/api/spaces/file/file/download?guid=" + props.posts.content.files[0].guid, {
             headers: {
               'Authorization': `Bearer ${localStorage.getItem("authToken")}`
             },
