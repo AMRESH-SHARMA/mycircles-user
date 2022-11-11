@@ -16,6 +16,7 @@ const Card = (props) => {
   const [commentValue, setCommentValue] = useState('');
   const [isPostingComment, setIsPostingComment] = useState(false);
   const [rendercomp, setrendercomp] = useState(false);
+  //const [imgUrl, setImageUrl] = useState();
 
   //
   useEffect(() => {
