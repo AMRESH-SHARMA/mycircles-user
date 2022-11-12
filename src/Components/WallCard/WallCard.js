@@ -18,6 +18,7 @@ const Card = (props) => {
   const [commentValue, setCommentValue] = useState('');
   const [isPostingComment, setIsPostingComment] = useState(false);
   const [rendercomp, setrendercomp] = useState(false);
+  //const [imgUrl, setImageUrl] = useState();
 
   //Dropdown
   const displaynone = { display: "none" }
@@ -44,7 +45,6 @@ const Card = (props) => {
               // getUrls(base64Url, props.posts.content.id)
               // imageUrl = imageUrl + "OUT" + base64Url
               // ids = ids + "OUT" + props.posts.content.id
-
             }
           }
         }
