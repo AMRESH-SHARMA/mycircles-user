@@ -107,49 +107,6 @@ const Card = (props) => {
     }
   };
 
-  // async function getPosts(token) {
-  //   async function innerFunction() {
-  //     console.log('token..' + token)
-  //     const resultOut = await axios.get(postEndpoint, {
-  //       headers: {
-  //         'Content-type': 'application/json',
-  //         'Authorization': `Bearer ${token}`
-  //       },
-  //     })
-
-  //     if (resultOut.status != 200) {
-  //       alert('User not exists, please register..!')
-  //     } else {
-
-  //       resultsArray = await resultOut.data
-  //       await Promise.all(resultOut.data.results.map(async (result, i) => {
-  //         if (result.content.files.length > 0) {
-  //           if (!result.content.files[0].mime_type.includes('video')) {
-  //             console.log(result.content.files[0].mime_type)
-  //             var blob = await axios.get("https://circlenowdev.xyz/file/file/download?guid=" + result.content.files[0].guid, {
-  //               headers: {
-  //                 'Authorization': `Bearer ${token}`
-  //               },
-  //               responseType: 'blob'
-  //             })
-  //             var fr = new FileReader();
-  //             fr.readAsDataURL(blob.data)
-  //             fr.onloadend = () => {
-  //               var base64Url = fr.result
-  //               getUrls(base64Url, result.content.id)
-  //               imageUrl = imageUrl + "OUT" + base64Url
-  //               ids = ids + "OUT" + result.content.id
-  //             }
-  //           }
-  //         }
-  //         else {
-  //         }
-  //       }))
-  //     }
-  //     return { posts: resultsArray, imageUrls: imageUrl, ids_imageUrls: ids }
-  //   }
-  //   return await innerFunction()
-  // }
   const handleDelPost = async () => {
     try {
       console.log('del', id)
