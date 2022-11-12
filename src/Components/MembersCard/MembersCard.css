@@ -1,15 +1,3 @@
-.card2 {
-    padding: 15px;
-    width: 300px;
-    background: #fff;
-    border-radius: 5px;
-    text-align: center;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.7);
-    user-select: none;
-    margin-left: 120px;
-    margin-bottom: 30px;
-}
-
 .card-cover-photo2 {
     position: relative;
     background: url(https://i.imgur.com/jxyuizJ.jpeg);
@@ -85,3 +73,4 @@
     background: #7ce3ff;
     color: #222;
 }
+

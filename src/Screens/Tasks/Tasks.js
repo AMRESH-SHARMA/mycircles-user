@@ -55,28 +55,65 @@ const Tasks = () => {
 
     {localStorage.getItem("authToken") ?
       <>
-        <div className='container' style={{ paddingTop: "3rem" }}>
-          {loading ?
-            <div id='taskscrspinner'>< Spinner /></div> :
-            <>
-              {task && task.length ?
-                <div id='taskcontainer'>
-                  <div className="d-flex-col justify-content-around">
-                    {task.map((item, index) => (
-                      <TaskCard obj={item} key={index} />
-                    ))
-                    }
-                  </div>
-                </div>
-                : null}
-            </>}
-        </div>
-      </> :
-      <div style={{margin:"50px"}}>
+        {loading ?
+          <div className='gspin' style={{ marginTop: "2.5rem" }}><Spinner /></div> :
+
+          <div className="gcontainer">
+            <div className="gtwo-column-layout">
+
+              <div>
+                {task && task.length ? (
+                  task.map((item, index) => (
+                    <TaskCard obj={item} key={index} />
+                  ))
+                ) : null}
+              </div>
+
+              <div>
+                {task && task.length ?
+                  <>
+                    <div id='wallcardtwo' className="flex bd-highlight" style={{ margin: "0px 20px" }}>
+                      <div className="gcard">
+                        <div className="card-body">
+                          <div className="card-title d-flex">
+                            <div className="flex-grow-1">
+                              <strong>Getting </strong>Started
+                            </div>
+
+                          </div>
+                          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <div className="list-group">
+                            <a href="/" className="list-group-item list-group-item-action"><i className="bi bi-play-circle px-2"></i>Guide: Spaces</a>
+                            <a href="/" className="list-group-item list-group-item-action"><i className="bi bi-play-circle px-2"></i>Guide: Spaces</a>
+                            <a href="/" className="list-group-item list-group-item-action"><i className="bi bi-play-circle px-2"></i>Guide: Spaces</a>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="gcard mt-3">
+                        <div className="card-body">
+                          <div className="card-title d-flex">
+                            <div className="flex-grow-1">
+                              <strong>Latest </strong>Activities
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </> :
+                  null}
+
+              </div>
+
+            </div>
+          </div>
+        }
+      </>
+      :
+      <div style={{ margin: "2.5rem" }}>
         <Welcome />
-      </div>}
-
-
+      </div>
+    }
   </>
   )
 }

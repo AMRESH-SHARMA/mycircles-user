@@ -1,0 +1,16 @@
+/*GRID  */
+
+.grid-container {
+  display: grid;
+}
+
+.grid-container--fill {
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
+}
+
+.grid-element {
+/* background-color: deepPink; */
+margin: 2rem 3rem 0rem 0rem;
+/* color: #fff; */
+/* border: 1px solid #fff; */
+}

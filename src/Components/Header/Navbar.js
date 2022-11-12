@@ -164,7 +164,7 @@ export default function Navbar() {
                 }
 
               </div>
-              <li><hr className="dropdown-divider" /></li>
+              <hr style={{margin:"4px 0px 8px 0px"}} />
               <a id="createnewcirclebtn" data-bs-toggle="modal" data-bs-target="#newCircleModal" href="/" >Create New Circle</a>
             </ul>
 

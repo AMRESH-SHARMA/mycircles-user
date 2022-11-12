@@ -4,7 +4,7 @@ import "./Dropdown.css";
 
 const Dropdown = (props) => {
 
-  const { name, contentcontainer_id, id, guid } = props.obj;
+  const { name, contentcontainer_id, guid } = props.obj;
   //  console.log(props.obj) 
   return (<>
     <div className="allcirdd-items" >
@@ -16,7 +16,7 @@ const Dropdown = (props) => {
             height="25"
             className="profile"
           />
-          <div>{id}{name}{contentcontainer_id}</div>
+          <div>{name}</div>
         </a>
       </li>
     </div>

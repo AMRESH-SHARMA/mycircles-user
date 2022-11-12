@@ -53,8 +53,8 @@ const TaskandPostLayout = () => {
 
   return (
     <>
-      <div className="cardcard mt-3 mx-5">
-          <form onSubmit={handleSubmit}>
+      <div className="gcard">
+          <form onSubmit={handleSubmit} style={{margin:"0px 0px"}}>
             <input
               value={Message}
               onChange={(e) => setMessage(e.target.value)}
@@ -80,7 +80,7 @@ const TaskandPostLayout = () => {
           </form>
       </div>
 
-      <div className="cardcard mt-3 mx-5">
+      <div className="gcard" style={{marginTop:"2.5rem"}}>
         <div className="card-header d-flex" style={{ background: "white" }}>
           <h1><strong>Task</strong></h1>
 

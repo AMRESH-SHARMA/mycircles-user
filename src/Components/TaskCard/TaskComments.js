@@ -15,7 +15,7 @@ const TaskComments = (props) => {
 
   return (<>
     <div key={props.index}>
-      <div className="d-flex-row justify-content-start" id='showtaskcomments' >
+      <div className="d-flex-row justify-content-start" id='gshowallcommentsbody' >
         <div id='cmttitle' >
           <strong >{createdBy.display_name}</strong> &nbsp; {noofdays(createdAt)}
         </div>
@@ -25,7 +25,7 @@ const TaskComments = (props) => {
         </div>
       </div>
       <div className="d-flex justify-content-start">
-        <a className="likereply" href='...'>Like ({likes.total})</a>
+        <a className="likereply" href='/'>Like ({likes.total})</a>
         <a className="likereply" href='/' onClick={(e) => handlereplytocommentbtn(e)}>Reply</a>
         {replytocommentbtn ?
           <div id='taskcmtreplybox'>

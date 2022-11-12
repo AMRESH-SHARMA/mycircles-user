@@ -20,7 +20,7 @@ const RegisterPanel = () => {
             setTimeout(async () => {
               try {
                 console.log(values)
-                let resapi = await axios.post(`${registerUrl}/gettoken`, values)
+                let resapi = await axios.post(`${registerUrl}/invite/gettoken`, values)
                 console.log(resapi)
                 if (resapi.data.data.affectedRows === 2) {
                   navigate('/user/tokenstatus')

@@ -40,14 +40,14 @@ const SingleCircle = () => {
     <>
       <Header />
       <Navbar />
-      <div className="container mt-4">
+      <div className="gcontainer">
         <div className="d-flex justify-content-around">
-          <div id="wallcardone" className="pt-2 flex-grow-1 bd-highlight">
+          <div id="wallcardone" className="flex-grow-1 bd-highlight">
             <AddPost />
           </div>
 
-          <div id="wallcardtwo" className="pt-2 flex bd-highlight">
-            <div className="card mt-3">
+          <div id="wallcardtwo" className="flex bd-highlight">
+            <div className="gcard">
               <div className="card-body">
                 <div className="card-title d-flex">
                   <div className="flex-grow-1">

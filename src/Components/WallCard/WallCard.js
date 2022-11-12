@@ -160,16 +160,20 @@ const Card = (props) => {
     }
   }
 
+  let marTop = { marginBottom: "65px" }
+  
   return (<>
-    <div id="cardcard" className="card mt-3 mx-5">
-      <div className="card-header d-flex" style={{ background: "white" }}>
-        <div className="flex-grow-1" >
+    <div className="gtaskpostcard">
 
-          <div id='ct1' className='card-title'>
-            <strong>postid{id}{content.metadata.created_by.display_name}</strong>
-            <div id='d1'>{noofdays(content.metadata.created_at)}</div>
+      <div style={{ display: "flex", justifyContent: "space-between", padding: "5px 8px 10px" }}>
+        <div>
+          <strong>{content.metadata.created_by.display_name}</strong>
+          <div
+            style={{ margin: "-4px 0px - 5px 0px", fontSize: "12px" }}>
+            {noofdays(content.metadata.created_at)}
           </div>
         </div>
+
         <div>
           <i className='btn bi bi-three-dots taskheaderbtn' onClick={() => setithreedots(!ithreedots)} />
           <div id="task-dots-dropdown-content" style={!ithreedots ? displaynone : null}>
@@ -177,36 +181,43 @@ const Card = (props) => {
             <button className='tdbtndel' onClick={handleDelPost}>Delete</button>
           </div>
         </div>
-
-      </div>
-      <div id='cb1' className="card-body">
-        <p className="card-text">  {textToEmoji(message).split(':').join('')}</p>
       </div>
 
-      <img src="/img.jpg" className="card-img-top" alt="..." />
+      <hr />
 
-      <div className="card-footer d-flex justify-content-between" style={{ background: "white" }}>
+      <div style={{ maxHeight: "59px" }}>
+        <p style={{ padding: "5px" }}>fgggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggghbbbbbfgggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggghbbbbb {textToEmoji(message).split(':').join('')}</p>
+      </div>
+
+      <div style={message && message.length ? null : marTop}>
+        <img src="/img.jpg" className="card-img-top" alt="" />
+      </div>
+
+      <hr />
+
+      <div className="d-flex justify-content-between" style={{ padding: "5px" }}>
         <Likebtn likes={content.likes} />
         <i style={{ border: "none" }}
           className='btn bi bi-chat-right-dots-fill my-0 py-0'
           onClick={() => handleCommentButton()}></i>
         <i className='btn bi bi-send-fill my-0 py-0' style={{ border: "none" }}></i>
       </div>
-
       {commentButton && (
-        <><hr id='hr1' />
+        <>
+          <hr />
           <div id='wallcmtbody'>
             <WallCommentBody contentId={content.id} st={rendercomp} />
           </div>
-          <div id='cf1' className="card-footer">
-            <form onSubmit={addComment} className="d-flex justify-content-between" id="cmtinputform">
+          <hr />
+          <div>
+            <form onSubmit={addComment}>
               <input
-                id='commentshow'
                 value={commentValue}
                 onChange={(e) => setCommentValue(e.target.value)}
                 placeholder='Add comment..'
+                style={{ margin: "8px 0px 0px" }}
               />
-              <button id='commentbtn' onClick={addComment}>
+              <button style={{ margin: "4px 0px" }} className='globalbtn' onClick={addComment}>
                 {isPostingComment ?
                   <div className="globalbtnspin">
                     <Spinner />
