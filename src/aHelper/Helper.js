@@ -1,6 +1,7 @@
 export const signout = () => {
   localStorage.removeItem("authToken");
-  localStorage.removeItem("container_iid")
+  localStorage.removeItem("container_iid");
+  localStorage.removeItem("containerName");
   window.location.reload();
   return true;
 };

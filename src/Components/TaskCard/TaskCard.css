@@ -1,21 +1,3 @@
-@media screen and (max-width: 500px) {
-  #taskheaderbtnpanel {
-    /* display: none; */
-    margin: 0px 0px 0px 30px;
-  }
-}
-
-#taskcard {
-  margin: 50px 0px;
-  /* width: 35rem; */
-  max-width: 35rem;
-  min-width: 20rem;
-}
-
-#taskheaderbtnpanel {
-  margin: 0px 30px 0px 30px;
-}
-
 .taskheaderbtn {
   outline: none;
   border: none;
@@ -31,29 +13,6 @@
   border-radius: 5px;
 }
 
-#taskhr1 {
-  margin: 0px 0px 0px 0px;
-}
-
-#taskcmtbody{
-  margin: 0% 0%;
-  overflow: clip;
-  max-height: 190px;
-}
-
-#showtaskcomments {
-  border-radius: 150px 150px;
-  background: #e7e8e9;
-  border-style: hidden;
-  margin: 8px 0px;
-  padding-left: 15px;
-  max-height: 55px;
-  font-size: 82%;
-  overflow: clip;
-}
-.card-header{
-  background-color: white;
-}
 .subtitle {
   font-weight: 600;
   font-size: 15px;
@@ -65,12 +24,12 @@
 .subtitle-description {
   padding: 0px;
   margin: 0px;
-  /* font-weight: 600; */
   font-size: 13px;
 }
 
+/* TASK FILE DOWNLOAD OPTIONS */
 .taskfileimg {
-  margin-top: 50px;
+  margin: 50px 10px 10px;
   display: flex;
   justify-content: left;
 }
@@ -92,21 +51,36 @@
   padding: 0px;
 }
 
+/* TASK COMMENT BOX */
+#taskcmtbody{
+  margin: 0% 0%;
+  overflow: clip;
+  max-height: 190px;
+}
+
 .footer {
   display: flex;
   justify-content: space-between;
 }
 
-/* Dropdown */
+
+
+/* DROPDOWN */
+@media screen and (max-width: 776px) {
+  #task-dots-dropdown-content{
+    margin-left: -25%;
+  }
+}
 #task-dots-dropdown-content{
   display:block;
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
   padding: 12px 16px;
   z-index: 1;
   border-radius: 5px;
+
 }
  .tdbtn {
   display: block;
@@ -126,10 +100,20 @@
   color: red;
 }
 
-/* transition task cmt */
-.taskcmtbodyanimate{
+#taskcmtreplybox{
   display:block;
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  margin-top: 10px;
+  padding: 2px 2px;
+  z-index: 1;
+  /* border: 1px solid black; */
+  border-radius: 5px;
+  width: fit-content;
 }
-.globaldisplaynone{
-  display: none;
+#taskcmtreplybox-input{
+  margin: 3px 0px;
+  max-width: 350px;
+  min-width: 300px;
 }

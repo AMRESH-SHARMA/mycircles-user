@@ -6,43 +6,52 @@ import emoji from 'emoji-dictionary'
 import './WallCard.css';
 import Spinner from '../../aspinner/Spinner';
 import { noofdays } from '../../aHelper/Helper';
+import { useNavigate } from 'react-router-dom';
 
 const Card = (props) => {
 
   console.log(props)
   const { id, message, content } = props.posts
 
+  const navigate = useNavigate();
   const [commentButton, setCommentButton] = useState(false);
   const [commentValue, setCommentValue] = useState('');
   const [isPostingComment, setIsPostingComment] = useState(false);
   const [rendercomp, setrendercomp] = useState(false);
   //const [imgUrl, setImageUrl] = useState();
 
-  //
+  //Dropdown
+  const displaynone = { display: "none" }
+  const [ithreedots, setithreedots] = useState(false);
+
   useEffect(() => {
 
     async function getImgeurl() {
-      if (props.posts.content.files.length > 0) {
-        if (!props.posts.content.files[0].mime_type.includes('video')) {
-          console.log(props.posts.content.files[0].mime_type)
-          var blob = await axios.get("http://206.189.133.189/api/spaces/file/file/download?guid=" + props.posts.content.files[0].guid, {
-            headers: {
-              'Authorization': `Bearer ${localStorage.getItem("authToken")}`
-            },
-            responseType: 'blob'
-          })
-          var fr = new FileReader();
-          fr.readAsDataURL(blob.data)
-          fr.onloadend = () => {
-            var base64Url = fr.result
-            console.log(base64Url);
-            // getUrls(base64Url, props.posts.content.id)
-            // imageUrl = imageUrl + "OUT" + base64Url
-            // ids = ids + "OUT" + props.posts.content.id
-
+      try {
+        if (props.posts.content.files.length > 0) {
+          if (!props.posts.content.files[0].mime_type.includes('video')) {
+            console.log(props.posts.content.files[0].mime_type)
+            var blob = await axios.get("https://circlenowdev.xyz/file/file/download?guid=" + props.posts.content.files[0].guid, {
+              headers: {
+                'Authorization': `Bearer ${localStorage.getItem("authToken")}`
+              },
+              responseType: 'blob'
+            })
+            var fr = new FileReader();
+            fr.readAsDataURL(blob.data)
+            fr.onloadend = () => {
+              var base64Url = fr.result
+              console.log(base64Url);
+              // getUrls(base64Url, props.posts.content.id)
+              // imageUrl = imageUrl + "OUT" + base64Url
+              // ids = ids + "OUT" + props.posts.content.id
+            }
           }
         }
+      } catch (err) {
+        console.log(err)
       }
+
     }
     getImgeurl();
   })
@@ -98,69 +107,60 @@ const Card = (props) => {
     }
   };
 
-  // async function getPosts(token) {
-  //   async function innerFunction() {
-  //     console.log('token..' + token)
-  //     const resultOut = await axios.get(postEndpoint, {
-  //       headers: {
-  //         'Content-type': 'application/json',
-  //         'Authorization': `Bearer ${token}`
-  //       },
-  //     })
+  const handleDelPost = async () => {
+    try {
+      console.log('del', id)
+      const resapi = await axios.delete(`/post/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      })
+      console.log("resapi", resapi)
+      if (resapi.data.code === 200) {
+        setrendercomp(!rendercomp)
+        navigate(0);
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
-  //     if (resultOut.status != 200) {
-  //       alert('User not exists, please register..!')
-  //     } else {
-
-  //       resultsArray = await resultOut.data
-  //       await Promise.all(resultOut.data.results.map(async (result, i) => {
-  //         if (result.content.files.length > 0) {
-  //           if (!result.content.files[0].mime_type.includes('video')) {
-  //             console.log(result.content.files[0].mime_type)
-  //             var blob = await axios.get("https://circlenowdev.xyz/file/file/download?guid=" + result.content.files[0].guid, {
-  //               headers: {
-  //                 'Authorization': `Bearer ${token}`
-  //               },
-  //               responseType: 'blob'
-  //             })
-  //             var fr = new FileReader();
-  //             fr.readAsDataURL(blob.data)
-  //             fr.onloadend = () => {
-  //               var base64Url = fr.result
-  //               getUrls(base64Url, result.content.id)
-  //               imageUrl = imageUrl + "OUT" + base64Url
-  //               ids = ids + "OUT" + result.content.id
-  //             }
-  //           }
-  //         }
-  //         else {
-  //         }
-  //       }))
-  //     }
-  //     return { posts: resultsArray, imageUrls: imageUrl, ids_imageUrls: ids }
-  //   }
-  //   return await innerFunction()
-  // }
+  let marTop = { marginBottom: "65px" }
 
   return (<>
-    <div id="cardcard" className="card mt-3 mx-5">
-      <div className="card-header d-flex" style={{ background: "white" }}>
-        <div className="flex-grow-1" >
+    <div className="gtaskpostcard">
 
-          <div id='ct1' className='card-title'>
-            <strong>postid{id}{content.metadata.created_by.display_name}</strong>
-            <div id='d1'>{noofdays(content.metadata.created_at)}</div>
+      <div style={{ display: "flex", justifyContent: "space-between", padding: "5px 8px 10px" }}>
+        <div>
+          <strong>{content.metadata.created_by.display_name}</strong>
+          <div
+            style={{ margin: "-4px 0px - 5px 0px", fontSize: "12px" }}>
+            {noofdays(content.metadata.created_at)}
           </div>
         </div>
-        <i className="bi bi-three-dots"></i>
-      </div>
-      <div id='cb1' className="card-body">
-        <p className="card-text">  {textToEmoji(message).split(':').join('')}</p>
+
+        <div>
+          <i className='btn bi bi-three-dots taskheaderbtn' onClick={() => setithreedots(!ithreedots)} />
+          <div id="task-dots-dropdown-content" style={!ithreedots ? displaynone : null}>
+            <button className='tdbtn'>Edit</button>
+            <button className='tdbtndel' onClick={handleDelPost}>Delete</button>
+          </div>
+        </div>
       </div>
 
-      <img src="/img.jpg" className="card-img-top" alt="..." />
+      <hr />
 
-      <div className="card-footer d-flex justify-content-between" style={{ background: "white" }}>
+      <div style={{ maxHeight: "59px" }}>
+        <p style={{ padding: "5px" }}>{textToEmoji(message).split(':').join('')}</p>
+      </div>
+
+      <div style={message && message.length ? null : marTop}>
+        <img src="/img.jpg" className="card-img-top" alt="" />
+      </div>
+
+      <hr />
+
+      <div className="d-flex justify-content-between" style={{ padding: "5px" }}>
         <Likebtn likes={content.likes} />
         <i style={{ border: "none" }}
           className='btn bi bi-chat-right-dots-fill my-0 py-0'
@@ -169,19 +169,21 @@ const Card = (props) => {
       </div>
 
       {commentButton && (
-        <><hr id='hr1' />
-          <div id='wallcmtbody'>
+        <>
+          <hr />
+          <div className='gcmtbodyheight'>
             <WallCommentBody contentId={content.id} st={rendercomp} />
           </div>
-          <div id='cf1' className="card-footer">
-            <form onSubmit={addComment} className="d-flex justify-content-between" id="cmtinputform">
+          <hr />
+          <div>
+            <form onSubmit={addComment}>
               <input
-                id='commentshow'
                 value={commentValue}
                 onChange={(e) => setCommentValue(e.target.value)}
                 placeholder='Add comment..'
+                style={{ margin: "8px 0px 0px" }}
               />
-              <button id='commentbtn' onClick={addComment}>
+              <button style={{ margin: "4px 0px" }} className='globalbtn' onClick={addComment}>
                 {isPostingComment ?
                   <div className="globalbtnspin">
                     <Spinner />

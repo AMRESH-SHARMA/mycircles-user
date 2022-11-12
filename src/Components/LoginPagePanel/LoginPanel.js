@@ -17,6 +17,7 @@ const LoginPanel = () => {
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
   };
+  
   return (<>
     <div className="panel" id="login-form">
       <div className="panel-heading"><div className='bold'>Please</div> sign in</div>
@@ -90,7 +91,7 @@ const LoginPanel = () => {
                       onBlur={handleBlur}
                       className={errors.password && touched.password && "error"}
                     />
-                    <button id="togglepassview" type="button" className={passwordShown ? "bi bi-eye-slash" : "bi bi-eye"} onClick={togglePassword}></button>
+                    <button style={{fontSize:"20px"}} id="togglepassview" type="button" className={passwordShown ? "bi bi-eye-slash" : "bi bi-eye"} onClick={togglePassword}></button>
                   </div>
                   {errors.password && touched.password && (
                     <div className="input-feedback">{errors.password}</div>

@@ -36,12 +36,13 @@ const CommentsBody = (props) => {
   const overflowstylehide = { overflowY:"hidden" };
 
   return (<>
-    <div id='cmtf1' style={overflow === true ? overflowstyle : overflowstylehide} >
-      {commentData && commentData.length > 2 && <a className='showallcmt' href='/' onClick={(e)=>handlecmtstyle(e)} >Show all {commentData.length} comments</a>}
+    <div className='gtaskpost-commentcontent' style={overflow === true ? overflowstyle : overflowstylehide} >
+      {commentData && commentData.length > 2 && <a style={overflow === true ? {color:"red"} : {color:"black"}} className='gshowallcmt-btn' href='/' onClick={(e)=>handlecmtstyle(e)} >Show all {commentData.length} comments</a>}
+
       {commentData && commentData.length > 0 &&
         commentData.map((item, index) => (
           <div key={index}>
-            <div className="d-flex-row justify-content-start" id='showwallcomments' >
+            <div className="d-flex-row justify-content-start" id='gshowallcommentsbody'  >
               <div id='cmttitle' >
                 <strong >{item.createdBy.display_name}</strong> &nbsp; {noofdays(item.createdAt)}
               </div>
@@ -50,8 +51,8 @@ const CommentsBody = (props) => {
               </div>
             </div>
             <div className="d-flex justify-content-start">
-              <a className="likereply" href='...'>Like ({item.likes.total})</a>
-              <a className="likereply" href='...'>Reply</a>
+              <a className="likereply" href='/'>Like ({item.likes.total})</a>
+              <a className="likereply" href='/'>Reply</a>
             </div>
           </div>
         ))}

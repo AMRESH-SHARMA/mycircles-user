@@ -3,13 +3,16 @@ import "./TaskCard.css"
 import TaskCommentBody from './TaskCommentBody';
 import axios from 'axios';
 import Spinner from '../../aspinner/Spinner';
+import { useNavigate } from 'react-router-dom';
 
 export const TaskCard = (props) => {
 
-  var { id, description, end_datetime, created_by, status, content } = props.obj
+  const { id, description, end_datetime, created_by, status, content } = props.obj
   // console.log(props.obj)
   const imgtext = created_by.display_name
   // console.log(imgtext)
+
+  const navigate = useNavigate()
   const [TaskStatus, setTaskStatus] = useState(status);
   const [commentButton, setCommentButton] = useState(false);
   const [commentValue, setCommentValue] = useState('');
@@ -32,6 +35,7 @@ export const TaskCard = (props) => {
       console.log("resapi", resapi)
       if (resapi.data.code === 200) {
         setrendercomp(!rendercomp)
+        navigate(0);
       }
     } catch (err) {
       console.log(err)
@@ -101,83 +105,98 @@ export const TaskCard = (props) => {
     }
   };
 
-
   return (
     <>
-      <div id='taskcard' className="card">
-        <div className="card-header">
-          <div className="d-flex" >
-            <i className='bi bi-list-check' style={{ margin: "10px" }} />
-            <div className='card-title pt-2'>
-              <strong>Run Marketing Programs to Promote This Circle </strong>
-              <div>Prominds</div>
-            </div>
+
+      <div className="gtaskpostcard">
+
+        <div style={{ display: "flex", justifyContent: "space-between", padding: "5px 8px 10px" }}>
+
+          <div style={{ margin: "5px 5px 5px 5px" }}>
+            <i style={{ fontSize: "25px", border: "2.5px solid black", color: "black", }} className='bi bi-list-check' />
           </div>
 
-          <div id='taskheaderbtnpanel' className="row">
-            <div className="col-auto me-auto"><button id='taskheadermarkcomp' onClick={handleTaskStatus}>{TaskStatus === 1 ? "Mark Complete" : "Mark Pending"}</button></div>
-            <div className="col-auto"><i className='btn bi bi-hand-thumbs-up-fill taskheaderbtn' /></div>
-            <div className="col-auto"><i className='btn bi bi-paperclip taskheaderbtn' /></div>
-            <div className="col-auto"><i className='btn bi bi-chat-right-dots-fill taskheaderbtn' /></div>
-            <div className="col-auto">
-              <i className='btn bi bi-three-dots taskheaderbtn' onClick={() => setithreedots(!ithreedots)} />
-              <div id="task-dots-dropdown-content" style={!ithreedots ? displaynone : null}>
-                <button className='tdbtn'>Edit</button>
-                <button className='tdbtn'>Make&nbsp;public&#47;Make&nbsp;Private</button>
-                <button className='tdbtn'>Add tags</button>
-                <button className='tdbtn'>Move content</button>
-                <button className='tdbtndel' onClick={handleDelTask}>Delete</button>
+          <div>
+            <strong>Run Marketing Programs to Promote This Circle </strong>
+            <p style={{ fontSize: "90%" }}>Prominds</p>
+            <button id='taskheadermarkcomp' onClick={handleTaskStatus}>{TaskStatus === 1 ? "Mark Complete" : "Mark Pending"}</button>
+          </div>
+
+          <div style={{ marginTop: "45px", minWidth: "100px" }}>
+            <div className="row">
+              <div className="col-auto"><i className='btn bi bi-hand-thumbs-up-fill taskheaderbtn' /></div>
+              <div className="col-auto"><i className='btn bi bi-paperclip taskheaderbtn' /></div>
+              <div className="col-auto"><i className='btn bi bi-chat-right-dots-fill taskheaderbtn' /></div>
+              <div className="col-auto">
+                <i className='btn bi bi-three-dots taskheaderbtn' onClick={() => setithreedots(!ithreedots)} />
+                <div id="task-dots-dropdown-content" style={!ithreedots ? displaynone : null}>
+                  <button className='tdbtn'>Edit</button>
+                  <button className='tdbtn'>Make&nbsp;public&#47;Make&nbsp;Private</button>
+                  <button className='tdbtn'>Add tags</button>
+                  <button className='tdbtn'>Move content</button>
+                  <button className='tdbtndel' onClick={handleDelTask}>Delete</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="card-footer" style={{ background: "white" }}>
+        <hr />
+
+        <div style={{ padding: "10px" }}>
           <div className='subtitle'>Assignee: <p className='subtitle-description'>
             <img href='/' alt='' src={texttoimg(imgtext)} width={"25px"} height={"25px"} style={{ borderRadius: '50%' }} />&nbsp;{created_by.display_name}</p>
           </div>
-          <div className='subtitle'>Due Date:<p className='subtitle-description'>&nbsp;{end_datetime && end_datetime.slice(0, 10)}</p></div>
-          <div className='subtitle'>Description:</div><p className='subtitle-description'>{description}</p>
 
-          <div className='taskfileimg'>
+          <div className='subtitle'>
+            Due Date:<p className='subtitle-description'>&nbsp;{end_datetime && end_datetime.slice(0, 10)}</p>
+          </div>
+          <div className='subtitle'>
+            Description:
+          </div>
+          <p className='subtitle-description'>{description}</p>
+        </div>
 
-            <img src="/img.jpg" alt='' width="60" height="45" className="taskfile-img" />
 
-            <div className="task-file">
-              <img src="/adobe.png" alt='' width="40" height="30" className="taskfile-img" style={{ margin: "5px" }} />
-
-              <div className='task-file-text' style={{ marginTop: "5px" }}>
-                <p className='task-file-text'>Dummy File</p>
-                <a className='task-file-text' href='/' style={{ color: "#21A1B3", textDecoration: "none" }}>Download</a>
-
-              </div>
+        <div className='taskfileimg'>
+          <img src="/img.jpg" alt='' width="60" height="45" className="taskfile-img" />
+          <div className="task-file">
+            <img src="/adobe.png" alt='' width="40" height="30" className="taskfile-img" style={{ margin: "5px" }} />
+            <div className='task-file-text' style={{ marginTop: "5px" }}>
+              <p className='task-file-text'>Dummy File</p>
+              <a className='task-file-text' href='/' style={{ color: "#21A1B3", textDecoration: "none" }}>Download</a>
             </div>
           </div>
         </div>
 
-        <div className="card-footer d-flex justify-content-between" style={{ background: "white" }}>
+        <hr />
+
+        <div className="d-flex justify-content-between" style={{ padding: "5px" }}>
           <i style={{ border: "none" }}
             className='btn bi bi-chat-right-dots-fill my-0 py-0'
             onClick={() => handleCommentButton()}></i>
           <i className='btn bi bi-send-fill my-0 py-0' style={{ border: "none" }}></i>
         </div>
 
-        <>
 
-          <div className={commentButton ? 'taskcmtbodyanimate' : 'globaldisplaynone'}>
-            <hr id='taskhr1' />
-            <div id='taskcmtbody'>
+        {commentButton && (
+          <>
+            <hr />
+            <div className='gcmtbodyheight'>
               <TaskCommentBody contentId={content.id} st={rendercomp} />
             </div>
-            <div id='cf1' className="card-footer">
-              <form onSubmit={addComment} className="d-flex justify-content-between" id="cmtinputform">
+
+            <hr />
+
+            <div>
+              <form onSubmit={addComment}>
                 <input
-                  id='commentshow'
                   value={commentValue}
                   onChange={(e) => setCommentValue(e.target.value)}
                   placeholder='Add comment..'
+                  style={{ margin: "8px 0px 0px" }}
                 />
-                <button id='commentbtn' onClick={addComment}>
+                <button style={{ margin: "4px 0px" }} className='globalbtn' onClick={addComment}>
                   {isPostingComment ?
                     <div className="globalbtnspin">
                       <Spinner />
@@ -186,11 +205,11 @@ export const TaskCard = (props) => {
                 </button>
               </form>
             </div>
-          </div>
-        </>
-
+          </>
+        )}
 
       </div>
+
     </>
   )
 }
