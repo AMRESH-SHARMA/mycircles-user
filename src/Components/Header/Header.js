@@ -40,17 +40,18 @@ export default function Header() {
 
         <h5 style={{ color: "white" }} onClick={() => {
           localStorage.removeItem("container_iid")
+          localStorage.removeItem("containerName")
           navigate("/", { replace: true });
         }}>MyCircles</h5>
 
         {localStorage.getItem("authToken") ?
           <>
             <div id='headerrightbtns'>
-              <div className="dropdown text-end mx-3" style={{ background: "#54768a" }}>
+              <div className="dropdown text-end" style={{ background: "#54768a", margin:"2px 20px" }}>
                 <Notification currentUserID={currentUser.id} />
               </div>
 
-              <div className="dropdown text-end mx-3" style={{ background: "#54768a" }}>
+              <div className="dropdown text-end" style={{ background: "#54768a", margin:"2px 20px" }}>
                 <a href="/" className="d-block link-dark text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
                   <i className="bi bi-envelope-fill px-2" style={{ color: "white" }}></i>
                 </a>

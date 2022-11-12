@@ -52,10 +52,11 @@ const Members = () => {
               <Spinner />
             </div> :
             <>
-            
+
               {users && users.length ?
-                <div className="gcontainer" style={{ marginLeft: "4rem" }} >
-                  <div className="gcard" style={{ textAlign: "left", maxWidth: "60rem" }}>
+                <div className="gcontainer" style={{ margin: "2.5rem 4rem" }} >
+
+                  <div className="gcard" style={{ textAlign: "left" }}>
                     <h5>People</h5>
                     <div className='row'>
                       <div className='col-md-6 ' >
@@ -83,12 +84,10 @@ const Members = () => {
                     </div>
                   </div>
 
-                  <div className="grid-container grid-container--fill">
-                    {users && Filteredusers?.map(data => (
+                  <div className="row" style={{ marginTop: "2rem" }}>
+                    {users && Filteredusers?.map((data,index) => (
                       <>
-                        <div className="grid-element">
-                          <MembersCard name={data.display_name} tags={data.account.tags} />
-                        </div>
+                        <MembersCard name={data.display_name} tags={data.account.tags} key={index}/>
                       </>
                     ))}
                   </div>

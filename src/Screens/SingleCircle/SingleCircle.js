@@ -42,11 +42,11 @@ const SingleCircle = () => {
       <Navbar />
       <div className="gcontainer">
         <div className="d-flex justify-content-around">
-          <div id="wallcardone" className="flex-grow-1 bd-highlight">
+          <div id="wallcardone">
             <AddPost />
           </div>
 
-          <div id="wallcardtwo" className="flex bd-highlight">
+          <div id="wallcardtwo">
             <div className="gcard">
               <div className="card-body">
                 <div className="card-title d-flex">
@@ -81,7 +81,7 @@ const SingleCircle = () => {
               </div>
             </div>
 
-            <div className="card mt-3">
+            <div className="gcard" style={{marginTop:"2.5rem"}}>
               <div className="card-body">
                 <div className="card-title d-flex">
                   <div className="flex-grow-1">

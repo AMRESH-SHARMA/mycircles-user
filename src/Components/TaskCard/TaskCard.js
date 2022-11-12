@@ -3,6 +3,7 @@ import "./TaskCard.css"
 import TaskCommentBody from './TaskCommentBody';
 import axios from 'axios';
 import Spinner from '../../aspinner/Spinner';
+import { useNavigate } from 'react-router-dom';
 
 export const TaskCard = (props) => {
 
@@ -10,6 +11,8 @@ export const TaskCard = (props) => {
   // console.log(props.obj)
   const imgtext = created_by.display_name
   // console.log(imgtext)
+
+  const navigate = useNavigate()
   const [TaskStatus, setTaskStatus] = useState(status);
   const [commentButton, setCommentButton] = useState(false);
   const [commentValue, setCommentValue] = useState('');
@@ -32,6 +35,7 @@ export const TaskCard = (props) => {
       console.log("resapi", resapi)
       if (resapi.data.code === 200) {
         setrendercomp(!rendercomp)
+        navigate(0);
       }
     } catch (err) {
       console.log(err)
@@ -118,7 +122,7 @@ export const TaskCard = (props) => {
             <button id='taskheadermarkcomp' onClick={handleTaskStatus}>{TaskStatus === 1 ? "Mark Complete" : "Mark Pending"}</button>
           </div>
 
-          <div style={{ marginTop: "45px",minWidth:"100px" }}>
+          <div style={{ marginTop: "45px", minWidth: "100px" }}>
             <div className="row">
               <div className="col-auto"><i className='btn bi bi-hand-thumbs-up-fill taskheaderbtn' /></div>
               <div className="col-auto"><i className='btn bi bi-paperclip taskheaderbtn' /></div>
@@ -178,12 +182,12 @@ export const TaskCard = (props) => {
         {commentButton && (
           <>
             <hr />
-            <div id='wallcmtbody'>
+            <div className='gcmtbodyheight'>
               <TaskCommentBody contentId={content.id} st={rendercomp} />
             </div>
 
             <hr />
-            
+
             <div>
               <form onSubmit={addComment}>
                 <input

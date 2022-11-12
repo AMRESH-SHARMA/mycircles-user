@@ -7,7 +7,8 @@ import Spinner from "../aspinner/Spinner";
 const TaskandPostLayout = () => {
   const url = window.location.href;
   const id = url.split("/");
-  localStorage.setItem("container_iid",id[5]);
+  localStorage.setItem("container_iid", id[5]);
+  localStorage.setItem("containerName", id[4]);
 
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
@@ -53,34 +54,32 @@ const TaskandPostLayout = () => {
 
   return (
     <>
-      <div className="gcard">
-          <form onSubmit={handleSubmit} style={{margin:"0px 0px"}}>
-            <input
-              value={Message}
-              onChange={(e) => setMessage(e.target.value)}
-              type="text"
-              placeholder="Whats On Your Mind ?" />
-            {image ? <img style={{ marginLeft: "40px" }} alt='ico' src={image} width="200" height="200" /> : null}
+      <div className="gcard" style={{ marginLeft: "3rem" }}>
+        <form onSubmit={handleSubmit} style={{ margin: "0px 0px" }}>
+          <input
+            value={Message}
+            onChange={(e) => setMessage(e.target.value)}
+            type="text"
+            placeholder="Whats On Your Mind ?" />
+          {image ? <img style={{ marginLeft: "40px" }} alt='ico' src={image} width="200" height="200" /> : null}
 
-            <div className="addpostbtngroup">
-              <button className="globalbtn" onClick={(e) => handleSubmit(e)}>
-                {isPostingMessage ?
-                  <div className="globalbtnspin">
-                    <Spinner/>
-                  </div> :
-                  'Submit'}
-              </button>
+          <div className="addpostbtngroup">
+            <button className="globalbtn" onClick={(e) => handleSubmit(e)}>
+              {isPostingMessage ?
+                <div className="globalbtnspin">
+                  <Spinner />
+                </div> :
+                'Submit'}
+            </button>
 
-              <button className="globalbtn"><label style={{cursor: 'pointer'}} htmlFor="showimage"><i className="bi bi-upload" /></label></button>
-              <input onChange={onImageChange} type="file" accept="image/*" id="showimage" style={{ display: "none", visibility: "none" }}>
-              </input>
-            </div>
-
-
-          </form>
+            <button className="globalbtn"><label style={{ cursor: 'pointer' }} htmlFor="showimage"><i className="bi bi-upload" /></label></button>
+            <input onChange={onImageChange} type="file" accept="image/*" id="showimage" style={{ display: "none", visibility: "none" }}>
+            </input>
+          </div>
+        </form>
       </div>
 
-      <div className="gcard" style={{marginTop:"2.5rem"}}>
+      <div className="gcard" style={{ marginTop: "2.5rem", marginLeft: "3rem" }}>
         <div className="card-header d-flex" style={{ background: "white" }}>
           <h1><strong>Task</strong></h1>
 

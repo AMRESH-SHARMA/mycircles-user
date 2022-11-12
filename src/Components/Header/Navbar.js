@@ -133,10 +133,11 @@ export default function Navbar() {
                     width="30"
                     height="30"
                     className="navprofile"
-                  /><i className="bi bi-caret-down-fill" />
+                  />{localStorage.getItem("containerName")}<i className="bi bi-caret-down-fill" />
+
                 </NavLink>
                 :
-                <NavLink to="/" className="btn bi bi-record-circle px-2 noborder"
+                <NavLink to="/" className="btn bi bi-record-circle noborder" style={{paddingBottom:"0px"}}
                   data-bs-toggle="dropdown" aria-expanded="false">
                   <p className="homeNavTabsTitle">All CIRCLES<i className="bi bi-caret-down-fill" /></p>
                 </NavLink>
@@ -164,7 +165,7 @@ export default function Navbar() {
                 }
 
               </div>
-              <hr style={{margin:"4px 0px 8px 0px"}} />
+              <hr style={{ margin: "4px 0px 8px 0px" }} />
               <a id="createnewcirclebtn" data-bs-toggle="modal" data-bs-target="#newCircleModal" href="/" >Create New Circle</a>
             </ul>
 
@@ -261,18 +262,18 @@ export default function Navbar() {
           </li>
 
           {circleIId && <>
-            <div className='col-lg'></div>
+            <div className='col'></div>
             <NavItem className="navitems" >
-              <p className="text">1026</p>
-              <h5 className="navitem">Posts</h5>
+              <label style={{ margin: "0px", padding: "0px" }} className="text">1026</label>
+              <label style={{ margin: "-2px 0px 0px 0px", padding: "0px" }}>Posts</label>
             </NavItem>
             <NavItem className="navitems" >
-              <p className="text">1026</p>
-              <h5 className="navitem">Members</h5>
+              <label style={{ margin: "0px", padding: "0px" }} className="text">1026</label>
+              <label style={{ margin: "-2px 0px 0px 0px", padding: "0px" }}>Members</label>
             </NavItem>
             <NavItem className="navitems" >
-              <p className="text">478</p>
-              <h5 className="navitem">Followers</h5>
+              <label style={{ margin: "0px", padding: "0px" }} className="text">1026</label>
+              <label style={{ margin: "-2px 0px 0px 0px", padding: "0px" }}>Followers</label>
             </NavItem>
             <NavItem className="navitems" >
               <div className='navinvitebtn'>

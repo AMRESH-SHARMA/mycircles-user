@@ -1,16 +1,23 @@
 /*GRID  */
-
+@media screen and (min-width: 800px) {
+  .grid-container--fill {
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+  }
+}
 .grid-container {
   display: grid;
 }
 
-.grid-container--fill {
-  grid-template-columns: repeat(3, minmax(200px, 1fr));
+.ggrid-container--fill {
+  /* grid-template-columns: repeat(3, minmax(200px, 1fr)); */
+  /* grid-template-columns: 1fr 1fr 1fr; */
+  /* grid-template-columns: 300px 1fr; */
+  grid-gap: 20px;
 }
 
-.grid-element {
-/* background-color: deepPink; */
-margin: 2rem 3rem 0rem 0rem;
-/* color: #fff; */
-/* border: 1px solid #fff; */
+.ggrid-element {
+background-color: deepPink;
+margin: 2rem 0rem 0rem 0rem;
+color: #fff;
+border: 1px solid #fff;
 }

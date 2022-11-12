@@ -6,12 +6,14 @@ import emoji from 'emoji-dictionary'
 import './WallCard.css';
 import Spinner from '../../aspinner/Spinner';
 import { noofdays } from '../../aHelper/Helper';
+import { useNavigate } from 'react-router-dom';
 
 const Card = (props) => {
 
   console.log(props)
   const { id, message, content } = props.posts
 
+  const navigate = useNavigate();
   const [commentButton, setCommentButton] = useState(false);
   const [commentValue, setCommentValue] = useState('');
   const [isPostingComment, setIsPostingComment] = useState(false);
@@ -24,27 +26,32 @@ const Card = (props) => {
   useEffect(() => {
 
     async function getImgeurl() {
-      if (props.posts.content.files.length > 0) {
-        if (!props.posts.content.files[0].mime_type.includes('video')) {
-          console.log(props.posts.content.files[0].mime_type)
-          var blob = await axios.get("https://circlenowdev.xyz/file/file/download?guid=" + props.posts.content.files[0].guid, {
-            headers: {
-              'Authorization': `Bearer ${localStorage.getItem("authToken")}`
-            },
-            responseType: 'blob'
-          })
-          var fr = new FileReader();
-          fr.readAsDataURL(blob.data)
-          fr.onloadend = () => {
-            var base64Url = fr.result
-            console.log(base64Url);
-            // getUrls(base64Url, props.posts.content.id)
-            // imageUrl = imageUrl + "OUT" + base64Url
-            // ids = ids + "OUT" + props.posts.content.id
+      try {
+        if (props.posts.content.files.length > 0) {
+          if (!props.posts.content.files[0].mime_type.includes('video')) {
+            console.log(props.posts.content.files[0].mime_type)
+            var blob = await axios.get("https://circlenowdev.xyz/file/file/download?guid=" + props.posts.content.files[0].guid, {
+              headers: {
+                'Authorization': `Bearer ${localStorage.getItem("authToken")}`
+              },
+              responseType: 'blob'
+            })
+            var fr = new FileReader();
+            fr.readAsDataURL(blob.data)
+            fr.onloadend = () => {
+              var base64Url = fr.result
+              console.log(base64Url);
+              // getUrls(base64Url, props.posts.content.id)
+              // imageUrl = imageUrl + "OUT" + base64Url
+              // ids = ids + "OUT" + props.posts.content.id
 
+            }
           }
         }
+      } catch (err) {
+        console.log(err)
       }
+
     }
     getImgeurl();
   })
@@ -154,6 +161,7 @@ const Card = (props) => {
       console.log("resapi", resapi)
       if (resapi.data.code === 200) {
         setrendercomp(!rendercomp)
+        navigate(0);
       }
     } catch (err) {
       console.log(err)
@@ -161,7 +169,7 @@ const Card = (props) => {
   }
 
   let marTop = { marginBottom: "65px" }
-  
+
   return (<>
     <div className="gtaskpostcard">
 
@@ -186,7 +194,7 @@ const Card = (props) => {
       <hr />
 
       <div style={{ maxHeight: "59px" }}>
-        <p style={{ padding: "5px" }}>fgggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggghbbbbbfgggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggghbbbbb {textToEmoji(message).split(':').join('')}</p>
+        <p style={{ padding: "5px" }}>{textToEmoji(message).split(':').join('')}</p>
       </div>
 
       <div style={message && message.length ? null : marTop}>
@@ -202,10 +210,11 @@ const Card = (props) => {
           onClick={() => handleCommentButton()}></i>
         <i className='btn bi bi-send-fill my-0 py-0' style={{ border: "none" }}></i>
       </div>
+
       {commentButton && (
         <>
           <hr />
-          <div id='wallcmtbody'>
+          <div className='gcmtbodyheight'>
             <WallCommentBody contentId={content.id} st={rendercomp} />
           </div>
           <hr />
