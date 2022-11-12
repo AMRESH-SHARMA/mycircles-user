@@ -8,7 +8,7 @@ import Spinner from '../../aspinner/Spinner';
 import './Navbar.css';
 
 
-export default function Navbar() {
+export default function SCNavbar() {
   let activeStyle = {
     border: "none",
     borderRadius: "0px",
@@ -36,7 +36,7 @@ export default function Navbar() {
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
-  const container_iid = localStorage.getItem("container_iid");
+  // const container_iid = localStorage.getItem("container_iid");
 
   if (submitting) {
     var disableStyle = { cursor: "not-allowed", }
@@ -66,7 +66,7 @@ export default function Navbar() {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         })
-        console.log(res)
+        console.log("resapi", res)
       }
       catch (err) {
         console.warn(err)
@@ -111,8 +111,6 @@ export default function Navbar() {
     getSpaces()
   }, [circleIId])
 
-  console.log(circles);
-
   const Filteredcircles =
     circles?.filter(item =>
       item.name.toLowerCase().includes(search.toLowerCase())
@@ -123,25 +121,17 @@ export default function Navbar() {
       <div className="container">
         <div className="nav">
           <div className="dropdown text-end mx-3">
-            {
-              container_iid ?
-                <NavLink to="/" className="btn noborder"
-                  data-bs-toggle="dropdown" aria-expanded="false">
-                  <img
-                    src="/img.jpg"
-                    alt="img"
-                    width="30"
-                    height="30"
-                    className="navprofile"
-                  />{localStorage.getItem("containerName")}<i className="bi bi-caret-down-fill" />
 
-                </NavLink>
-                :
-                <NavLink to="/" className="btn bi bi-record-circle noborder" style={{ paddingBottom: "0px" }}
-                  data-bs-toggle="dropdown" aria-expanded="false">
-                  <p className="homeNavTabsTitle">All CIRCLES<i className="bi bi-caret-down-fill" /></p>
-                </NavLink>
-            }
+            <NavLink to="/" className="btn noborder"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <img
+                src="/img.jpg"
+                alt="img"
+                width="30"
+                height="30"
+                className="navprofile"
+              />{localStorage.getItem("containerName")}<i className="bi bi-caret-down-fill" />
+            </NavLink>
 
             <ul className="dropdown-menu text-small">
               <div id="createcirclesearchboxdiv">
@@ -237,7 +227,7 @@ export default function Navbar() {
             </div>
           </div>
           <li className=' homeNavTabs'>
-            <NavLink to="/wall" className='btn bi bi-speedometer'
+            <NavLink to={`/c/${localStorage.getItem("containerName")}/${localStorage.getItem("container_iid")}/SCwall`} className='btn bi bi-speedometer'
               style={({ isActive }) => isActive ? activeStyle : unActiveStyle}>
               <p className="homeNavTabsTitle">WALL</p>
             </NavLink>
@@ -245,44 +235,41 @@ export default function Navbar() {
 
 
           <li className=' homeNavTabs'>
-            <NavLink to="/members"
+            <NavLink to={`/c/${localStorage.getItem("containerName")}/${localStorage.getItem("container_iid")}/SCmembers`}
               className='btn bi bi-people-fill'
               style={({ isActive }) => isActive ? activeStyle : unActiveStyle}>
               <p className="homeNavTabsTitle">MEMBERS</p>
             </NavLink>
           </li>
-
+          
 
           <li className='homeNavTabs'>
-            <NavLink to="/tasks"
+            <NavLink to={`/c/${localStorage.getItem("containerName")}/${localStorage.getItem("container_iid")}/SCtasks`}
               className='btn bi bi-list-task'
               style={({ isActive }) => isActive ? activeStyle : unActiveStyle}>
               <p className="homeNavTabsTitle">TASKS</p>
             </NavLink>
           </li>
 
-          {circleIId && <>
-            <div className='col'></div>
-            <NavItem className="navitems" >
-              <label style={{ margin: "0px", padding: "0px" }} className="text">1026</label>
-              <label style={{ margin: "-2px 0px 0px 0px", padding: "0px" }}>Posts</label>
-            </NavItem>
-            <NavItem className="navitems" >
-              <label style={{ margin: "0px", padding: "0px" }} className="text">1026</label>
-              <label style={{ margin: "-2px 0px 0px 0px", padding: "0px" }}>Members</label>
-            </NavItem>
-            <NavItem className="navitems" >
-              <label style={{ margin: "0px", padding: "0px" }} className="text">1026</label>
-              <label style={{ margin: "-2px 0px 0px 0px", padding: "0px" }}>Followers</label>
-            </NavItem>
-            <NavItem className="navitems" >
-              <div className='navinvitebtn'>
-                <button className='globalbtn' style={{ marginTop: "2px" }} onClick={handleShow}><i className="bi bi-cursor-fill">Invite</i></button>
-                {show && <InviteModal show={show} id={circleIId} handleClose={handleClose} />}
-              </div>
-            </NavItem>
-          </>
-          }
+          <div className='col'></div>
+          <NavItem className="navitems" >
+            <label style={{ margin: "0px", padding: "0px" }} className="text">1026</label>
+            <label style={{ margin: "-2px 0px 0px 0px", padding: "0px" }}>Posts</label>
+          </NavItem>
+          <NavItem className="navitems" >
+            <label style={{ margin: "0px", padding: "0px" }} className="text">1026</label>
+            <label style={{ margin: "-2px 0px 0px 0px", padding: "0px" }}>Members</label>
+          </NavItem>
+          <NavItem className="navitems" >
+            <label style={{ margin: "0px", padding: "0px" }} className="text">1026</label>
+            <label style={{ margin: "-2px 0px 0px 0px", padding: "0px" }}>Followers</label>
+          </NavItem>
+          <NavItem className="navitems" >
+            <div className='navinvitebtn'>
+              <button className='globalbtn' style={{ marginTop: "2px" }} onClick={handleShow}><i className="bi bi-cursor-fill">Invite</i></button>
+              {show && <InviteModal show={show} id={circleIId} handleClose={handleClose} />}
+            </div>
+          </NavItem>
         </div>
       </div>
     </div>

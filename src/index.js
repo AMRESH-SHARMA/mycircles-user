@@ -8,8 +8,8 @@ import axios from 'axios'
 import "./index.css";
 
 const setupAxios = () => {
-  axios.defaults.baseURL = 'http://206.189.133.189/api/spaces/v1';
-  // axios.defaults.baseURL = 'https://circlenowdev.xyz/api/v1';
+  // axios.defaults.baseURL = 'http://206.189.133.189/api/spaces/v1';
+  axios.defaults.baseURL = 'https://circlenowdev.xyz/api/v1';
   axios.defaults.headers = {
     'Cache-Control': 'no-cache,no-store',
     'Pragma': 'no-cache',

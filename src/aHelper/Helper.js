@@ -17,6 +17,15 @@ export const noofdays = (param) => {
   } else if (d === 1) {
     return '1 day ago';
   } else {
-    return d+' days ago';
+    return d + ' days ago';
   }
+}
+
+export const scpage = () => {
+  let url = window.location.href;
+  let slug = url.split("/")[3];
+  if (slug && slug === "c") {
+    return true;
+  }
+  else return false;
 }

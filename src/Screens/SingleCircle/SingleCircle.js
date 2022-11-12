@@ -1,7 +1,8 @@
 import React from 'react';
-import Navbar from "../../Components/Header/Navbar";
+// import Navbar from "../../Components/Header/Navbar";
 import Header from "../../Components/Header/Header";
 import AddPost from "../../SCComponents/AddPost";
+import SCNavbar from '../../Components/Header/SCNavbar';
 // import axios from "axios";
 const SingleCircle = () => {
   // const url = window.location.href;
@@ -39,7 +40,9 @@ const SingleCircle = () => {
   return (
     <>
       <Header />
-      <Navbar />
+      
+      <SCNavbar/>
+
       <div className="gcontainer">
         <div className="d-flex justify-content-around">
           <div id="wallcardone">

@@ -6,6 +6,8 @@ import Navbar from "../../Components/Header/Navbar";
 import Header from "../../Components/Header/Header";
 import Spinner from "../../aspinner/Spinner";
 import Welcome from '../Error/Welcome';
+import SCNavbar from '../../Components/Header/SCNavbar';
+import { scpage } from '../../aHelper/Helper';
 
 const Tasks = () => {
 
@@ -51,7 +53,8 @@ const Tasks = () => {
 
   return (<>
     <Header />
-    <Navbar />
+
+    {scpage() ? <SCNavbar /> : <Navbar />}
 
     {localStorage.getItem("authToken") ?
       <>
@@ -66,42 +69,41 @@ const Tasks = () => {
                   task.map((item, index) => (
                     <TaskCard obj={item} key={index} />
                   ))
-                ) : null}
+                ) : "NO TASK EXIST"}
               </div>
 
               <div>
-                {task && task.length ?
-                  <>
-                    <div id='wallcardtwo' className="flex bd-highlight" style={{ margin: "0px 20px" }}>
-                      <div className="gcard">
-                        <div className="card-body">
-                          <div className="card-title d-flex">
-                            <div className="flex-grow-1">
-                              <strong>Getting </strong>Started
-                            </div>
 
+                <>
+                  <div id='wallcardtwo' className="flex bd-highlight" style={{ margin: "0px 20px" }}>
+                    <div className="gcard">
+                      <div className="card-body">
+                        <div className="card-title d-flex">
+                          <div className="flex-grow-1">
+                            <strong>Getting </strong>Started
                           </div>
-                          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <div className="list-group">
-                            <a href="/" className="list-group-item list-group-item-action"><i className="bi bi-play-circle px-2"></i>Guide: Spaces</a>
-                            <a href="/" className="list-group-item list-group-item-action"><i className="bi bi-play-circle px-2"></i>Guide: Spaces</a>
-                            <a href="/" className="list-group-item list-group-item-action"><i className="bi bi-play-circle px-2"></i>Guide: Spaces</a>
-                          </div>
+
+                        </div>
+                        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <div className="list-group">
+                          <a href="/" className="list-group-item list-group-item-action"><i className="bi bi-play-circle px-2"></i>Guide: Spaces</a>
+                          <a href="/" className="list-group-item list-group-item-action"><i className="bi bi-play-circle px-2"></i>Guide: Spaces</a>
+                          <a href="/" className="list-group-item list-group-item-action"><i className="bi bi-play-circle px-2"></i>Guide: Spaces</a>
                         </div>
                       </div>
+                    </div>
 
-                      <div className="gcard mt-3">
-                        <div className="card-body">
-                          <div className="card-title d-flex">
-                            <div className="flex-grow-1">
-                              <strong>Latest </strong>Activities
-                            </div>
+                    <div className="gcard mt-3">
+                      <div className="card-body">
+                        <div className="card-title d-flex">
+                          <div className="flex-grow-1">
+                            <strong>Latest </strong>Activities
                           </div>
                         </div>
                       </div>
                     </div>
-                  </> :
-                  null}
+                  </div>
+                </>
 
               </div>
 

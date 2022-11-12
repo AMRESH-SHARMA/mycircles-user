@@ -19,7 +19,7 @@ export default function Header() {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         })
-        console.log(result.data)
+        // console.log(result.data)
         if (result.data.status === 401) {
           localStorage.removeItem("authToken");
         }

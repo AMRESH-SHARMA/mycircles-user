@@ -6,6 +6,8 @@ import axios from 'axios';
 import Spinner from '../../aspinner/Spinner';
 import Welcome from '../Error/Welcome';
 import './Members.css';
+import SCNavbar from '../../Components/Header/SCNavbar';
+import { scpage } from '../../aHelper/Helper';
 
 const Members = () => {
 
@@ -43,7 +45,8 @@ const Members = () => {
   return (
     <>
       <Header />
-      <Navbar />
+
+      {scpage() ? <SCNavbar /> : <Navbar />}
 
       {localStorage.getItem("authToken") ?
         <>
@@ -85,9 +88,9 @@ const Members = () => {
                   </div>
 
                   <div className="row" style={{ marginTop: "2rem" }}>
-                    {users && Filteredusers?.map((data,index) => (
+                    {users && Filteredusers?.map((data, index) => (
                       <>
-                        <MembersCard name={data.display_name} tags={data.account.tags} key={index}/>
+                        <MembersCard name={data.display_name} tags={data.account.tags} key={index} />
                       </>
                     ))}
                   </div>
