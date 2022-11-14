@@ -2,8 +2,6 @@ import { React, useEffect, useState } from 'react';
 import { NavLink } from "react-router-dom";
 import Dropdown from '../Dropdown/Dropdown';
 import axios from "axios";
-import { NavItem } from "react-bootstrap"
-import InviteModal from "./InviteModal";
 import Spinner from '../../aspinner/Spinner';
 import './Navbar.css';
 
@@ -31,11 +29,9 @@ export default function Navbar() {
   const [visibility, setVisibility] = useState(0);
   const [joinPolicy, setJoinPolicy] = useState(0);
   const [show, setShow] = useState(false);
-  const [circleIId, setcircleIId] = useState('');
+  // const [circleIId, setcircleIId] = useState('');
   const [search, setSearch] = useState('');
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
-
+  
   const container_iid = localStorage.getItem("container_iid");
 
   if (submitting) {
@@ -66,7 +62,7 @@ export default function Navbar() {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         })
-        console.log(res)
+        // console.log(res)
       }
       catch (err) {
         console.warn(err)
@@ -83,39 +79,39 @@ export default function Navbar() {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         })
+        if(result.data.results){
         setCircles(result.data.results)
-        // console.log("result:", result.data.results)
+        console.log("result:", result.data.results)
+        }
       } catch (err) {
         console.warn(err)
       }
       setLoading(false)
     }
-    const getSpacesById = async () => {
-      let url = window.location.href;
-      let id = url.split("/")[5];
-      setcircleIId(id)
-      if (circleIId) {
-        try {
-          const resapi = await axios.get(`/space/${circleIId}`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-            },
-          })
-          console.log('r', resapi)
-        } catch (err) {
-          console.log(err);
-        }
-      }
-    }
-    getSpacesById()
+    // const getSpacesById = async () => {
+    //   let url = window.location.href;
+    //   let id = url.split("/")[5];
+    //   setcircleIId(id)
+    //   if (circleIId) {
+    //     try {
+    //       const resapi = await axios.get(`/space/${circleIId}`, {
+    //         headers: {
+    //           Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+    //         },
+    //       })
+    //       // console.log('r', resapi)
+    //     } catch (err) {
+    //       console.log(err);
+    //     }
+    //   }
+    // }
+    // getSpacesById()
     getSpaces()
-  }, [circleIId])
-
-  console.log(circles);
+  }, [])
 
   const Filteredcircles =
     circles?.filter(item =>
-      item.name.toLowerCase().includes(search.toLowerCase())
+      item.owner.id === parseInt(localStorage.getItem("current_user_id")) && item.name.toLowerCase().includes(search.toLowerCase())
     )
 
   return (<>
@@ -143,7 +139,7 @@ export default function Navbar() {
                 </NavLink>
             }
 
-            <ul className="dropdown-menu text-small">
+            <ul className="dropdown-menu text-small" style={{ minHeight: "50px" }}>
               <div id="createcirclesearchboxdiv">
                 <input
                   onChange={handleSearch}
@@ -261,28 +257,6 @@ export default function Navbar() {
             </NavLink>
           </li>
 
-          {circleIId && <>
-            <div className='col'></div>
-            <NavItem className="navitems" >
-              <label style={{ margin: "0px", padding: "0px" }} className="text">1026</label>
-              <label style={{ margin: "-2px 0px 0px 0px", padding: "0px" }}>Posts</label>
-            </NavItem>
-            <NavItem className="navitems" >
-              <label style={{ margin: "0px", padding: "0px" }} className="text">1026</label>
-              <label style={{ margin: "-2px 0px 0px 0px", padding: "0px" }}>Members</label>
-            </NavItem>
-            <NavItem className="navitems" >
-              <label style={{ margin: "0px", padding: "0px" }} className="text">1026</label>
-              <label style={{ margin: "-2px 0px 0px 0px", padding: "0px" }}>Followers</label>
-            </NavItem>
-            <NavItem className="navitems" >
-              <div className='navinvitebtn'>
-                <button className='globalbtn' style={{ marginTop: "2px" }} onClick={handleShow}><i className="bi bi-cursor-fill">Invite</i></button>
-                {show && <InviteModal show={show} id={circleIId} handleClose={handleClose} />}
-              </div>
-            </NavItem>
-          </>
-          }
         </div>
       </div>
     </div>

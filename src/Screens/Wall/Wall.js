@@ -24,7 +24,7 @@ const Wall = () => {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
             },
           })
-          console.log(result.data);
+          // console.log(result.data);
           setPosts(result.data.results)
           setLoading(false)
           // console.log("result:", result)
@@ -40,7 +40,7 @@ const Wall = () => {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
             },
           })
-          console.log("result:", resapi)
+          // console.log("result:", resapi)
           if (resapi.data.results) {
             setPosts(resapi.data.results)
           }

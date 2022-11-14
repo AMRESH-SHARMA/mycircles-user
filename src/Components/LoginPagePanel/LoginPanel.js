@@ -35,7 +35,7 @@ const LoginPanel = () => {
                   console.log(res.data.auth_token);
                   localStorage.setItem("authToken", res.data.auth_token);
                   navigate('/');
-                }
+                }else alert("Invalid credentials");
               }
               catch (err){
                 console.log(err);

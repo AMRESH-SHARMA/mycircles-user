@@ -29,3 +29,26 @@ export const scpage = () => {
   }
   else return false;
 }
+
+export const letterGenerate = (param) => {
+  if (param) {
+    const myArray = param.split(" ", 2)
+    if (myArray.length === 1)
+      return myArray[0].charAt(0)
+    else {
+      return myArray[0].charAt(0) + myArray[1].charAt(0)
+    }
+  }
+}
+
+export const randomColor = () => {
+  const arr = ["#f1c40f", "#27ae60","#0000ff", "#d35400", "#3498db", "#2980b9", "#e74c3c", "#c0392b", "#8e44ad"];
+  const num = Math.floor(Math.random() * 9);
+  return arr[num]
+}
+
+// local storage items
+// localStorage.removeItem("authToken");
+// localStorage.removeItem("container_iid");
+// localStorage.removeItem("containerName");
+// localStorage.removeItem("current_user_id");

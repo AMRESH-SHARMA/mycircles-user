@@ -1,14 +1,16 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import PopupModal from "./PopupModal";
 import "./TaskandPost.css";
 import Spinner from "../aspinner/Spinner";
 
 const TaskandPostLayout = () => {
-  const url = window.location.href;
-  const id = url.split("/");
-  localStorage.setItem("container_iid", id[5]);
-  localStorage.setItem("containerName", id[4]);
+
+  let { id, circle } = useParams();
+  console.log('aaa',id,circle)
+  localStorage.setItem("container_iid", id);
+  localStorage.setItem("containerName", circle);
 
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);

@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { noofdays } from '../../aHelper/Helper';
 
 const CommentsBody = (props) => {
-  console.log(props)
+  // console.log(props)
   const { contentId,st } = props
   const [commentData, setCommentData] = useState('')
   const [overflow, setoverflow] = useState(false)
@@ -19,7 +19,7 @@ const CommentsBody = (props) => {
           },
         })
         setCommentData(resapi.data.results.reverse());
-        console.log("allcmts", resapi.data.results);
+        // console.log("allcmts", resapi.data.results);
       } catch (err) {
         console.warn(err)
       }
@@ -29,7 +29,6 @@ const CommentsBody = (props) => {
 
   const handlecmtstyle=(e)=>{
     e.preventDefault()
-    console.log(overflow);
     setoverflow(!overflow)
   }
   const overflowstyle = { overflowY:"scroll" };
