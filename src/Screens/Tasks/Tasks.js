@@ -17,22 +17,7 @@ const Tasks = () => {
 
   useEffect(() => {
     (async () => {
-      if (!localStorage.getItem("container_iid")) {
-        try {
-          const res = await axios.get('/tasks', {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-            },
-          })
-          setTask(res.data.results)
-          setLoading(false)
-          console.log("result:", res)
-        } catch (err) {
-          setLoading(false)
-          console.warn(err)
-        }
-      }
-      else if (localStorage.getItem("container_iid")) {
+      if (localStorage.getItem("container_iid") && scpage()) {
         try {
           const res = await axios.get('/tasks/container/' + localStorage.getItem("container_iid"), {
             headers: {
@@ -47,6 +32,22 @@ const Tasks = () => {
           console.warn(err)
         }
       }
+      else {
+        try {
+          const res = await axios.get('/tasks', {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
+          })
+          setTask(res.data.results)
+          setLoading(false)
+          console.log("result:", res)
+        } catch (err) {
+          setLoading(false)
+          console.warn(err)
+        }
+      }
+
     })()
   }, [])
 
