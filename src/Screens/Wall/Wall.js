@@ -17,8 +17,7 @@ const Wall = () => {
 
   useEffect(() => {
     (async () => {
-
-      if (localStorage.getItem("container_iid")) {
+      if (localStorage.getItem("container_iid") && scpage()) {
         try {
           const result = await axios.get(`/post/container/${localStorage.getItem("container_iid")}`, {
             headers: {
