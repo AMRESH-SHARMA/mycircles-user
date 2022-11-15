@@ -36,7 +36,6 @@ export default function SCNavbar() {
   const handleClose = () => setShow(false);
   const bgColor = { backgroundColor: randomColor() };
 
-  // const container_iid = localStorage.getItem("container_iid");
 
   if (submitting) {
     var disableStyle = { cursor: "not-allowed", }
@@ -91,24 +90,22 @@ export default function SCNavbar() {
       }
       setLoading(false)
     }
-    // const getSpaceById = async () => {
-    //   let url = window.location.href;
-    //   let id = url.split("/")[5];
-    //   setcircleIId(id)
-    //   if (circleIId) {
-    //     try {
-    //       const resapi = await axios.get(`/space/${circleIId}`, {
-    //         headers: {
-    //           Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    //         },
-    //       })
-    //       // console.log('getSpacesById', resapi)
-    //     } catch (err) {
-    //       console.log(err);
-    //     }
-    //   }
-    // }
-    // getSpaceById()
+    const getSpaceById = async () => {
+      setcircleIId(localStorage.getItem("container_iid"))
+      if (localStorage.getItem("container_iid")) {
+        try {
+          const resapi = await axios.get(`/space/${localStorage.getItem("container_iid")}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
+          })
+          console.log('getSpacesById', resapi)
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    }
+    getSpaceById()
     getSpaces()
   }, [circleIId])
 
@@ -126,25 +123,25 @@ export default function SCNavbar() {
             <NavLink to="/" className="btn noborder"
               data-bs-toggle="dropdown" aria-expanded="false">
               {false ?
-              <>
-                <img
-                  src="/img.jpg"
-                  alt="img"
-                  width="30"
-                  height="30"
-                  className="navprofile"
-                />
-                {localStorage.getItem("containerName")}<i className="bi bi-caret-down-fill" /></>
+                <>
+                  <img
+                    src="/img.jpg"
+                    alt="img"
+                    width="30"
+                    height="30"
+                    className="navprofile"
+                  />
+                  {localStorage.getItem("containerName")}<i className="bi bi-caret-down-fill" /></>
                 :
-                <><div style={{margin:"3px 3px 0px 0px"}}>
-                <div className='Ntxttoimgdiv' style={bgColor}>
-                  <div className='Ntxttoimg'>{letterGenerate(localStorage.getItem("containerName"))}</div>
-                </div>
-                {localStorage.getItem("containerName")}<i className="bi bi-caret-down-fill" />
+                <><div style={{ margin: "3px 3px 0px 0px" }}>
+                  <div className='Ntxttoimgdiv' style={bgColor}>
+                    <div className='Ntxttoimg'>{letterGenerate(localStorage.getItem("containerName"))}</div>
+                  </div>
+                  {localStorage.getItem("containerName")}<i className="bi bi-caret-down-fill" />
                 </div>
                 </>
               }
-              
+
             </NavLink>
 
             <ul className="dropdown-menu text-small">

@@ -8,7 +8,7 @@ import Spinner from "../aspinner/Spinner";
 const TaskandPostLayout = () => {
 
   let { id, circle } = useParams();
-  console.log('aaa',id,circle)
+  console.log('id, circleName', id, circle)
   localStorage.setItem("container_iid", id);
   localStorage.setItem("containerName", circle);
 
@@ -26,18 +26,23 @@ const TaskandPostLayout = () => {
       setIsPostingMessage(true);
       console.log(Message.trim())
       try {
-        let postData = {
-          data: {
-            message: Message.trim(),
-          },
-        };
-        let resapi = await axios.post(`/post/container/${id[5]}`, postData, {
+        let payload = {data: {message: Message.trim()}};
+        let resapi = await axios.post(`/post/container/${localStorage.getItem("container_iid", id)}`, payload, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         });
-        console.log("Post", resapi);
-        alert("done");
+        console.log("Post", resapi.data.id);
+        let resapis = await axios.post(`/post/${resapi.data.id}/upload-files`, image, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        });
+        
+        console.log("Post2", resapis);
+        if (resapi.data.id) {
+          alert("done");
+        }
       } catch (ex) {
         alert(ex);
         console.log(ex);
@@ -50,6 +55,7 @@ const TaskandPostLayout = () => {
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setimage(URL.createObjectURL(event.target.files[0]));
+      console.log(image)
     }
   }
   // console.log("Image", image);
@@ -57,7 +63,7 @@ const TaskandPostLayout = () => {
   return (
     <>
       <div className="gcard">
-        <form onSubmit={handleSubmit} style={{ margin: "0px 0px", maxWidth:"50rem" }}>
+        <form onSubmit={handleSubmit} style={{ margin: "0px 0px", maxWidth: "50rem" }}>
           <input
             value={Message}
             onChange={(e) => setMessage(e.target.value)}

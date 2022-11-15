@@ -19,7 +19,7 @@ const Card = (props) => {
   const [commentValue, setCommentValue] = useState('');
   const [isPostingComment, setIsPostingComment] = useState(false);
   const [rendercomp, setrendercomp] = useState(false);
-  //const [imgUrl, setImageUrl] = useState();
+  const [imgUrl, setimgUrl] = useState();
 
   //Dropdown
   const displaynone = { display: "none" }
@@ -43,6 +43,7 @@ const Card = (props) => {
             fr.onloadend = () => {
               var base64Url = fr.result
               console.log('b64',base64Url);
+              if(base64Url) setimgUrl(base64Url)
               // getUrls(base64Url, props.posts.content.id)
               // imageUrl = imageUrl + "OUT" + base64Url
               // ids = ids + "OUT" + props.posts.content.id
@@ -52,7 +53,6 @@ const Card = (props) => {
       } catch (err) {
         console.log(err)
       }
-
     }
     getImgeurl();
   })
@@ -95,7 +95,7 @@ const Card = (props) => {
             },
           })
           setrendercomp(!rendercomp)
-          // console.log("resapi", resapi)
+          console.log("resapi", resapi)
         }
         catch (err) {
           console.warn(err)
@@ -156,6 +156,7 @@ const Card = (props) => {
 
       <div style={message && message.length ? null : marTop}>
         <img src="/img.jpg" className="card-img-top" alt="" />
+        {/* <img src={imgUrl} className="card-img-top" alt="" /> */}
       </div>
 
       <hr />
