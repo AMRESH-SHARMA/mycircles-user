@@ -2,11 +2,11 @@ import React from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
 import { useState } from 'react'
-import { noofdays } from '../../aHelper/Helper';
+import WallComments from './WallComments';
 
 const CommentsBody = (props) => {
   // console.log(props)
-  const { contentId,st } = props
+  const { contentId, st } = props
   const [commentData, setCommentData] = useState('')
   const [overflow, setoverflow] = useState(false)
 
@@ -27,33 +27,22 @@ const CommentsBody = (props) => {
     getCardComments()
   }, [contentId, st])
 
-  const handlecmtstyle=(e)=>{
+  const handlecmtstyle = (e) => {
     e.preventDefault()
     setoverflow(!overflow)
   }
-  const overflowstyle = { overflowY:"scroll" };
-  const overflowstylehide = { overflowY:"hidden" };
+
+
+  const overflowstyle = { overflowY: "scroll" };
+  const overflowstylehide = { overflowY: "hidden" };
 
   return (<>
     <div className='gtaskpost-commentcontent' style={overflow === true ? overflowstyle : overflowstylehide} >
-      {commentData && commentData.length > 2 && <a style={overflow === true ? {color:"red"} : {color:"black"}} className='gshowallcmt-btn' href='/' onClick={(e)=>handlecmtstyle(e)} >Show all {commentData.length} comments</a>}
+      {commentData && commentData.length > 2 && <a style={overflow === true ? { color: "red" } : { color: "black" }} className='gshowallcmt-btn' href='/' onClick={(e) => handlecmtstyle(e)} >Show all {commentData.length} comments</a>}
 
       {commentData && commentData.length > 0 &&
         commentData.map((item, index) => (
-          <div key={index}>
-            <div className="d-flex-row justify-content-start" id='gshowallcommentsbody'  >
-              <div id='cmttitle' >
-                <strong >{item.createdBy.display_name}</strong> &nbsp; {noofdays(item.createdAt)}
-              </div>
-              <div id='cmtbody' >
-                {item.message}
-              </div>
-            </div>
-            <div className="d-flex justify-content-start">
-              <a className="likereply" href='/'>Like ({item.likes.total})</a>
-              <a className="likereply" href='/'>Reply</a>
-            </div>
-          </div>
+          <WallComments obj={item} key={index} />
         ))}
     </div>
   </>

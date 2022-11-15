@@ -34,9 +34,9 @@ export const letterGenerate = (param) => {
   if (param) {
     const myArray = param.split(" ", 2)
     if (myArray.length === 1)
-      return myArray[0].charAt(0)
+      return myArray[0].charAt(0).toUpperCase()
     else {
-      return myArray[0].charAt(0) + myArray[1].charAt(0)
+      return myArray[0].charAt(0).toUpperCase() + myArray[1].charAt(0).toUpperCase()
     }
   }
 }

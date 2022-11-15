@@ -31,8 +31,7 @@ export default function Navbar() {
   const [show, setShow] = useState(false);
   // const [circleIId, setcircleIId] = useState('');
   const [search, setSearch] = useState('');
-  
-  const container_iid = localStorage.getItem("container_iid");
+
 
   if (submitting) {
     var disableStyle = { cursor: "not-allowed", }
@@ -79,33 +78,15 @@ export default function Navbar() {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         })
-        if(result.data.results){
-        setCircles(result.data.results)
-        console.log("result:", result.data.results)
+        if (result.data.results) {
+          setCircles(result.data.results)
+          console.log("result:", result.data.results)
         }
       } catch (err) {
         console.warn(err)
       }
       setLoading(false)
     }
-    // const getSpacesById = async () => {
-    //   let url = window.location.href;
-    //   let id = url.split("/")[5];
-    //   setcircleIId(id)
-    //   if (circleIId) {
-    //     try {
-    //       const resapi = await axios.get(`/space/${circleIId}`, {
-    //         headers: {
-    //           Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    //         },
-    //       })
-    //       // console.log('r', resapi)
-    //     } catch (err) {
-    //       console.log(err);
-    //     }
-    //   }
-    // }
-    // getSpacesById()
     getSpaces()
   }, [])
 
@@ -119,25 +100,11 @@ export default function Navbar() {
       <div className="container">
         <div className="nav">
           <div className="dropdown text-end mx-3">
-            {
-              container_iid ?
-                <NavLink to="/" className="btn noborder"
-                  data-bs-toggle="dropdown" aria-expanded="false">
-                  <img
-                    src="/img.jpg"
-                    alt="img"
-                    width="30"
-                    height="30"
-                    className="navprofile"
-                  />{localStorage.getItem("containerName")}<i className="bi bi-caret-down-fill" />
+            <NavLink to="/" className="btn bi bi-record-circle noborder" style={{ paddingBottom: "0px" }}
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <p className="homeNavTabsTitle">All CIRCLES<i className="bi bi-caret-down-fill" /></p>
+            </NavLink>
 
-                </NavLink>
-                :
-                <NavLink to="/" className="btn bi bi-record-circle noborder" style={{ paddingBottom: "0px" }}
-                  data-bs-toggle="dropdown" aria-expanded="false">
-                  <p className="homeNavTabsTitle">All CIRCLES<i className="bi bi-caret-down-fill" /></p>
-                </NavLink>
-            }
 
             <ul className="dropdown-menu text-small" style={{ minHeight: "50px" }}>
               <div id="createcirclesearchboxdiv">
