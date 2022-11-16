@@ -7,7 +7,7 @@ const Dropdown = (props) => {
 
   // console.log(props.obj);
   const { name, contentcontainer_id, guid } = props.obj;
-  const bgColor = {backgroundColor:randomColor()};
+  const bgColor = {backgroundColor:randomColor(name)};
   return (<>
     <div className="allcirdd-items" >
       <li>
