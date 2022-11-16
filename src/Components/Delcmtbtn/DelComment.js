@@ -25,7 +25,7 @@ const DelComment = (props) => {
         navigate(0);
       }
     } catch (err) {
-      alert("item not deleted")
+      alert(err.response.data.message)
       console.log(err)
     }
   }

@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react';
-import { NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import Dropdown from '../Dropdown/Dropdown';
 import axios from "axios";
 import Spinner from '../../aspinner/Spinner';
@@ -21,53 +21,65 @@ export default function Navbar() {
     paddingBottom: "0px",
   };
 
-
-  const [circles, setCircles] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [submitting, setSubmitting] = useState(false)
-  const [inputs, setInputs] = useState({});
+  const navigate = useNavigate();
+  const [NerrorMessage, setNErrorMessage] = useState("");
+  const [circles, setCircles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const [visibility, setVisibility] = useState(0);
   const [joinPolicy, setJoinPolicy] = useState(0);
-  const [show, setShow] = useState(false);
-  // const [circleIId, setcircleIId] = useState('');
   const [search, setSearch] = useState('');
-
 
   if (submitting) {
     var disableStyle = { cursor: "not-allowed", }
-  }
-
-  const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    const radioBoxValues = {
-      visibility: visibility,
-      join_policy: joinPolicy
-    }
-    setInputs(values => ({ ...values, [name]: value, ...radioBoxValues }))
   }
 
   function handleSearch(e) {
     setSearch(e.target.value);
   }
 
+  function handleError() {
+    if (!name) {
+      setNErrorMessage("Name field is empty")
+      return true;
+    }
+    return false;
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitting(true);
-    setTimeout(async () => {
-      try {
-        const res = await axios.post("/space", inputs, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
-        })
-        // console.log(res)
+    if (!handleError()) {
+      setSubmitting(true);
+      const payload = {
+        name: name,
+        description: description,
+        visibility: visibility,
+        join_policy: joinPolicy
       }
-      catch (err) {
-        console.warn(err)
-      }
-      setSubmitting(false);
-    }, 5000);
+      console.log(payload)
+      setTimeout(async () => {
+        try {
+          const res = await axios.post("/space", payload, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
+          })
+          console.log(res)
+          if (res.data.contentcontainer_id) {
+            navigate(0);
+          }
+        }
+        catch (err) {
+          console.warn(err)
+          if (err.response.status === 401) {
+            alert(err.response.data.message)
+          }
+        }
+        setSubmitting(false);
+      }, 5000);
+    }
   }
 
   useEffect(() => {
@@ -78,15 +90,33 @@ export default function Navbar() {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         })
+        // console.log(result)
         if (result.data.results) {
           setCircles(result.data.results)
-          console.log("result:", result.data.results)
+          // console.log("result:", result.data.results)
         }
       } catch (err) {
         console.warn(err)
       }
       setLoading(false)
     }
+
+    // const getMembersbySpaceId = async () => {
+    //   try {
+    //     const result = await axios.get(`http://206.189.133.189/api/spaces`, {
+    //       headers: {
+    //         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+    //       },
+    //     })
+    //     console.log(result)
+    //     if (result.data.results) {
+    //       console.log("result:", result.data.results)
+    //     }
+    //   } catch (err) {
+    //     console.warn(err)
+    //   }
+    // }
+    // getMembersbySpaceId()
     getSpaces()
   }, [])
 
@@ -143,14 +173,15 @@ export default function Navbar() {
                     <form>
                       <div className="mb-3">
                         <label className="d-flex justify-content-start">Name*</label>
-                        <input type="text" name="name" className="forminput" value={inputs.name || ""}
-                          onChange={handleChange} placeholder="Circle name" required />
+                        <input type="text" name="name" className="forminput" value={name}
+                          onChange={(e) => setName(e.target.value)} placeholder="Circle name" required />
+                        {NerrorMessage && <div className="error"> {NerrorMessage} </div>}
                       </div>
                       <div className="mb-3">
                         <label className="d-flex justify-content-start">Description</label>
-                        <input type="text" name="description" className="forminput" value={inputs.description || ""}
-                          onChange={handleChange} />
-                        <div id="emailHelp" className="d-flex justify-content-start form-text">Max. 100 characters.</div>
+                        <input type="text" name="description" className="forminput" value={description}
+                          onChange={(e) => setDescription(e.target.value)} required />
+                        <div id="" className="form-text">Max. 100 characters.</div>
                       </div>
 
                       <p>

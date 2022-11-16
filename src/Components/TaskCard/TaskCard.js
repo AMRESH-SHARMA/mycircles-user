@@ -38,6 +38,7 @@ export const TaskCard = (props) => {
         navigate(0);
       }
     } catch (err) {
+      alert(err.response.data.message)
       console.log(err)
     }
   }
