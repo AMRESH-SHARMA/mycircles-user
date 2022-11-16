@@ -24,3 +24,10 @@
 #cmtinputform{
   width:100%;
 }
+.hoveredimg{
+  position: absolute;
+  z-index: 1;
+  background-color: aliceblue;
+  border-radius: 10px;
+  border: 2px;
+}

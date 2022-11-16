@@ -3,12 +3,14 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useState } from 'react'
 import { noofdays } from '../../aHelper/Helper';
+import Spinner from '../../aspinner/Spinner';
 
 const CommentsBody = (props) => {
   console.log(props)
   const { contentId,st } = props
   const [commentData, setCommentData] = useState('')
   const [overflow, setoverflow] = useState(false)
+  
 
   useEffect(() => {
     const getCardComments = async () => {
@@ -32,6 +34,7 @@ const CommentsBody = (props) => {
     console.log(overflow);
     setoverflow(!overflow)
   }
+   
   const overflowstyle = { overflowY:"scroll" };
   const overflowstylehide = { overflowY:"hidden" };
 
@@ -52,7 +55,8 @@ const CommentsBody = (props) => {
             </div>
             <div className="d-flex justify-content-start">
               <a className="likereply" href='/'>Like ({item.likes.total})</a>
-              <a className="likereply" href='/'>Reply</a>
+              <a className="likereply" href='/' >Reply</a>
+              
             </div>
           </div>
         ))}
