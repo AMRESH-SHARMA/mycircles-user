@@ -10,7 +10,7 @@ export const TaskCard = (props) => {
 
   const { id, description, end_datetime, created_by, status, content } = props.obj
   // console.log(props.obj)
-  const bgColor = { backgroundColor: randomColor() };
+  const bgColor = { backgroundColor: randomColor(created_by.display_name) };
 
   const navigate = useNavigate()
   const [TaskStatus, setTaskStatus] = useState(status);

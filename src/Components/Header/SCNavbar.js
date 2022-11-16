@@ -34,7 +34,7 @@ export default function SCNavbar() {
   const [search, setSearch] = useState('');
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
-  const bgColor = { backgroundColor: randomColor() };
+  const bgColor = { backgroundColor: randomColor(letterGenerate(localStorage.getItem("containerName"))) };
 
 
   if (submitting) {
