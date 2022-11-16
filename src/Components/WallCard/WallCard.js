@@ -109,13 +109,13 @@ const Card = (props) => {
 
   const handleDelPost = async () => {
     try {
-      // console.log('del', id)
+      console.log('del', id)
       const resapi = await axios.delete(`/post/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
       })
-      // console.log("resapi", resapi)
+      console.log("resapi", resapi)
       if (resapi.data.code === 200) {
         setrendercomp(!rendercomp)
         navigate(0);
