@@ -117,3 +117,19 @@
   max-width: 350px;
   min-width: 300px;
 }
+.Tasktxttoimgdiv{
+  display: block;
+  position: relative;
+  border-radius: 20px;
+  padding-top: 2px;
+  width: 37px;
+  height: 25px;
+}
+.Tasktxttoimg {
+  width: "100%";
+  display: flex;
+  justify-content: center;
+  position: "absolute";
+  color: white;
+  font-weight: 600;
+}

@@ -45,11 +45,11 @@ const SingleCircle = () => {
 
       <div className="gcontainer">
         <div className="d-flex justify-content-around">
-          <div id="wallcardone">
+          <div id="wallcardone" style={{ maxWidth: "50rem", marginLeft: "3rem" }} >
             <AddPost />
           </div>
 
-          <div id="wallcardtwo">
+          <div id="wallcardtwo" style={{ margin: "0px 20px" }}>
             <div className="gcard">
               <div className="card-body">
                 <div className="card-title d-flex">

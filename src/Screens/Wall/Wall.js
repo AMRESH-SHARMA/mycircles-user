@@ -17,15 +17,14 @@ const Wall = () => {
 
   useEffect(() => {
     (async () => {
-
-      if (localStorage.getItem("container_iid")) {
+      if (localStorage.getItem("container_iid") && scpage()) {
         try {
           const result = await axios.get(`/post/container/${localStorage.getItem("container_iid")}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
             },
           })
-          console.log(result.data);
+          // console.log(result.data);
           setPosts(result.data.results)
           setLoading(false)
           // console.log("result:", result)
@@ -41,7 +40,7 @@ const Wall = () => {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
             },
           })
-          console.log("result:", resapi)
+          // console.log("result:", resapi)
           if (resapi.data.results) {
             setPosts(resapi.data.results)
           }
