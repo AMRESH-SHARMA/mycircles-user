@@ -25,6 +25,7 @@
   "scripts": {
     "dev": "react-scripts start",
     "pro": "react-scripts build && serve -s build",
+    "up": "git add . && git  commit -m 'ok' && git push",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "lint": "eslint \"src/**/*.js\"",
