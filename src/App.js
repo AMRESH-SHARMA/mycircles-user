@@ -11,6 +11,8 @@ import Page404 from './Screens/Error/Page404';
 import TokenSend from './Screens/Error/TokenSend';
 import ProfileOpions from './Components/Header/ProfileOpions';
 import Layout from './Components/Header/Layout';
+import Addproperty from './Components/Add developer/Addproperty';
+import AddDeveloper from './Components/Add developer/AddDeveloper';
 
 
 function App() {
@@ -30,6 +32,8 @@ function App() {
         <Route exact path="/user/registration" name="Register Page" element={<Register />} />
         <Route exact path="/user/tokenstatus" name="TokenSend Page" element={<TokenSend />} />
         <Route exact path = "/accountsettings" name = "propfile options " element= {<Layout/>}/>
+        <Route exact path = "/addproperty" name = "add property" element = {<Addproperty/>}/>
+        <Route exact path = "/adddevloper" name = "add developer" element = {<AddDeveloper/>}/>
         <Route exact path="*" element={<Page404 />} />
       </Routes>
     </Router>
