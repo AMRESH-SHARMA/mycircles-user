@@ -4,11 +4,11 @@ import Form from "react-bootstrap/Form";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import registerUrl from "../../API";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Select from 'react-select';
 import "./InviteModal.css";
+import registerUrl from "../../API";
 import Spinner from "../../aspinner/Spinner";
 
 const InviteModal = (props) => {

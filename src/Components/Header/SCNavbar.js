@@ -77,19 +77,21 @@ export default function SCNavbar() {
   useEffect(() => {
     const getSpaces = async () => {
       try {
-        const resapi = await axios.get('/space', {
+        const result = await axios.get(`http://206.189.133.189/api/spaces`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         })
-        if (resapi.data.results) {
-          setCircles(resapi.data.results)
+        console.log(result)
+        if (result.data) {
+          setCircles(result.data.reverse())
         }
       } catch (err) {
         console.warn(err)
       }
       setLoading(false)
     }
+
     const getSpaceById = async () => {
       setcircleIId(localStorage.getItem("container_iid"))
       if (localStorage.getItem("container_iid")) {
@@ -111,7 +113,7 @@ export default function SCNavbar() {
 
   const Filteredcircles =
     circles?.filter(item =>
-      item.owner.id === parseInt(localStorage.getItem("current_user_id")) && item.name.toLowerCase().includes(search.toLowerCase())
+      item.name.toLowerCase().includes(search.toLowerCase())
     )
 
   return (<>

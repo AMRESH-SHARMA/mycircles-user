@@ -2,9 +2,6 @@ import React from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
 import { useState } from 'react'
-
-import { noofdays } from '../../aHelper/Helper';
-import Spinner from '../../aspinner/Spinner';
 import WallComments from './WallComments';
 
 const CommentsBody = (props) => {
