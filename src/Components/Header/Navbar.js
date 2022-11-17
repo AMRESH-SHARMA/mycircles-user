@@ -1,9 +1,7 @@
 import { React, useEffect, useState } from 'react';
-import { NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import Dropdown from '../Dropdown/Dropdown';
 import axios from "axios";
-import { NavItem } from "react-bootstrap"
-import InviteModal from "./InviteModal";
 import Spinner from '../../aspinner/Spinner';
 import './Navbar.css';
 
@@ -23,56 +21,65 @@ export default function Navbar() {
     paddingBottom: "0px",
   };
 
-
-  const [circles, setCircles] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [submitting, setSubmitting] = useState(false)
-  const [inputs, setInputs] = useState({});
+  const navigate = useNavigate();
+  const [NerrorMessage, setNErrorMessage] = useState("");
+  const [circles, setCircles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const [visibility, setVisibility] = useState(0);
   const [joinPolicy, setJoinPolicy] = useState(0);
-  const [show, setShow] = useState(false);
-  const [circleIId, setcircleIId] = useState('');
   const [search, setSearch] = useState('');
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
-
-  const container_iid = localStorage.getItem("container_iid");
 
   if (submitting) {
     var disableStyle = { cursor: "not-allowed", }
-  }
-
-  const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    const radioBoxValues = {
-      visibility: visibility,
-      join_policy: joinPolicy
-    }
-    setInputs(values => ({ ...values, [name]: value, ...radioBoxValues }))
   }
 
   function handleSearch(e) {
     setSearch(e.target.value);
   }
 
+  function handleError() {
+    if (!name) {
+      setNErrorMessage("Name field is empty")
+      return true;
+    }
+    return false;
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitting(true);
-    setTimeout(async () => {
-      try {
-        const res = await axios.post("/space", inputs, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
-        })
-        console.log(res)
+    if (!handleError()) {
+      setSubmitting(true);
+      const payload = {
+        name: name,
+        description: description,
+        visibility: visibility,
+        join_policy: joinPolicy
       }
-      catch (err) {
-        console.warn(err)
-      }
-      setSubmitting(false);
-    }, 5000);
+      console.log(payload)
+      setTimeout(async () => {
+        try {
+          const res = await axios.post("/space", payload, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
+          })
+          console.log(res)
+          if (res.data.contentcontainer_id) {
+            navigate(0);
+          }
+        }
+        catch (err) {
+          console.warn(err)
+          if (err.response.status === 401) {
+            alert(err.response.data.message)
+          }
+        }
+        setSubmitting(false);
+      }, 5000);
+    }
   }
 
   useEffect(() => {
@@ -83,39 +90,39 @@ export default function Navbar() {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         })
-        setCircles(result.data.results)
-        // console.log("result:", result.data.results)
+        // console.log(result)
+        if (result.data.results) {
+          setCircles(result.data.results)
+          // console.log("result:", result.data.results)
+        }
       } catch (err) {
         console.warn(err)
       }
       setLoading(false)
     }
-    const getSpacesById = async () => {
-      let url = window.location.href;
-      let id = url.split("/")[5];
-      setcircleIId(id)
-      if (circleIId) {
-        try {
-          const resapi = await axios.get(`/space/${circleIId}`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-            },
-          })
-          console.log('r', resapi)
-        } catch (err) {
-          console.log(err);
-        }
-      }
-    }
-    getSpacesById()
-    getSpaces()
-  }, [circleIId])
 
-  console.log(circles);
+    // const getMembersbySpaceId = async () => {
+    //   try {
+    //     const result = await axios.get(`http://206.189.133.189/api/spaces`, {
+    //       headers: {
+    //         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+    //       },
+    //     })
+    //     console.log(result)
+    //     if (result.data.results) {
+    //       console.log("result:", result.data.results)
+    //     }
+    //   } catch (err) {
+    //     console.warn(err)
+    //   }
+    // }
+    // getMembersbySpaceId()
+    getSpaces()
+  }, [])
 
   const Filteredcircles =
     circles?.filter(item =>
-      item.name.toLowerCase().includes(search.toLowerCase())
+      item.owner.id === parseInt(localStorage.getItem("current_user_id")) && item.name.toLowerCase().includes(search.toLowerCase())
     )
 
   return (<>
@@ -123,27 +130,13 @@ export default function Navbar() {
       <div className="container">
         <div className="nav">
           <div className="dropdown text-end mx-3">
-            {
-              container_iid ?
-                <NavLink to="/" className="btn noborder"
-                  data-bs-toggle="dropdown" aria-expanded="false">
-                  <img
-                    src="/img.jpg"
-                    alt="img"
-                    width="30"
-                    height="30"
-                    className="navprofile"
-                  />{localStorage.getItem("containerName")}<i className="bi bi-caret-down-fill" />
+            <NavLink to="/" className="btn bi bi-record-circle noborder" style={{ paddingBottom: "0px" }}
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <p className="homeNavTabsTitle">All CIRCLES<i className="bi bi-caret-down-fill" /></p>
+            </NavLink>
 
-                </NavLink>
-                :
-                <NavLink to="/" className="btn bi bi-record-circle noborder" style={{ paddingBottom: "0px" }}
-                  data-bs-toggle="dropdown" aria-expanded="false">
-                  <p className="homeNavTabsTitle">All CIRCLES<i className="bi bi-caret-down-fill" /></p>
-                </NavLink>
-            }
 
-            <ul className="dropdown-menu text-small">
+            <ul className="dropdown-menu text-small" style={{ minHeight: "50px" }}>
               <div id="createcirclesearchboxdiv">
                 <input
                   onChange={handleSearch}
@@ -180,14 +173,15 @@ export default function Navbar() {
                     <form>
                       <div className="mb-3">
                         <label className="d-flex justify-content-start">Name*</label>
-                        <input type="text" name="name" className="forminput" value={inputs.name || ""}
-                          onChange={handleChange} placeholder="Circle name" required />
+                        <input type="text" name="name" className="forminput" value={name}
+                          onChange={(e) => setName(e.target.value)} placeholder="Circle name" required />
+                        {NerrorMessage && <div className="error"> {NerrorMessage} </div>}
                       </div>
                       <div className="mb-3">
                         <label className="d-flex justify-content-start">Description</label>
-                        <input type="text" name="description" className="forminput" value={inputs.description || ""}
-                          onChange={handleChange} />
-                        <div id="emailHelp" className="d-flex justify-content-start form-text">Max. 100 characters.</div>
+                        <input type="text" name="description" className="forminput" value={description}
+                          onChange={(e) => setDescription(e.target.value)} required />
+                        <div id="" className="form-text">Max. 100 characters.</div>
                       </div>
 
                       <p>
@@ -261,28 +255,6 @@ export default function Navbar() {
             </NavLink>
           </li>
 
-          {circleIId && <>
-            <div className='col'></div>
-            <NavItem className="navitems" >
-              <label style={{ margin: "0px", padding: "0px" }} className="text">1026</label>
-              <label style={{ margin: "-2px 0px 0px 0px", padding: "0px" }}>Posts</label>
-            </NavItem>
-            <NavItem className="navitems" >
-              <label style={{ margin: "0px", padding: "0px" }} className="text">1026</label>
-              <label style={{ margin: "-2px 0px 0px 0px", padding: "0px" }}>Members</label>
-            </NavItem>
-            <NavItem className="navitems" >
-              <label style={{ margin: "0px", padding: "0px" }} className="text">1026</label>
-              <label style={{ margin: "-2px 0px 0px 0px", padding: "0px" }}>Followers</label>
-            </NavItem>
-            <NavItem className="navitems" >
-              <div className='navinvitebtn'>
-                <button className='globalbtn' style={{ marginTop: "2px" }} onClick={handleShow}><i className="bi bi-cursor-fill">Invite</i></button>
-                {show && <InviteModal show={show} id={circleIId} handleClose={handleClose} />}
-              </div>
-            </NavItem>
-          </>
-          }
         </div>
       </div>
     </div>

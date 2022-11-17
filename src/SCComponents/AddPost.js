@@ -1,14 +1,16 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import PopupModal from "./PopupModal";
 import "./TaskandPost.css";
 import Spinner from "../aspinner/Spinner";
 
 const TaskandPostLayout = () => {
-  const url = window.location.href;
-  const id = url.split("/");
-  localStorage.setItem("container_iid", id[5]);
-  localStorage.setItem("containerName", id[4]);
+
+  let { id, circle } = useParams();
+  console.log('id, circleName', id, circle)
+  localStorage.setItem("container_iid", id);
+  localStorage.setItem("containerName", circle);
 
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
@@ -24,18 +26,23 @@ const TaskandPostLayout = () => {
       setIsPostingMessage(true);
       console.log(Message.trim())
       try {
-        let postData = {
-          data: {
-            message: Message.trim(),
-          },
-        };
-        let resapi = await axios.post(`/post/container/${id[5]}`, postData, {
+        let payload = {data: {message: Message.trim()}};
+        let resapi = await axios.post(`/post/container/${localStorage.getItem("container_iid", id)}`, payload, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         });
-        console.log("Post", resapi);
-        alert("done");
+        console.log("Post", resapi.data.id);
+        let resapis = await axios.post(`/post/${resapi.data.id}/upload-files`, image, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        });
+        
+        console.log("Post2", resapis);
+        if (resapi.data.id) {
+          alert("done");
+        }
       } catch (ex) {
         alert(ex);
         console.log(ex);
@@ -48,14 +55,15 @@ const TaskandPostLayout = () => {
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setimage(URL.createObjectURL(event.target.files[0]));
+      console.log(image)
     }
   }
   // console.log("Image", image);
 
   return (
     <>
-      <div className="gcard" style={{ marginLeft: "3rem" }}>
-        <form onSubmit={handleSubmit} style={{ margin: "0px 0px" }}>
+      <div className="gcard">
+        <form onSubmit={handleSubmit} style={{ margin: "0px 0px", maxWidth: "50rem" }}>
           <input
             value={Message}
             onChange={(e) => setMessage(e.target.value)}
@@ -79,7 +87,7 @@ const TaskandPostLayout = () => {
         </form>
       </div>
 
-      <div className="gcard" style={{ marginTop: "2.5rem", marginLeft: "3rem" }}>
+      <div className="gcard" style={{ marginTop: "2.5rem" }}>
         <div className="card-header d-flex" style={{ background: "white" }}>
           <h1><strong>Task</strong></h1>
 

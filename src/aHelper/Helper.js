@@ -29,3 +29,34 @@ export const scpage = () => {
   }
   else return false;
 }
+
+export const letterGenerate = (param) => {
+  if (param) {
+    const myString = param.split(" ", 2)
+    if (myString.length === 1)
+      return myString[0].charAt(0).toUpperCase()
+    else {
+      return myString[0].charAt(0).toUpperCase() + myString[1].charAt(0).toUpperCase()
+    }
+  }
+}
+
+export const randomColor = (param) => {
+  if (param) {
+    const myString = param.split(" ", 2)
+    if (myString.length === 1)
+      var numb = myString[0].charAt(0).toUpperCase().charCodeAt(0)
+    else {
+      var numb = myString[0].charAt(0).toUpperCase().charCodeAt(0) + myString[1].charAt(0).toUpperCase().charCodeAt(0)
+    }
+    const index = numb.toString().slice(-1)
+    const arr = ["#f1c40f", "#27ae60", "#0000ff", "#d35400", "#3498db", "#2980b9", "#e74c3c", "#c0392b", "#8e44ad", "#21A1B3"];
+    return arr.at(index)
+  }
+}
+
+// local storage items
+// localStorage.removeItem("authToken");
+// localStorage.removeItem("container_iid");
+// localStorage.removeItem("containerName");
+// localStorage.removeItem("current_user_id");

@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import Likebtn from '../Likebtn/Likebtn';
 import WallCommentBody from './WallCommentBody';
 import axios from 'axios';
@@ -6,12 +7,12 @@ import emoji from 'emoji-dictionary'
 import './WallCard.css';
 import Spinner from '../../aspinner/Spinner';
 import { noofdays } from '../../aHelper/Helper';
-import { useNavigate } from 'react-router-dom';
+import {backendBaseUrl} from '../../API';
 
 
 const Card = (props) => {
 
-  console.log(props)
+  // console.log(props)
   const { id, message, content } = props.posts
 
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Card = (props) => {
   const [commentValue, setCommentValue] = useState('');
   const [isPostingComment, setIsPostingComment] = useState(false);
   const [rendercomp, setrendercomp] = useState(false);
+
   //const [imgUrl, setImageUrl] = useState();
    const [image, setimage] = useState();
    const [filename,setfilename] = useState();
@@ -35,8 +37,8 @@ const Card = (props) => {
       try {
         if (props.posts.content.files.length > 0) {
           if (!props.posts.content.files[0].mime_type.includes('video')) {
-            console.log(props.posts.content.files[0].mime_type)
-            var blob = await axios.get("https://circlenowdev.xyz/file/file/download?guid=" + props.posts.content.files[0].guid, {
+            // console.log(props.posts.content.files[0].mime_type)
+            var blob = await axios.get(`${backendBaseUrl}/file/file/download?guid=${props.posts.content.files[0].guid}`, {
               headers: {
                 'Authorization': `Bearer ${localStorage.getItem("authToken")}`
               },
@@ -46,7 +48,8 @@ const Card = (props) => {
             fr.readAsDataURL(blob.data)
             fr.onloadend = () => {
               var base64Url = fr.result
-              console.log(base64Url);
+              console.log('b64',base64Url);
+              if(base64Url) setimgUrl(base64Url)
               // getUrls(base64Url, props.posts.content.id)
               // imageUrl = imageUrl + "OUT" + base64Url
               // ids = ids + "OUT" + props.posts.content.id
@@ -56,7 +59,6 @@ const Card = (props) => {
       } catch (err) {
         console.log(err)
       }
-
     }
     getImgeurl();
   })
@@ -95,7 +97,7 @@ const Card = (props) => {
 
     if (commentValue) {
       setIsPostingComment(true);
-      console.log(commentValue.trim())
+      // console.log(commentValue.trim())
       setTimeout(async () => {
         try {
           let input = {
@@ -113,7 +115,6 @@ const Card = (props) => {
           })
           setrendercomp(!rendercomp)
           console.log("resapi", resapi)
-          // console.log(input)
         }
         catch (err) {
           console.warn(err)
@@ -143,6 +144,7 @@ const Card = (props) => {
         navigate(0);
       }
     } catch (err) {
+      alert(err.response.data.message)
       console.log(err)
     }
   }
@@ -178,6 +180,7 @@ const Card = (props) => {
 
       <div style={message && message.length ? null : marTop}>
         <img src="/img.jpg" className="card-img-top" alt="" />
+        {/* <img src={imgUrl} className="card-img-top" alt="" /> */}
       </div>
 
       <hr />

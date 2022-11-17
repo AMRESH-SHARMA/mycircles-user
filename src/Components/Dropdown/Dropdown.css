@@ -11,3 +11,22 @@
   display: block;
   background-color: #d7dcdf;
 }
+
+.txttoimgdiv{
+  display: block;
+  position: relative;
+  border-radius: 3px;
+  padding-top: 3px;
+  width: 27px;
+  height: 25px;
+}
+.txttoimg {
+  width: "100%";
+  display: flex;
+  justify-content: center;
+  position: "absolute";
+  /* padding: "15px"; */
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+}

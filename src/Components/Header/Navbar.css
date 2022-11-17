@@ -85,10 +85,11 @@
 }
 
 #createcircledropdown {
+  padding: 5px;
   position: relative;
-  max-height: 142px;
+  max-height: 150px;
   width: 260px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 
@@ -184,4 +185,31 @@
 
 #navdropspinner {
   margin-left: 50%;
+}
+
+.Ntxttoimgdiv{
+  /* display: inline; */
+  /* position: relative; */
+  float: left;
+  border-radius: 3px;
+  width: 29px;
+  height: 27px;
+  padding-top: 1px;
+  margin-right: 5px;
+}
+.Ntxttoimg {
+  width: "100%";
+  display: flex;
+  justify-content: center;
+  position: "absolute";
+  /* padding: "15px"; */
+  color: white;
+  font-weight: 600;
+}
+
+.error{
+color: red;
+float: left;
+display: block;
+font-size: 12px;
 }
