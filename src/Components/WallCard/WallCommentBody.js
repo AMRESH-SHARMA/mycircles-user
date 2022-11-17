@@ -2,6 +2,9 @@ import React from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
 import { useState } from 'react'
+
+import { noofdays } from '../../aHelper/Helper';
+import Spinner from '../../aspinner/Spinner';
 import WallComments from './WallComments';
 
 const CommentsBody = (props) => {
@@ -9,6 +12,7 @@ const CommentsBody = (props) => {
   const { contentId, st } = props
   const [commentData, setCommentData] = useState('')
   const [overflow, setoverflow] = useState(false)
+  
 
   useEffect(() => {
     const getCardComments = async () => {
@@ -31,10 +35,9 @@ const CommentsBody = (props) => {
     e.preventDefault()
     setoverflow(!overflow)
   }
-
-
-  const overflowstyle = { overflowY: "scroll" };
-  const overflowstylehide = { overflowY: "hidden" };
+   
+  const overflowstyle = { overflowY:"scroll" };
+  const overflowstylehide = { overflowY:"hidden" };
 
   return (<>
     <div className='gtaskpost-commentcontent' style={overflow === true ? overflowstyle : overflowstylehide} >
@@ -42,7 +45,9 @@ const CommentsBody = (props) => {
 
       {commentData && commentData.length > 0 &&
         commentData.map((item, index) => (
+
           <WallComments obj={item} key={index} />
+
         ))}
     </div>
   </>
