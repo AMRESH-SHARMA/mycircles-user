@@ -9,6 +9,7 @@ import Spinner from '../../aspinner/Spinner';
 import { noofdays } from '../../aHelper/Helper';
 import {backendBaseUrl} from '../../API';
 
+
 const Card = (props) => {
 
   // console.log(props)
@@ -19,7 +20,12 @@ const Card = (props) => {
   const [commentValue, setCommentValue] = useState('');
   const [isPostingComment, setIsPostingComment] = useState(false);
   const [rendercomp, setrendercomp] = useState(false);
-  const [imgUrl, setimgUrl] = useState();
+
+  //const [imgUrl, setImageUrl] = useState();
+   const [image, setimage] = useState();
+   const [filename,setfilename] = useState();
+   const [hover,sethover] = useState(false);
+
 
   //Dropdown
   const displaynone = { display: "none" }
@@ -67,6 +73,19 @@ const Card = (props) => {
     comment.split(':').forEach(findValue)
     return comment
   }
+  const onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setfilename(event.target.files[0].name);
+      setimage(URL.createObjectURL(event.target.files[0]));
+    }
+  }
+  const handlehovertrue = () =>{
+    sethover(true);
+  }
+  const handlehoverfalse = () =>{
+    sethover(false);
+  }
+
 
   //COMMENT BUTTON HANDLER
   const handleCommentButton = () => {
@@ -106,6 +125,10 @@ const Card = (props) => {
       }, 2000);
     }
   };
+  const handledelete = ()=>{
+    setimage(null);
+    sethover(false);
+  }
 
   const handleDelPost = async () => {
     try {
@@ -185,13 +208,24 @@ const Card = (props) => {
                 placeholder='Add comment..'
                 style={{ margin: "8px 0px 0px" }}
               />
-              <button style={{ margin: "4px 0px" }} className='globalbtn' onClick={addComment}>
+              <button style={{ margin: "4px 20px" }} className='globalbtn' onClick={addComment}>
                 {isPostingComment ?
                   <div className="globalbtnspin">
                     <Spinner />
                   </div> :
                   'Comment'}
               </button>
+              <button className="globalbtn" ><label style={{ cursor: 'pointer' }} htmlFor="showimage"><i className="bi bi-upload" /></label></button>
+              <input onChange={onImageChange} type="file" accept="image/*" id="showimage" style={{ display: "none", visibility: "none" }}>
+            </input>
+            
+            <div className='d-flex'>
+            
+            {image?<p onMouseEnter={handlehovertrue} onMouseLeave= {handlehoverfalse}>{filename}<i onClick={handledelete}  class="bi bi-trash"></i></p>:null}
+            
+            {hover?<img src = {image} className= "hoveredimg" style = {{width:"100px",height:"100px",marginLeft:"210px",marginTop:"-100px"}}></img>:null}
+            </div>
+            
             </form>
           </div>
         </>
