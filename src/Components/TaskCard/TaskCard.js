@@ -5,6 +5,7 @@ import axios from 'axios';
 import Spinner from '../../aspinner/Spinner';
 import { useNavigate } from 'react-router-dom';
 import { letterGenerate, randomColor } from "../../aHelper/Helper";
+import EditModal from './EditModal';
 
 export const TaskCard = (props) => {
 
@@ -18,6 +19,9 @@ export const TaskCard = (props) => {
   const [commentValue, setCommentValue] = useState('');
   const [isPostingComment, setIsPostingComment] = useState(false);
   const [rendercomp, setrendercomp] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
 
   //Dropdown
   const displaynone = { display: "none" }
@@ -124,7 +128,8 @@ export const TaskCard = (props) => {
               <div className="col-auto">
                 <i className='btn bi bi-three-dots taskheaderbtn' onClick={() => setithreedots(!ithreedots)} />
                 <div id="task-dots-dropdown-content" style={!ithreedots ? displaynone : null}>
-                  <button className='tdbtn'>Edit</button>
+                  <button className='tdbtn'  onClick={handleShow}>Edit</button>
+                  {show?<EditModal task_id = {id} show={show} handleClose={handleClose}></EditModal>:null}
                   <button className='tdbtn'>Make&nbsp;public&#47;Make&nbsp;Private</button>
                   <button className='tdbtn'>Add tags</button>
                   <button className='tdbtn'>Move content</button>

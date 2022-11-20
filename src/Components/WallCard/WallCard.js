@@ -21,10 +21,12 @@ const Card = (props) => {
   const [isPostingComment, setIsPostingComment] = useState(false);
   const [rendercomp, setrendercomp] = useState(false);
 
-  //const [imgUrl, setImageUrl] = useState();
-  const [image, setimage] = useState();
-  const [filename, setfilename] = useState();
-  const [hover, sethover] = useState(false);
+
+   const [imgUrl, setimgUrl] = useState();
+   const [image, setimage] = useState();
+   const [filename,setfilename] = useState();
+   const [hover,sethover] = useState(false);
+
 
 
   //Dropdown

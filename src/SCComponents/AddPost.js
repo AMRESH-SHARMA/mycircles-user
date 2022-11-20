@@ -18,6 +18,7 @@ const TaskandPostLayout = () => {
   const [Message, setMessage] = useState('');
   const [isPostingMessage, setIsPostingMessage] = useState(false);
   const [image, setimage] = useState();
+  
   // MESSAGE SUBMIT HANDLER
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,6 +59,7 @@ const TaskandPostLayout = () => {
       console.log(image)
     }
   }
+  
   // console.log("Image", image);
 
   return (
