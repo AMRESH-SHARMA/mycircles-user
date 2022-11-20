@@ -54,6 +54,10 @@
 .globaldisplaynone{
   display: none;
 }
+.giconbtn{
+  border: none;
+}
+
 i{
   color:"black";
 }

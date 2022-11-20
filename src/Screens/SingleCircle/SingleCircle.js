@@ -3,6 +3,7 @@ import React from 'react';
 import Header from "../../Components/Header/Header";
 import AddPost from "../../SCComponents/AddPost";
 import SCNavbar from '../../Components/Header/SCNavbar';
+import ActivityCard from '../../Components/ActivityCard/ActivityCard';
 // import axios from "axios";
 const SingleCircle = () => {
   // const url = window.location.href;
@@ -84,14 +85,8 @@ const SingleCircle = () => {
               </div>
             </div>
 
-            <div className="gcard" style={{marginTop:"2.5rem"}}>
-              <div className="card-body">
-                <div className="card-title d-flex">
-                  <div className="flex-grow-1">
-                    <strong>Latest </strong>Activities
-                  </div>
-                </div>
-              </div>
+            <div >
+              <ActivityCard/>
             </div>
           </div>
         </div>

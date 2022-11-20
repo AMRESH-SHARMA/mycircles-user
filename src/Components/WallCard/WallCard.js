@@ -7,7 +7,7 @@ import emoji from 'emoji-dictionary'
 import './WallCard.css';
 import Spinner from '../../aspinner/Spinner';
 import { noofdays } from '../../aHelper/Helper';
-import {backendBaseUrl} from '../../API';
+import { backendBaseUrl } from '../../API';
 
 
 const Card = (props) => {
@@ -22,9 +22,9 @@ const Card = (props) => {
   const [rendercomp, setrendercomp] = useState(false);
 
   //const [imgUrl, setImageUrl] = useState();
-   const [image, setimage] = useState();
-   const [filename,setfilename] = useState();
-   const [hover,sethover] = useState(false);
+  const [image, setimage] = useState();
+  const [filename, setfilename] = useState();
+  const [hover, sethover] = useState(false);
 
 
   //Dropdown
@@ -35,7 +35,7 @@ const Card = (props) => {
 
     async function getImgeurl() {
       try {
-        if (props.posts.content.files.length > 0) {
+        if (props.posts.content.files.length !== 0) {
           if (!props.posts.content.files[0].mime_type.includes('video')) {
             // console.log(props.posts.content.files[0].mime_type)
             var blob = await axios.get(`${backendBaseUrl}/file/file/download?guid=${props.posts.content.files[0].guid}`, {
@@ -48,8 +48,8 @@ const Card = (props) => {
             fr.readAsDataURL(blob.data)
             fr.onloadend = () => {
               var base64Url = fr.result
-              console.log('b64',base64Url);
-              if(base64Url) setimgUrl(base64Url)
+              console.log('b64', base64Url);
+              // if(base64Url) setimgUrl(base64Url)
               // getUrls(base64Url, props.posts.content.id)
               // imageUrl = imageUrl + "OUT" + base64Url
               // ids = ids + "OUT" + props.posts.content.id
@@ -79,10 +79,10 @@ const Card = (props) => {
       setimage(URL.createObjectURL(event.target.files[0]));
     }
   }
-  const handlehovertrue = () =>{
+  const handlehovertrue = () => {
     sethover(true);
   }
-  const handlehoverfalse = () =>{
+  const handlehoverfalse = () => {
     sethover(false);
   }
 
@@ -125,7 +125,7 @@ const Card = (props) => {
       }, 2000);
     }
   };
-  const handledelete = ()=>{
+  const handledelete = () => {
     setimage(null);
     sethover(false);
   }
@@ -180,7 +180,15 @@ const Card = (props) => {
 
       <div style={message && message.length ? null : marTop}>
         <img src="/img.jpg" className="card-img-top" alt="" />
-        {/* <img src={imgUrl} className="card-img-top" alt="" /> */}
+        {/* <img
+          src={`https://circlenowdev.xyz/file/file/download?variant=preview-image&guid=550fdfdb-7800-4098-845f-f9a20f70fa58&hash_sha1=f971967c`} alt=""
+          onError={(e) =>
+          (
+            (e.target.src =
+              "./img.jpg")
+          )
+          }
+        /> */}
       </div>
 
       <hr />
@@ -217,15 +225,15 @@ const Card = (props) => {
               </button>
               <button className="globalbtn" ><label style={{ cursor: 'pointer' }} htmlFor="showimage"><i className="bi bi-upload" /></label></button>
               <input onChange={onImageChange} type="file" accept="image/*" id="showimage" style={{ display: "none", visibility: "none" }}>
-            </input>
-            
-            <div className='d-flex'>
-            
-            {image?<p onMouseEnter={handlehovertrue} onMouseLeave= {handlehoverfalse}>{filename}<i onClick={handledelete}  class="bi bi-trash"></i></p>:null}
-            
-            {hover?<img src = {image} className= "hoveredimg" style = {{width:"100px",height:"100px",marginLeft:"210px",marginTop:"-100px"}}></img>:null}
-            </div>
-            
+              </input>
+
+              <div className='d-flex'>
+
+                {image ? <p onMouseEnter={handlehovertrue} onMouseLeave={handlehoverfalse}>{filename}<i onClick={handledelete} class="bi bi-trash"></i></p> : null}
+
+                {hover ? <img src={image} alt='' className="hoveredimg" style={{ width: "100px", height: "100px", marginLeft: "210px", marginTop: "-100px" }}></img> : null}
+              </div>
+
             </form>
           </div>
         </>

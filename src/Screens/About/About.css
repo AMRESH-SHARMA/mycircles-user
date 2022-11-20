@@ -1,0 +1,17 @@
+@media screen and (max-width: 775px) {
+  #aboutcardtwo {
+    display: none;
+  }
+}
+@media screen and (min-width: 600px) {
+  #aboutcardone {
+    min-width: 35rem;
+    max-width: 40rem;
+    margin-left: -50px;
+  }
+}
+#aboutcardtwo {
+  /* display: block; */
+  min-width: 20rem;
+  max-width: 20rem;
+}

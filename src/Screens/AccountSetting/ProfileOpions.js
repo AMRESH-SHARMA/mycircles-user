@@ -37,7 +37,7 @@ export default function ProfileOpions() {
       }
     }
     getCurrentUser()
-  }, [])
+  }, [zcurrentUser])
 
 
 
@@ -60,6 +60,7 @@ export default function ProfileOpions() {
     }
     getSpaces()
   }, [])
+  
   //handleSubmitGeneral
   const handleSubmitGeneral = (e) => {
     e.preventDefault()
@@ -557,11 +558,11 @@ export default function ProfileOpions() {
                     onChange={handleChange}
                   />
 
-                  <label className='gformlabel' htmlFor="url">New E-Mail address *</label>
+                  <label className='gformlabel' htmlFor="username">New User name *</label>
                   <input
-                    name="url"
+                    name="username"
                     type="text"
-                    value={values.url}
+                    value={values.username}
                     onChange={handleChange}
                   />
 
@@ -583,6 +584,68 @@ export default function ProfileOpions() {
             Your current E-mail address is <strong>{zcurrentUser ? (zcurrentUser.account.email) : ""}</strong>. You can change your current E-mail address here.
           </p>
 
+          <Formik
+            initialValues={generalValues}
+            enableReinitialize={true}
+            onSubmit={(values, { setSubmitting }) => {
+              setTimeout(async () => {
+                try {
+                  // let resapi = await axios.post(`https://circlenowdev.xyz/api/v1/user/${localStorage.getItem("current_user_id")}`, values, {
+                  //   headers: {
+                  //     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                  //   },
+                  // })
+                  // console.log("resapi2", resapi)
+                  console.log("generalValues", generalValues)
+                  console.log("Values", values)
+                } catch (err) {
+                  console.warn(err)
+                }
+                console.log("Logging in", values);
+
+                setSubmitting(false);
+              }, 500);
+            }}
+          >
+
+            {props => {
+              const {
+                values, isSubmitting, handleChange, handleSubmit
+              } = props;
+
+              if (isSubmitting) {
+                var disableStyle = { cursor: "not-allowed", }
+              }
+
+              return (
+
+                <Form onSubmit={handleSubmit} style={{ margin: "0px" }}>
+
+                  <label className='gformlabel' htmlFor="url">Current password *</label>
+                  <input
+                    name="url"
+                    type="text"
+                    value={values.url}
+                    onChange={handleChange}
+                  />
+
+                  <label className='gformlabel' htmlFor="email">New E-Mail address *</label>
+                  <input
+                    name="email"
+                    type="text"
+                    value={values.email}
+                    onChange={handleChange}
+                  />
+
+
+                  <div className="d-flex justify-content-between">
+                    <button className="globalbtn" style={disableStyle} type="submit" disabled={isSubmitting}>Save</button>
+                  </div>
+
+                </Form>
+              );
+            }}
+          </Formik>
 
 
         </Tab>
