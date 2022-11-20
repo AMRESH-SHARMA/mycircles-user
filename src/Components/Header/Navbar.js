@@ -83,46 +83,29 @@ export default function Navbar() {
   }
 
   useEffect(() => {
+
     const getSpaces = async () => {
       try {
-        const result = await axios.get('/space', {
+        const result = await axios.get(`http://206.189.133.189/api/spaces`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         })
         // console.log(result)
-        if (result.data.results) {
-          setCircles(result.data.results)
-          // console.log("result:", result.data.results)
+        if (result.data) {
+          setCircles(result.data.reverse())
         }
       } catch (err) {
         console.warn(err)
       }
       setLoading(false)
     }
-
-    // const getMembersbySpaceId = async () => {
-    //   try {
-    //     const result = await axios.get(`http://206.189.133.189/api/spaces`, {
-    //       headers: {
-    //         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    //       },
-    //     })
-    //     console.log(result)
-    //     if (result.data.results) {
-    //       console.log("result:", result.data.results)
-    //     }
-    //   } catch (err) {
-    //     console.warn(err)
-    //   }
-    // }
-    // getMembersbySpaceId()
     getSpaces()
   }, [])
 
   const Filteredcircles =
     circles?.filter(item =>
-      item.owner.id === parseInt(localStorage.getItem("current_user_id")) && item.name.toLowerCase().includes(search.toLowerCase())
+      item.name.toLowerCase().includes(search.toLowerCase())
     )
 
   return (<>

@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Dropdown from '../Dropdown/Dropdown';
 import axios from "axios";
 import { NavItem } from "react-bootstrap"
@@ -9,6 +9,7 @@ import { letterGenerate, randomColor } from "../../aHelper/Helper";
 import './Navbar.css';
 
 export default function SCNavbar() {
+  const navigate = useNavigate();
   let activeStyle = {
     border: "none",
     borderRadius: "0px",
@@ -32,6 +33,7 @@ export default function SCNavbar() {
   const [show, setShow] = useState(false);
   const [circleIId, setcircleIId] = useState('');
   const [search, setSearch] = useState('');
+  const [circleSettingbtn, setCircleSettingbtn] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   const bgColor = { backgroundColor: randomColor(letterGenerate(localStorage.getItem("containerName"))) };
@@ -77,19 +79,21 @@ export default function SCNavbar() {
   useEffect(() => {
     const getSpaces = async () => {
       try {
-        const resapi = await axios.get('/space', {
+        const result = await axios.get(`http://206.189.133.189/api/spaces`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         })
-        if (resapi.data.results) {
-          setCircles(resapi.data.results)
+        console.log(result)
+        if (result.data) {
+          setCircles(result.data.reverse())
         }
       } catch (err) {
         console.warn(err)
       }
       setLoading(false)
     }
+
     const getSpaceById = async () => {
       setcircleIId(localStorage.getItem("container_iid"))
       if (localStorage.getItem("container_iid")) {
@@ -111,7 +115,7 @@ export default function SCNavbar() {
 
   const Filteredcircles =
     circles?.filter(item =>
-      item.owner.id === parseInt(localStorage.getItem("current_user_id")) && item.name.toLowerCase().includes(search.toLowerCase())
+      item.name.toLowerCase().includes(search.toLowerCase())
     )
 
   return (<>
@@ -278,6 +282,20 @@ export default function SCNavbar() {
           <NavItem className='navitems' >
             <div className='navinvitebtn'>
               <button className='globalbtn' style={{ marginTop: "2px" }} onClick={handleShow}><i className="bi bi-cursor-fill">Invite</i></button>
+
+              <button onClick={() => setCircleSettingbtn(!circleSettingbtn)} className='globalbtn' style={{ margin: "0px 5px", border: "none", backgroundColor: "#D4D4D4", color: "#7A7A7A" }}>
+                <i className="bi bi-gear-fill">&nbsp;&nbsp;
+                  <i className="bi bi-caret-down-fill"></i>
+                </i>
+              </button>
+
+              <div id="space-setting-dropdown-content" style={!circleSettingbtn ? { display: "none" } : null}>
+                <button className='tdbtn' onClick={()=>navigate(`/c/${localStorage.getItem("containerName")}/circle/manage`)}><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;&nbsp;Settings</button>
+                <button className='tdbtn'><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Security</button>
+                <button className='tdbtn'><i class="fa fa-bell" aria-hidden="true"></i>&nbsp;&nbsp;Receive&nbsp;Notification</button>
+                <button className='tdbtn'><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;&nbsp;Hide&nbsp;posts&nbsp;on&nbsp;dashboard</button>
+              </div>
+
               {show && <InviteModal show={show} id={circleIId} handleClose={handleClose} />}
             </div>
           </NavItem>

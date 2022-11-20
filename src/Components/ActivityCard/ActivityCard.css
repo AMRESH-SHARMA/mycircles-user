@@ -1,0 +1,8 @@
+.activitycardblock {
+  overflow-y:hidden;
+
+}
+.activitycardblock:hover {
+  padding-right: 0px;
+  overflow-y:auto;
+}

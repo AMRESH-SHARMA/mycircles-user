@@ -13,22 +13,19 @@
   color: rgb(70, 153, 179);
 }
 
-.dropdown-menu >li >a {
-  color: black;
+#header-profile-dd >li >a {
   padding: 4px 15px;
   text-decoration: none;
   color: white;
   font-weight: 500;
 }
 
-.dropdown-menu >li:hover {
+#header-profile-dd>li:hover {
   background-color: #3f5b6d;
   border-left: 3px solid #21A1B3;
 }
 
-.dropdown-header:hover .dropdown-header-content {
-  display: block;
-}
+
 #headerdropsec{
   min-width:130px;
 }
