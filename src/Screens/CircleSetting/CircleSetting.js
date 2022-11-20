@@ -25,8 +25,8 @@ const CircleSetting = () => {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         })
-        setZCurrentUser(resapi.data)
-        setbasicValues(resapi.data.profile)
+        // setZCurrentUser(resapi.data)
+        // setbasicValues(resapi.data.profile)
         console.log("resapi", resapi)
 
       } catch (err) {
