@@ -294,6 +294,7 @@ export default function SCNavbar() {
                 <button className='tdbtn'><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Security</button>
                 <button className='tdbtn'><i class="fa fa-bell" aria-hidden="true"></i>&nbsp;&nbsp;Receive&nbsp;Notification</button>
                 <button className='tdbtn'><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;&nbsp;Hide&nbsp;posts&nbsp;on&nbsp;dashboard</button>
+                <button className='tdbtn' onClick={()=>navigate(`/c/${localStorage.getItem('containerName')}/about`)}><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;&nbsp;About</button>
               </div>
 
               {show && <InviteModal show={show} id={circleIId} handleClose={handleClose} />}
