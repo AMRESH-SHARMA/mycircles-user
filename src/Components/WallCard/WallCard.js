@@ -222,7 +222,6 @@ const Card = (props) => {
             <div className='d-flex'>
             
             {image?<p onMouseEnter={handlehovertrue} onMouseLeave= {handlehoverfalse}>{filename}<i onClick={handledelete}  class="bi bi-trash"></i></p>:null}
-            
             {hover?<img src = {image} className= "hoveredimg" style = {{width:"100px",height:"100px",marginLeft:"210px",marginTop:"-100px"}}></img>:null}
             </div>
             
