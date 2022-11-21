@@ -8,6 +8,7 @@ import Spinner from "../../aspinner/Spinner";
 import Welcome from '../Error/Welcome';
 import SCNavbar from '../../Components/Header/SCNavbar';
 import { scpage } from '../../aHelper/Helper';
+import ActivityCard from '../../Components/ActivityCard/ActivityCard';
 
 const Wall = () => {
 
@@ -96,15 +97,8 @@ const Wall = () => {
                         </div>
                       </div>
 
-                      <div className="gcard mt-3">
-                        <div className="card-body">
-                          <div className="card-title d-flex">
-                            <div className="flex-grow-1">
-                              <strong>Latest </strong>Activities
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      <ActivityCard/>
+
                     </div>
                   </>
                 </div>
