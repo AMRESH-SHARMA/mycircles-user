@@ -33,7 +33,6 @@ function App() {
 
         <Route exact path = "/user/account/edit" name = "propfile options " element= {<AccountSetting/>}/>        
         <Route exact path="/c/:circle/circle/manage" name="manage circle" element={<CircleSetting />} />
-
         <Route exact path="/c/:circle/about" name="about" element={<About />} />
 
         <Route exact path="*" element={<Page404 />} />
