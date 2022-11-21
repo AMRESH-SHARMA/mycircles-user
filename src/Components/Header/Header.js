@@ -24,6 +24,8 @@ export default function Header() {
           localStorage.removeItem("authToken");
         }
         setCurrentUser(result.data)
+        // console.log(result.data.id)
+        localStorage.setItem("current_user_id",result.data.id);
       } catch (err) {
         console.warn(err)
       }

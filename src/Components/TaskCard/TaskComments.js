@@ -1,9 +1,11 @@
 import { React, useState } from 'react'
 import { noofdays } from '../../aHelper/Helper';
 import Spinner from '../../aspinner/Spinner';
+import DelComment from '../Delcmtbtn/DelComment';
+
 
 const TaskComments = (props) => {
-  const { message, createdAt, createdBy, likes } = props.obj
+  const { id, message, createdAt, createdBy, likes } = props.obj
   const [replytocommentbtn, setreplytocommentbtn] = useState(false)
   console.log('p', props.obj)
 
@@ -16,8 +18,9 @@ const TaskComments = (props) => {
   return (<>
     <div key={props.index}>
       <div className="d-flex-row justify-content-start" id='gshowallcommentsbody' >
-        <div id='cmttitle' >
+        <div id='cmttitle' className='d-flex' >
           <strong >{createdBy.display_name}</strong> &nbsp; {noofdays(createdAt)}
+          <DelComment id={id} />
         </div>
 
         <div id='cmtbody' >

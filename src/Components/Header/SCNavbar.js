@@ -5,8 +5,8 @@ import axios from "axios";
 import { NavItem } from "react-bootstrap"
 import InviteModal from "./InviteModal";
 import Spinner from '../../aspinner/Spinner';
+import { letterGenerate, randomColor } from "../../aHelper/Helper";
 import './Navbar.css';
-
 
 export default function SCNavbar() {
   let activeStyle = {
@@ -23,7 +23,6 @@ export default function SCNavbar() {
     paddingBottom: "0px",
   };
 
-
   const [circles, setCircles] = useState([])
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
@@ -35,8 +34,8 @@ export default function SCNavbar() {
   const [search, setSearch] = useState('');
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
+  const bgColor = { backgroundColor: randomColor(letterGenerate(localStorage.getItem("containerName"))) };
 
-  // const container_iid = localStorage.getItem("container_iid");
 
   if (submitting) {
     var disableStyle = { cursor: "not-allowed", }
@@ -61,12 +60,12 @@ export default function SCNavbar() {
     setSubmitting(true);
     setTimeout(async () => {
       try {
-        const res = await axios.post("/space", inputs, {
+        let resapi = await axios.post("/space", inputs, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         })
-        console.log("resapi", res)
+        // console.log("resapi", res)
       }
       catch (err) {
         console.warn(err)
@@ -78,42 +77,41 @@ export default function SCNavbar() {
   useEffect(() => {
     const getSpaces = async () => {
       try {
-        const result = await axios.get('/space', {
+        const resapi = await axios.get('/space', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         })
-        setCircles(result.data.results)
-        // console.log("result:", result.data.results)
+        if (resapi.data.results) {
+          setCircles(resapi.data.results)
+        }
       } catch (err) {
         console.warn(err)
       }
       setLoading(false)
     }
-    const getSpacesById = async () => {
-      let url = window.location.href;
-      let id = url.split("/")[5];
-      setcircleIId(id)
-      if (circleIId) {
+    const getSpaceById = async () => {
+      setcircleIId(localStorage.getItem("container_iid"))
+      if (localStorage.getItem("container_iid")) {
         try {
-          const resapi = await axios.get(`/space/${circleIId}`, {
+          const resapi = await axios.get(`/space/${localStorage.getItem("container_iid")}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
             },
           })
-          console.log('r', resapi)
+          console.log('getSpacesById', resapi)
         } catch (err) {
           console.log(err);
         }
       }
     }
-    getSpacesById()
+    getSpaceById()
     getSpaces()
   }, [circleIId])
 
   const Filteredcircles =
     circles?.filter(item =>
-      item.name.toLowerCase().includes(search.toLowerCase())
+      item.owner.id === parseInt(localStorage.getItem("current_user_id")) && item.name.toLowerCase().includes(search.toLowerCase())
     )
 
   return (<>
@@ -124,13 +122,26 @@ export default function SCNavbar() {
 
             <NavLink to="/" className="btn noborder"
               data-bs-toggle="dropdown" aria-expanded="false">
-              <img
-                src="/img.jpg"
-                alt="img"
-                width="30"
-                height="30"
-                className="navprofile"
-              />{localStorage.getItem("containerName")}<i className="bi bi-caret-down-fill" />
+              {false ?
+                <>
+                  <img
+                    src="/img.jpg"
+                    alt="img"
+                    width="30"
+                    height="30"
+                    className="navprofile"
+                  />
+                  {localStorage.getItem("containerName")}<i className="bi bi-caret-down-fill" /></>
+                :
+                <><div style={{ margin: "3px 3px 0px 0px" }}>
+                  <div className='Ntxttoimgdiv' style={bgColor}>
+                    <div className='Ntxttoimg'>{letterGenerate(localStorage.getItem("containerName"))}</div>
+                  </div>
+                  {localStorage.getItem("containerName")}<i className="bi bi-caret-down-fill" />
+                </div>
+                </>
+              }
+
             </NavLink>
 
             <ul className="dropdown-menu text-small">
@@ -241,7 +252,7 @@ export default function SCNavbar() {
               <p className="homeNavTabsTitle">MEMBERS</p>
             </NavLink>
           </li>
-          
+
 
           <li className='homeNavTabs'>
             <NavLink to={`/c/${localStorage.getItem("containerName")}/${localStorage.getItem("container_iid")}/SCtasks`}
@@ -264,7 +275,7 @@ export default function SCNavbar() {
             <label style={{ margin: "0px", padding: "0px" }} className="text">1026</label>
             <label style={{ margin: "-2px 0px 0px 0px", padding: "0px" }}>Followers</label>
           </NavItem>
-          <NavItem className="navitems" >
+          <NavItem className='navitems' >
             <div className='navinvitebtn'>
               <button className='globalbtn' style={{ marginTop: "2px" }} onClick={handleShow}><i className="bi bi-cursor-fill">Invite</i></button>
               {show && <InviteModal show={show} id={circleIId} handleClose={handleClose} />}

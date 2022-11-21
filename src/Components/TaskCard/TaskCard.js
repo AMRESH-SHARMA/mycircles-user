@@ -4,13 +4,14 @@ import TaskCommentBody from './TaskCommentBody';
 import axios from 'axios';
 import Spinner from '../../aspinner/Spinner';
 import { useNavigate } from 'react-router-dom';
+import { letterGenerate, randomColor } from "../../aHelper/Helper";
+import EditModal from './EditModal';
 
 export const TaskCard = (props) => {
 
   const { id, description, end_datetime, created_by, status, content } = props.obj
   // console.log(props.obj)
-  const imgtext = created_by.display_name
-  // console.log(imgtext)
+  const bgColor = { backgroundColor: randomColor(created_by.display_name) };
 
   const navigate = useNavigate()
   const [TaskStatus, setTaskStatus] = useState(status);
@@ -18,6 +19,9 @@ export const TaskCard = (props) => {
   const [commentValue, setCommentValue] = useState('');
   const [isPostingComment, setIsPostingComment] = useState(false);
   const [rendercomp, setrendercomp] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
 
   //Dropdown
   const displaynone = { display: "none" }
@@ -38,15 +42,9 @@ export const TaskCard = (props) => {
         navigate(0);
       }
     } catch (err) {
+      alert(err.response.data.message)
       console.log(err)
     }
-  }
-
-  const texttoimg = async (name) => {
-    let str = name.split(" ")
-    let url = `https://ui-avatars.com/api/?name=${str[0]}+${str[1]}`
-    // console.log("imgtext", url)
-    return url
   }
 
   const handleTaskStatus = async () => {
@@ -130,7 +128,8 @@ export const TaskCard = (props) => {
               <div className="col-auto">
                 <i className='btn bi bi-three-dots taskheaderbtn' onClick={() => setithreedots(!ithreedots)} />
                 <div id="task-dots-dropdown-content" style={!ithreedots ? displaynone : null}>
-                  <button className='tdbtn'>Edit</button>
+                  <button className='tdbtn'  onClick={handleShow}>Edit</button>
+                  {show?<EditModal task_id = {id} show={show} handleClose={handleClose}></EditModal>:null}
                   <button className='tdbtn'>Make&nbsp;public&#47;Make&nbsp;Private</button>
                   <button className='tdbtn'>Add tags</button>
                   <button className='tdbtn'>Move content</button>
@@ -144,8 +143,14 @@ export const TaskCard = (props) => {
         <hr />
 
         <div style={{ padding: "10px" }}>
-          <div className='subtitle'>Assignee: <p className='subtitle-description'>
-            <img href='/' alt='' src={texttoimg(imgtext)} width={"25px"} height={"25px"} style={{ borderRadius: '50%' }} />&nbsp;{created_by.display_name}</p>
+          <div className='subtitle'><span style={{marginRight:"10px"}}>Assignee:</span>
+            <div className='subtitle-description d-flex'>
+              <div className='Tasktxttoimgdiv' style={bgColor}>
+                <div className='Tasktxttoimg'>{letterGenerate(created_by.display_name)}</div>
+              </div>
+
+              <label style={{paddingTop:"2px"}}>&nbsp;{created_by.display_name}</label>
+            </div>
           </div>
 
           <div className='subtitle'>
@@ -163,7 +168,7 @@ export const TaskCard = (props) => {
           <div className="task-file">
             <img src="/adobe.png" alt='' width="40" height="30" className="taskfile-img" style={{ margin: "5px" }} />
             <div className='task-file-text' style={{ marginTop: "5px" }}>
-              <p className='task-file-text'>Dummy File</p>
+              <p className='task-file-text'>Dummy File Name:{content.files.length}</p>
               <a className='task-file-text' href='/' style={{ color: "#21A1B3", textDecoration: "none" }}>Download</a>
             </div>
           </div>

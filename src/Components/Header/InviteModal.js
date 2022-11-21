@@ -15,6 +15,7 @@ const InviteModal = (props) => {
 
   const [key, setKey] = useState('PickUsers');
   const [data, setdata] = useState('')
+  const [popup, setpopup] = useState('')
   const [selectvalue, setselectvalue] = useState('')
   const [isSubmittingMulti, setisSubmittingMulti] = useState(false)
 
@@ -51,10 +52,10 @@ const InviteModal = (props) => {
     (async () => {
       e.preventDefault()
       console.log(selectvalue)
+      setisSubmittingMulti(true);
       selectvalue.map(async (i) => {
         console.log(i.value)
         try {
-          // https://circlenowdev.xyz/api/v1/space/5/membership/25
           let resapi = await axios.post(`/space/${props.id}/membership/${i.value}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -62,9 +63,14 @@ const InviteModal = (props) => {
           })
           console.log(resapi)
         } catch (err) {
+          setpopup(err.response.data.name)
           console.warn(err)
         }
       })
+      if (popup) {
+        alert(popup)
+        setpopup('')
+      }
       setisSubmittingMulti(false);
 
     })()
@@ -156,7 +162,7 @@ const InviteModal = (props) => {
                           <div className="input-feedback">{errors.email}</div>
                         )}
                         <div className="invitemodalbtn">
-                          <button className="globalbtn" style={disableStyle} type="submit" disabled={isSubmitting}>{isSubmitting ?<div className="globalbtnspin"><Spinner/></div>  : "Submit"}</button>
+                          <button className="globalbtn" style={disableStyle} type="submit" disabled={isSubmitting}>{isSubmitting ? <div className="globalbtnspin"><Spinner /></div> : "Submit"}</button>
                         </div>
                       </form>
                     </div>

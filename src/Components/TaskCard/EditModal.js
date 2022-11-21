@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
@@ -7,7 +7,34 @@ import Tabs from 'react-bootstrap/Tabs';
 
 
 
-const PopupModal = (props) => {
+const EditModal = (props) => {
+  const [taskdata,settaskdata]  =useState([]);
+  useEffect(() => {
+    async function getTask(){
+        console.log("task_id",props.task_id);
+        try{
+            const res = await axios.get("/tasks/task/"+props.task_id,{
+                 headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
+
+            });
+            settaskdata(res.data);
+
+        }catch(err){
+            console.log(err);
+        }
+        
+        
+
+
+
+    }
+    getTask();
+  
+    
+  }, [])
+  
   const url = window.location.href;
   const id = url.split("/");
   const [Title, setTitle] = useState();
@@ -16,9 +43,9 @@ const PopupModal = (props) => {
   const [EndDate, setEndDate] = useState();
   const [EndTime, setEndTime] = useState();
   const [Description, setDescription] = useState();
-  
+  const [key, setKey] = useState('General');
+  const [files,setfiles] = useState();
   async function handleSubmit() {
-    
     try {
       let payLoad = {
         Task: {
@@ -32,7 +59,6 @@ const PopupModal = (props) => {
           end_time: EndTime,
         },
       };
-      console.log(payLoad);
       const result = await axios.post(`/tasks/container/${id[5]}`, payLoad, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -45,16 +71,53 @@ const PopupModal = (props) => {
       console.log(ex);
     }
   }
-  
-  
-  
+  const onFileUpload = (event) => {
+    if(event.target.files[0]){
+      
+      setfiles(event.target.files[0]);
+      console.log("Here is your file",event.target.files[0]);
+
+    }
+  }
+  const handledelete = ()=>{
+    setfiles(null);
+  }
+  const handlesave = ()=>{
+    if(files){
+      setKey("General");
+    }
+    console.log(files);
+    const payLoad = {
+      files
+    }
+    try{
+      const res = axios.post('/tasks/task/'+props.task_id+"/upload-files",payLoad,{
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      });
+      alert(res);
+      console.log(res);
+
+
+    }
+    catch(err){
+        alert(err);
+    }
+
+  }
   return (
     <>
       <Modal show={props.show} onHide={props.handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Add Task</Modal.Title>
         </Modal.Header>
-         
+         <Tabs
+          id="controlled-tab-example"
+          activeKey={key}
+          onSelect={(k) => setKey(k)}
+          className="mb-3">
+          <Tab eventKey="General" title="General">
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleinputInput1">
@@ -62,6 +125,7 @@ const PopupModal = (props) => {
               <input
                 onChange={(e) => setTitle(e.target.value)}
                 type="email"
+                value = {taskdata.title}
                 placeholder="name@example.com"
                 autoFocus
               />
@@ -118,10 +182,23 @@ const PopupModal = (props) => {
             Close
           </button>
         </Modal.Footer>
-        
-        
+        </Tab>
+        <Tab eventKey="Attachment" title="Attachment">
+        <div className="d-flex">
+        <button className="uploadbtn" >
+            <label style={{ cursor: 'pointer' }} htmlFor="showfile"><i class="bi bi-upload" style ={{marginRight:"5px"}}></i>Upload</label>
+            <input onChange = {onFileUpload} type="file" id="showfile" style={{ display: "none", visibility: "none" }}></input>
+          </button>
+          {files?<p style = {{marginTop:"20px"}}>{files.name}<i onClick={handledelete}  class="bi bi-trash"></i></p>:null}
+          </div>
+          <button className="globalbtn" onClick={handlesave} style= {{margin:"10px"}}>
+            Save
+          </button>
+
+        </Tab>
+        </Tabs>
       </Modal>
     </>
   );
 };
-export default PopupModal;
+export default EditModal;
