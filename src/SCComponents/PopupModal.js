@@ -18,6 +18,7 @@ const PopupModal = (props) => {
   const [Description, setDescription] = useState();
   
   async function handleSubmit() {
+    
     try {
       let payLoad = {
         Task: {
@@ -31,6 +32,7 @@ const PopupModal = (props) => {
           end_time: EndTime,
         },
       };
+      console.log(payLoad);
       const result = await axios.post(`/tasks/container/${id[5]}`, payLoad, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authToken")}`,
