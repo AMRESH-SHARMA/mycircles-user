@@ -90,7 +90,7 @@ const Members = () => {
                   <div className="row" style={{ marginTop: "2rem" }}>
                     {users && Filteredusers?.map((data, index) => (
                       <>
-                        <MembersCard name={data.display_name} tags={data.account.tags} unique={index} />
+                        <MembersCard obj={data} tags={data.account.tags} unique={index} />
                       </>
                     ))}
                   </div>

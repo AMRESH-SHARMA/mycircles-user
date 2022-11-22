@@ -49,9 +49,9 @@ const ActivityCard = () => {
 
       <div style={{ maxHeight: "350px" }} >
         {activites && activites.length ?
-          activites.map((i) => (
+          activites.map((i,index) => (
             <>
-              <div key={i.id} >
+              <div key={index} >
                 <div style={{ display: "flex" }} >
 
                   <img
