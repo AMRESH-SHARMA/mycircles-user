@@ -21,11 +21,9 @@ const Card = (props) => {
   const [isPostingComment, setIsPostingComment] = useState(false);
   const [rendercomp, setrendercomp] = useState(false);
 
-
-   const [imgUrl, setimgUrl] = useState();
-   const [image, setimage] = useState();
-   const [filename,setfilename] = useState();
-   const [hover,sethover] = useState(false);
+  const [image, setimage] = useState();
+  const [filename, setfilename] = useState();
+  const [hover, sethover] = useState(false);
 
 
 
@@ -177,11 +175,14 @@ const Card = (props) => {
       <hr />
 
       <div style={{ maxHeight: "59px" }}>
-        <p style={{ padding: "5px" }}>{textToEmoji(message).split(':').join('')}</p>
+        <p style={{ padding: "0px 0px 20px 50px" }}>{textToEmoji(message).split(':').join('')}</p>
       </div>
 
       <div style={message && message.length ? null : marTop}>
-        <img src="/img.jpg" className="card-img-top" alt="" />
+        <div style={{ width: "450px", padding: "0px 0px 20px 50px" }}>
+
+          <img src="/img.jpg" alt='' height={300} width={300} className="card-img-top" /></div>
+
         {/* <img
           src={`https://circlenowdev.xyz/file/file/download?variant=preview-image&guid=550fdfdb-7800-4098-845f-f9a20f70fa58&hash_sha1=f971967c`} alt=""
           onError={(e) =>

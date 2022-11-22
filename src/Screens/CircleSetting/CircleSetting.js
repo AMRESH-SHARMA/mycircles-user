@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Header from '../../Components/Header/Header'
-import Navbar from '../../Components/Header/Navbar'
+import SCNavbar from '../../Components/Header/SCNavbar'
 import Form from "react-bootstrap/Form";
 import { Formik } from "formik";
 // import * as Yup from "yup";
@@ -38,7 +38,7 @@ const CircleSetting = () => {
 
   return (<>
     <Header />
-    <Navbar />
+    <SCNavbar />
     <div className='gcontainer'>
       <div className='gcard'>
         <p style={{ fontSize: "20px" }}><strong>Space</strong>&nbsp;&nbsp;Settings</p>

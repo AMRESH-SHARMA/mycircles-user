@@ -37,6 +37,12 @@ export default function SCNavbar() {
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   const bgColor = { backgroundColor: randomColor(letterGenerate(localStorage.getItem("containerName"))) };
+  const [ImgError, setImgError] = useState(false);
+  const ImgStyle = { display: "block", height: "auto" }
+
+  const handleImgError = () => {
+    setImgError(true)
+  }
 
 
   if (submitting) {
@@ -126,26 +132,30 @@ export default function SCNavbar() {
 
             <NavLink to="/" className="btn noborder"
               data-bs-toggle="dropdown" aria-expanded="false">
-              {false ?
-                <>
-                  <img
-                    src="/img.jpg"
-                    alt="img"
-                    width="30"
-                    height="30"
-                    className="navprofile"
-                  />
-                  {localStorage.getItem("containerName")}<i className="bi bi-caret-down-fill" /></>
-                :
-                <><div style={{ margin: "3px 3px 0px 0px" }}>
-                  <div className='Ntxttoimgdiv' style={bgColor}>
-                    <div className='Ntxttoimg'>{letterGenerate(localStorage.getItem("containerName"))}</div>
-                  </div>
-                  {localStorage.getItem("containerName")}<i className="bi bi-caret-down-fill" />
-                </div>
-                </>
-              }
+              <div style={{ display: "flex" }}>
+                <img
+                  src={`https://circlenowdev.xyz/uploads/profile_image/4d7a56be-d2f7-45a3-a3b6-b45224f9c674.jpg?m=1668274419`}
+                  alt=""
+                  width="30"
+                  height="30"
+                  className="navprofile"
+                  onError={() => handleImgError()}
+                  style={ImgError ? { display: "none" } : ImgStyle}
+                />
 
+
+                {ImgError &&
+                  <>
+                    <div style={{ margin: "3px 3px 0px 0px" }}>
+                      <div className='Ntxttoimgdiv' style={bgColor}>
+                        <div className='Ntxttoimg'>{letterGenerate(localStorage.getItem("containerName"))}</div>
+                      </div>
+                    </div>
+                  </>}
+                <div style={{ marginTop: "5px" }}>
+                  {localStorage.getItem("containerName")}<i className="bi bi-caret-down-fill" style={{ marginTop: "5px" }} />
+                </div>
+              </div>
             </NavLink>
 
             <ul className="dropdown-menu text-small">
@@ -290,11 +300,11 @@ export default function SCNavbar() {
               </button>
 
               <div id="space-setting-dropdown-content" style={!circleSettingbtn ? { display: "none" } : null}>
-                <button className='tdbtn' onClick={()=>navigate(`/c/${localStorage.getItem("containerName")}/circle/manage`)}><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;&nbsp;Settings</button>
-                <button className='tdbtn'><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Security</button>
-                <button className='tdbtn'><i class="fa fa-bell" aria-hidden="true"></i>&nbsp;&nbsp;Receive&nbsp;Notification</button>
-                <button className='tdbtn'><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;&nbsp;Hide&nbsp;posts&nbsp;on&nbsp;dashboard</button>
-                <button className='tdbtn' onClick={()=>navigate(`/c/${localStorage.getItem('containerName')}/about`)}><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;&nbsp;About</button>
+                <button className='tdbtn' onClick={() => navigate(`/c/${localStorage.getItem("containerName")}/circle/manage`)}><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;&nbsp;Settings</button>
+                <button className='tdbtn'><i className="fa fa-lock" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Security</button>
+                <button className='tdbtn'><i className="fa fa-bell" aria-hidden="true"></i>&nbsp;&nbsp;Receive&nbsp;Notification</button>
+                <button className='tdbtn'><i className="fa fa-eye" aria-hidden="true"></i>&nbsp;&nbsp;Hide&nbsp;posts&nbsp;on&nbsp;dashboard</button>
+                <button className='tdbtn' onClick={() => navigate(`/c/${localStorage.getItem('containerName')}/about`)}><i className="fa fa-info-circle" aria-hidden="true"></i>&nbsp;&nbsp;About</button>
               </div>
 
               {show && <InviteModal show={show} id={circleIId} handleClose={handleClose} />}

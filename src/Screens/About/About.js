@@ -1,10 +1,35 @@
 import React from 'react'
+import { useEffect } from 'react'
 import Header from '../../Components/Header/Header'
 import Navbar from '../../Components/Header/Navbar'
 import Welcome from '../Error/Welcome'
+import axios from 'axios';
 import './About.css'
 
+
+
 const About = () => {
+
+  useEffect(() => {
+
+    const getSpaces = async () => {
+      try {
+        const resapi = await axios.get(`/space/${localStorage.getItem("container_iid")}/membership`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        })
+        console.log(resapi)
+        // if (result.data) {
+        //   setCircles(result.data.reverse())
+        // }
+      } catch (err) {
+        console.warn(err)
+      }
+    }
+    getSpaces()
+  }, [])
+
   return (<>
     <Header />
     <Navbar />
@@ -67,7 +92,7 @@ const About = () => {
       </>
       :
       <div style={{ margin: "2.5rem" }}>
-        <Welcome/>
+        <Welcome />
       </div>
     }
   </>

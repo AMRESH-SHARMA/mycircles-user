@@ -1,6 +1,6 @@
 .card-cover-photo2 {
     position: relative;
-    background: url(https://i.imgur.com/jxyuizJ.jpeg);
+    background-color: #555555;
     background-size: cover;
     height: 120px;
     border-radius: 5px 5px 0 0;
@@ -9,10 +9,9 @@
 .card-profile2 {
     position: absolute;
     width: 120px;
-    bottom: -60px;
-    left: 15px;
-    border-radius: 50%;
-    /* border: 2px solid #222; */
+    margin-top: 40px;
+    left: 8px;
+    /* border-radius: 50%; */
     background: #fff;
     padding: 5px;
 }

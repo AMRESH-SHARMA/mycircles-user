@@ -11,6 +11,7 @@ import Page404 from './Screens/Error/Page404';
 import TokenSend from './Screens/Error/TokenSend';
 import AccountSetting from './Screens/AccountSetting/AccountSetting';
 import CircleSetting from './Screens/CircleSetting/CircleSetting';
+import MyProfile from './Screens/MyProfile/MyProfile';
 import About from './Screens/About/About';
 
 
@@ -31,9 +32,11 @@ function App() {
         <Route exact path="/user/registration" name="Register Page" element={<Register />} />
         <Route exact path="/user/tokenstatus" name="TokenSend Page" element={<TokenSend />} />
 
-        <Route exact path = "/user/account/edit" name = "propfile options " element= {<AccountSetting/>}/>        
         <Route exact path="/c/:circle/circle/manage" name="manage circle" element={<CircleSetting />} />
         <Route exact path="/c/:circle/about" name="about" element={<About />} />
+
+        <Route exact path="/user/account/edit" name="propfile options " element={<AccountSetting />} />
+        <Route exact path="/user/profile" name="myProfile " element={<MyProfile />} />
 
         <Route exact path="*" element={<Page404 />} />
       </Routes>
