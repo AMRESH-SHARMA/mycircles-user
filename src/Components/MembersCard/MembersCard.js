@@ -3,24 +3,24 @@ import axios from 'axios';
 import "./MembersCard.css";
 
 export default function MembersCard(props) {
-  console.log('t', props)
+  // console.log('t', props)
   const { guid, display_name, profile } = props.obj
 
-    const handleFollowUser = async () => {
-      try {
-        const resapi = await axios.post(`https://circlenowdev.xyz/u/adminauditya/user/profile/follow`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
-        })
-        console.log(resapi)
-        // if (result.data) {
-        //   setCircles(result.data.reverse())
-        // }
-      } catch (err) {
-        console.warn(err)
-      }
+  const handleFollowUser = async () => {
+    try {
+      const resapi = await axios.post(`https://circlenowdev.xyz/u/adminauditya/user/profile/follow`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      })
+      console.log(resapi)
+      // if (result.data) {
+      //   setCircles(result.data.reverse())
+      // }
+    } catch (err) {
+      console.warn(err)
     }
+  }
 
 
   return (<>
@@ -38,15 +38,19 @@ export default function MembersCard(props) {
         />
 
       </div>
-      <h5 style={{marginTop:"50px"}} >{display_name}</h5>
-      <p style={{marginTop:"10px"}}>{profile.title}</p>
+      <h5 style={{ marginTop: "50px" }} >{display_name}</h5>
 
-      <div className="card-tags">
-        {props.tags?.map(item => (
-          <a href='/' className="label label-default" style={{marginRight:"5px"}}>{item}</a>
-        ))}
+      <div style={{ minHeight: "100px" }}>
+        <p style={{ marginTop: "10px" }}>{profile.title}</p>
+
+        <div className="card-tags">
+          {props.tags?.map(item => (
+            <a href='/' className="label label-default" style={{ marginRight: "5px" }}>{item}</a>
+          ))}
+        </div>
+
       </div>
-
+      
       <div style={{ display: "flex", justifyContent: "space-between" }}>
 
         <button className="globalbtn" onClick={handleFollowUser}>Follow</button>

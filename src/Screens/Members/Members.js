@@ -70,7 +70,7 @@ const Members = () => {
                           onChange={handleChange}
                           placeholder="Search people?" />
                       </div>
-                      <div className='col-md-2'>
+                      {/* <div className='col-md-2'>
                         <div className='form-search-field-info' style={{ textAlign: "left", fontSize: "13px" }}>Sorting</div>
                         <input
                           name="people"
@@ -83,7 +83,7 @@ const Members = () => {
                           name="people"
                           type="text"
                         />
-                      </div>
+                      </div> */}
                     </div>
                   </div>
 

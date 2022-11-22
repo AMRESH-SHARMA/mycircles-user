@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap");
-.globalbtn{
+
+.globalbtn {
   height: 30px;
   min-width: 75px;
   min-height: 35px;
@@ -12,58 +13,67 @@
   font-weight: 500;
   padding: 5px;
 }
-.globalbtn:hover{
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+
+.globalbtn:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
   cursor: pointer;
   background-color: #344a57;
 }
-.globalbtnspin{
+
+.globalbtnspin {
   display: flex;
   justify-content: center;
 }
+
 /* GLOBAL */
-.gcard{
+.gcard {
   display: block;
   background-color: white;
   padding: 8px 12px;
   border-radius: 5px;
-  box-shadow: 0 6px 16px 0 rgba(0,0,0,0.8);
+  box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.8);
 }
-.gtaskpostcard{
-  word-break:break-word;
+
+.gtaskpostcard {
+  word-break: break-word;
   display: block;
   background-color: white;
   border-radius: 5px;
-  box-shadow: 0 6px 16px 0 rgba(0,0,0,0.8);
+  box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.8);
   max-width: 35rem;
   margin-bottom: 2.5rem;
   padding-top: 5px;
 }
-.gcontainer{
+
+.gcontainer {
   margin: 2.5rem;
   padding: 0px;
 }
-.gtwo-column-layout{
+
+.gtwo-column-layout {
   display: flex;
   justify-content: space-around;
 }
-.gspin{
+
+.gspin {
   display: flex;
   justify-content: center;
 }
-.globaldisplaynone{
+
+.globaldisplaynone {
   display: none;
 }
-.giconbtn{
+
+.giconbtn {
   border: none;
 }
 
-i{
-  color:"black";
+i {
+  color: "black";
 }
 
 /* CARDS */
-.gtaskpost-commentcontent{
+.gtaskpost-commentcontent {
   margin: 0% 2%;
   max-height: 265px;
 }
@@ -85,21 +95,24 @@ i{
   font-size: 82%;
   overflow: clip;
 }
-.gcmtbodyheight{
+
+.gcmtbodyheight {
   overflow: clip;
   max-height: 190px;
 }
+
 /*  */
-.gtextgrey{
+.gtextgrey {
   color: #525657;
   font-size: 14px;
 }
-.gformlabel{
+
+.gformlabel {
   font-weight: 600;
   color: #555555;
 }
 
-.gselect{
+.gselect {
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 3px;
@@ -113,30 +126,54 @@ i{
   outline: none;
   font-size: 12px;
 }
+
 .gselect:focus {
   border: 2px solid #21A1B3;
 }
+
 .gtextarea {
   border: 2px solid #999fa1;
 }
+
 .gtextarea:focus {
   border: 2px solid #21A1B3;
 }
 
-/* Disable css */
-hr{
-  margin: 0px;
-  padding: 0px;
+/* BANNER */
+.gbanner-bg {
+  position: relative;
+  background-color: #555555;
+  background-size: cover;
+  height: 120px;
+  border-radius: 5px 5px 0 0;
 }
-p{
+
+.gbanner-photo {
+  position: absolute;
+  width: 120px;
+  margin-top: 40px;
+  left: 15px;
+  /* border-radius: 50%; */
+  background: #fff;
+  padding: 5px;
+}
+
+/* Disable css */
+hr {
   margin: 0px;
   padding: 0px;
 }
 
-button{
+p {
+  margin: 0px;
+  padding: 0px;
+}
+
+button {
   border: none;
 }
-.colors{
+
+.colors {
   color: #d7dcdf;
   color: #3f5b6d;
   color: #555555;

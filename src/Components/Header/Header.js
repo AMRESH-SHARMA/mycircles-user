@@ -19,7 +19,7 @@ export default function Header() {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         })
-        // console.log(result.data)
+        console.log(result.data)
         setCurrentUser(result.data)
         localStorage.setItem("current_user_id", result.data.id);
       } catch (err) {
@@ -64,7 +64,7 @@ export default function Header() {
               </div>
 
               <div className="dropdown" id='headerdropsec'>
-                <a href="/" className="d-block text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style={{fontWeight:"600", color:"white"}}>
+                <a href="/" className="d-block text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style={{ fontWeight: "600", color: "white" }}>
 
                   <img
                     alt="" width="32" height="32"
@@ -76,12 +76,10 @@ export default function Header() {
                     }
                   />
 
-                  {/* <img src={currentUser ? `https://circlenowdev.xyz/uploads/profile_image/${currentUser.guid}.jpg?m=1666002574` : '/img.jpg'} alt="" width="32" height="32" className="rounded-circle" /> */}
-
-                  <span style={{marginLeft:"5px"}}>{currentUser.display_name}</span>
+                  <span style={{ marginLeft: "5px" }}>{currentUser.display_name}</span>
                 </a>
-                <ul className="dropdown-menu text-small" id='header-profile-dd' style={{ background: "#4D6D7F"}}>
-                  <li><a href="/">My Profile</a></li>
+                <ul className="dropdown-menu text-small" id='header-profile-dd' style={{ background: "#4D6D7F" }}>
+                  <li><a href={`/user/profile`}>My Profile</a></li>
                   <li><a href="/user/account/edit">Account Settings</a></li>
                   <li><a href="/">Administration</a></li>
                   <li><hr className="dropdown-divider" /></li>
