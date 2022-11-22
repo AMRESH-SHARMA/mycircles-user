@@ -68,7 +68,7 @@ const Wall = () => {
             <div className="gcontainer">
               <div className="gtwo-column-layout">
 
-                <div>
+                <div className='col-md-6'>
                   {posts && posts.length ? (
                     posts.map((posts, index) => (
                       <WallCard posts={posts} key={index} />

@@ -106,7 +106,7 @@
 }
 
 #createnewcirclebtn:hover {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
   background-color: #3f5b6d;
 }
 
@@ -147,7 +147,7 @@
 }
 
 .navbarr {
-  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.5)
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
 }
 
 .noborder {
@@ -221,7 +221,7 @@ font-size: 12px;
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
   padding: 12px 16px;
   z-index: 1;
   border-radius: 5px;

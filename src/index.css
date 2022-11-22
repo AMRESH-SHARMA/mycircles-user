@@ -15,7 +15,7 @@
 }
 
 .globalbtn:hover {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
   cursor: pointer;
   background-color: #344a57;
 }
@@ -31,7 +31,7 @@
   background-color: white;
   padding: 8px 12px;
   border-radius: 5px;
-  box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.8);
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
 }
 
 .gtaskpostcard {
@@ -39,20 +39,23 @@
   display: block;
   background-color: white;
   border-radius: 5px;
-  box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.8);
-  max-width: 35rem;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
+  /* max-width: 35rem; */
+  width: 120%;
   margin-bottom: 2.5rem;
   padding-top: 5px;
 }
 
 .gcontainer {
-  margin: 2.5rem;
+  /* margin: 2.5rem; */
+  margin: 5% 0 0;
   padding: 0px;
 }
 
 .gtwo-column-layout {
   display: flex;
   justify-content: space-around;
+  /* justify-content: space-between; */
 }
 
 .gspin {
