@@ -9,6 +9,7 @@ import Tabs from 'react-bootstrap/Tabs';
 
 
 const PopupModal = (props) => {
+
   // const url = window.location.href;
   // const id = url.split("/");
 
