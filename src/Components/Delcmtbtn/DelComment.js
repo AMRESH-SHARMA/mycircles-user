@@ -1,5 +1,4 @@
 import React from 'react'
-import { useState } from 'react'
 import axios from 'axios';
 import '../WallCard/WallCard.css';
 import { useNavigate } from 'react-router-dom';
@@ -8,9 +7,6 @@ const DelComment = (props) => {
 
   const { id } = props
   const navigate = useNavigate();
-  //Dropdown
-  const displaynone = { display: "none" }
-  const [ithreedots, setithreedots] = useState(false);
 
   const handleDelComment = async () => {
     try {
@@ -25,22 +21,19 @@ const DelComment = (props) => {
         navigate(0);
       }
     } catch (err) {
-      alert(err.response.data.message)
+      alert(err)
       console.log(err)
     }
   }
 
-  const handlethreedots = () => {
-    setithreedots(!ithreedots);
-  }
-
   return (
     <>
-      <div onMouseLeave={handlethreedots}>
-        <i className='btn bi bi-three-dots taskheaderbtn' onClick={handlethreedots} />
-        <div className="wallcmt-dots-dropdown-content" style={!ithreedots ? displaynone : null}>
-          {/* <button className='tdbtn'>Edit</button> */}
-          <button className='tdbtndel' onClick={handleDelComment}>Delete</button>
+      <div style={{marginLeft:"5px"}} >
+        <div className="dropdown dropend">
+          <i className='btn bi bi-three-dots taskheaderbtn' data-bs-toggle="dropdown" aria-expanded="false" />
+          <ul className="dropdown-menu" style={{marginTop:"-100px"}}>
+            <button className='tdbtndel' style={{fontSize:"12px", padding:"0px 2px", margin:"0px"}} onClick={handleDelComment}>Delete</button>
+          </ul>
         </div>
       </div>
     </>

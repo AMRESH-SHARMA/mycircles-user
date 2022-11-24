@@ -5,7 +5,7 @@ import axios from "axios";
 import { NavItem } from "react-bootstrap"
 import InviteModal from "./InviteModal";
 import Spinner from '../../aspinner/Spinner';
-import { letterGenerate, randomColor } from "../../aHelper/Helper";
+import { letterGenerate } from "../../aHelper/Helper";
 import './Navbar.css';
 
 export default function SCNavbar() {
@@ -36,7 +36,6 @@ export default function SCNavbar() {
   const [circleSettingbtn, setCircleSettingbtn] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
-  const bgColor = { backgroundColor: randomColor(letterGenerate(localStorage.getItem("containerName"))) };
   const [ImgError, setImgError] = useState(false);
   const ImgStyle = { display: "block", height: "auto" }
 
@@ -100,22 +99,23 @@ export default function SCNavbar() {
       setLoading(false)
     }
 
-    const getSpaceById = async () => {
-      setcircleIId(localStorage.getItem("container_iid"))
-      if (localStorage.getItem("container_iid")) {
-        try {
-          const resapi = await axios.get(`/space/${localStorage.getItem("container_iid")}`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-            },
-          })
-          console.log('getSpacesById', resapi)
-        } catch (err) {
-          console.log(err);
-        }
-      }
-    }
-    getSpaceById()
+    // const getSpaceById = async () => {
+    //   setcircleIId(localStorage.getItem("container_iid"))
+    //   if (localStorage.getItem("container_iid")) {
+    //     try {
+    //       const resapi = await axios.get(`/space/${localStorage.getItem("container_iid")}`, {
+    //         headers: {
+    //           Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+    //         },
+    //       })
+    //       console.log('getSpacesById', resapi)
+    //     } catch (err) {
+    //       console.log(err);
+    //     }
+    //   }
+    // }
+    // getSpaceById()
+
     getSpaces()
   }, [circleIId])
 
@@ -123,6 +123,22 @@ export default function SCNavbar() {
     circles?.filter(item =>
       item.name.toLowerCase().includes(search.toLowerCase())
     )
+
+  const currentCircleGuid = () => {
+    for (let i = 0; i < circles.length; i++) {
+      if (circles[i].contentcontainer_id == localStorage.getItem("container_iid")) {
+        return (circles[i].guid)
+      }
+    }
+  }
+  const currentCircleColor = () => {
+    for (let i = 0; i < circles.length; i++) {
+      if (circles[i].contentcontainer_id == localStorage.getItem("container_iid")) {
+        return (circles[i].color)
+      }
+    }
+  }
+
 
   return (<>
     <div className="border-bottom navbarr" style={{ background: "white" }}>
@@ -133,26 +149,28 @@ export default function SCNavbar() {
             <NavLink to="/" className="btn noborder"
               data-bs-toggle="dropdown" aria-expanded="false">
               <div style={{ display: "flex" }}>
-                <img
-                  src={`https://circlenowdev.xyz/uploads/profile_image/4d7a56be-d2f7-45a3-a3b6-b45224f9c674.jpg?m=1668274419`}
-                  alt=""
-                  width="30"
-                  height="30"
-                  className="navprofile"
-                  onError={() => handleImgError()}
-                  style={ImgError ? { display: "none" } : ImgStyle}
-                />
+                <div style={{ border: "1px", width: "30px" }}>
+                  <img
+                    src={`https://circlenowdev.xyz/uploads/profile_image/${currentCircleGuid()}.jpg?m=1668274419`}
+                    alt=""
+                    width="30"
+                    height="30"
+                    className="navprofile"
+                    onError={() => handleImgError()}
+                    style={ImgError ? { display: "none" } : ImgStyle}
+                  />
 
 
-                {ImgError &&
-                  <>
-                    <div style={{ margin: "3px 3px 0px 0px" }}>
-                      <div className='Ntxttoimgdiv' style={bgColor}>
-                        <div className='Ntxttoimg'>{letterGenerate(localStorage.getItem("containerName"))}</div>
+                  {ImgError &&
+                    <>
+                      <div style={{ margin: "3px 3px 0px 0px" }}>
+                        <div className='Ntxttoimgdiv' style={{ backgroundColor: currentCircleColor() }}>
+                          <div className='Ntxttoimg'>{letterGenerate(localStorage.getItem("containerName"))}</div>
+                        </div>
                       </div>
-                    </div>
-                  </>}
-                <div style={{ marginTop: "5px" }}>
+                    </>}
+                </div>
+                <div style={{ margin: "5px 0px 0px 5px" }}>
                   {localStorage.getItem("containerName")}<i className="bi bi-caret-down-fill" style={{ marginTop: "5px" }} />
                 </div>
               </div>
@@ -168,6 +186,17 @@ export default function SCNavbar() {
                   autoComplete="off" />
               </div>
               <div id='createcircledropdown'>
+                <a href='/' style={{ textDecoration: "none", color: "black", margin: "0px 5px", display: "flex" }}>
+
+                  <div className='txttoimgdiv' style={{ backgroundColor: 'grey' }}>
+                    <div className='txttoimg'  >
+                      {letterGenerate('A C')}
+                    </div>
+
+                  </div>
+                  <span style={{ marginLeft: "5px", marginBottom: "5px" }} >Circles</span>
+                </a>
+                <hr />
                 {loading ?
                   <div id="navdropspinner"><Spinner /></div> :
                   <>
@@ -290,21 +319,26 @@ export default function SCNavbar() {
             <label style={{ margin: "-2px 0px 0px 0px", padding: "0px" }}>Followers</label>
           </NavItem>
           <NavItem className='navitems' >
-            <div className='navinvitebtn'>
-              <button className='globalbtn' style={{ marginTop: "2px" }} onClick={handleShow}><i className="bi bi-cursor-fill">Invite</i></button>
+            <div className='navinvitebtn' style={{display:'flex'}}>
+              
+              <button className='globalbtn' onClick={handleShow}><i className="bi bi-cursor-fill">Invite</i></button>
 
-              <button onClick={() => setCircleSettingbtn(!circleSettingbtn)} className='globalbtn' style={{ margin: "0px 5px", border: "none", backgroundColor: "#D4D4D4", color: "#7A7A7A" }}>
-                <i className="bi bi-gear-fill">&nbsp;&nbsp;
-                  <i className="bi bi-caret-down-fill"></i>
-                </i>
-              </button>
+              <div className="dropdown">
 
-              <div id="space-setting-dropdown-content" style={!circleSettingbtn ? { display: "none" } : null}>
-                <button className='tdbtn' onClick={() => navigate(`/c/${localStorage.getItem("containerName")}/circle/manage`)}><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;&nbsp;Settings</button>
-                <button className='tdbtn'><i className="fa fa-lock" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Security</button>
-                <button className='tdbtn'><i className="fa fa-bell" aria-hidden="true"></i>&nbsp;&nbsp;Receive&nbsp;Notification</button>
-                <button className='tdbtn'><i className="fa fa-eye" aria-hidden="true"></i>&nbsp;&nbsp;Hide&nbsp;posts&nbsp;on&nbsp;dashboard</button>
-                <button className='tdbtn' onClick={() => navigate(`/c/${localStorage.getItem('containerName')}/about`)}><i className="fa fa-info-circle" aria-hidden="true"></i>&nbsp;&nbsp;About</button>
+                <button className='globalbtn' style={{ margin: "0px 5px", border: "none", backgroundColor: "#D4D4D4", color: "#7A7A7A" }} data-bs-toggle="dropdown" aria-expanded="false">
+                  <i className="bi bi-gear-fill">&nbsp;&nbsp;
+                    <i className="bi bi-caret-down-fill"></i>
+                  </i>
+                </button>
+
+
+                <ul className="dropdown-menu">
+                  <button className='tdbtn' onClick={() => navigate(`/c/${localStorage.getItem("containerName")}/circle/manage`)}><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;&nbsp;Settings</button>
+                  <button className='tdbtn'><i className="fa fa-lock" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Security</button>
+                  <button className='tdbtn'><i className="fa fa-bell" aria-hidden="true"></i>&nbsp;&nbsp;Receive&nbsp;Notification</button>
+                  <button className='tdbtn'><i className="fa fa-eye" aria-hidden="true"></i>&nbsp;&nbsp;Hide&nbsp;posts&nbsp;on&nbsp;dashboard</button>
+                  <button className='tdbtn' onClick={() => navigate(`/c/${localStorage.getItem('containerName')}/about`)}><i className="fa fa-info-circle" aria-hidden="true"></i>&nbsp;&nbsp;About</button>
+                </ul>
               </div>
 
               {show && <InviteModal show={show} id={circleIId} handleClose={handleClose} />}

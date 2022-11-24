@@ -7,11 +7,7 @@ import Spinner from "../aspinner/Spinner";
 
 const TaskandPostLayout = () => {
 
-  let { id, circle } = useParams();
-  console.log('id, circleName', id, circle)
-  localStorage.setItem("container_iid", id);
-  localStorage.setItem("containerName", circle);
-
+  let { id } = useParams();
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -89,10 +85,9 @@ const TaskandPostLayout = () => {
         </form>
       </div>
 
-      <div className="gcard" style={{ marginTop: "2.5rem" }}>
+      <div className="gcard" style={{ marginTop: "2.5rem", marginBottom: "2.5rem" }}>
         <div className="card-header d-flex" style={{ background: "white" }}>
           <h1><strong>Task</strong></h1>
-
         </div>
         <div className="card-body">
           <p className="card-text">Create and assign tasks - organize and schedule individual and

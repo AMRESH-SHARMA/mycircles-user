@@ -6,13 +6,13 @@ import axios from 'axios';
 import emoji from 'emoji-dictionary'
 import './WallCard.css';
 import Spinner from '../../aspinner/Spinner';
-import { noofdays } from '../../aHelper/Helper';
+import { dateInMonths } from '../../aHelper/Helper';
 import { backendBaseUrl } from '../../API';
 
 
 const Card = (props) => {
 
-  // console.log(props)
+  console.log(props)
   const { id, message, content } = props.posts
 
   const navigate = useNavigate();
@@ -24,12 +24,7 @@ const Card = (props) => {
   const [image, setimage] = useState();
   const [filename, setfilename] = useState();
   const [hover, sethover] = useState(false);
-
-
-
-  //Dropdown
-  const displaynone = { display: "none" }
-  const [ithreedots, setithreedots] = useState(false);
+  const [imgUrl, setimgUrl] = useState('');
 
   useEffect(() => {
 
@@ -49,7 +44,7 @@ const Card = (props) => {
             fr.onloadend = () => {
               var base64Url = fr.result
               console.log('b64', base64Url);
-              // if(base64Url) setimgUrl(base64Url)
+              if (base64Url) setimgUrl(base64Url)
               // getUrls(base64Url, props.posts.content.id)
               // imageUrl = imageUrl + "OUT" + base64Url
               // ids = ids + "OUT" + props.posts.content.id
@@ -152,46 +147,63 @@ const Card = (props) => {
   let marTop = { marginBottom: "65px" }
 
   return (<>
-    <div className="gtaskpostcard">
+    <div className="gtaskpostcard" style={{ minWidth: "350px" }}>
 
       <div style={{ display: "flex", justifyContent: "space-between", padding: "5px 8px 10px" }}>
-        <div>
-          <strong>{content.metadata.created_by.display_name}</strong>
-          <div
-            style={{ margin: "-4px 0px - 5px 0px", fontSize: "12px" }}>
-            {noofdays(content.metadata.created_at)}
+
+        <div style={{ display: "flex" }}>
+          <img
+            alt="" width="40" height="40"
+            src={`https://circlenowdev.xyz/uploads/profile_image/${content.metadata.created_by.guid}.jpg?m=1666002574`}
+            onError={(e) =>
+            ((e.target.src =
+              "https://circlenowdev.xyz/static/img/default_user.jpg")
+            )
+            }
+          />
+          <div style={{ marginLeft: "10px" }}>
+            <strong>{content.metadata.created_by.display_name}</strong>
+            <div style={{ margin: "-4px 0px - 5px 0px", fontSize: "12px", fontWeight: "400", display: "flex" }}>
+              {dateInMonths(content.metadata.created_at)}
+              <i style={{ margin: "5px 0px 0px 5px" }} className={content.metadata.visibility ? 'fa fa-globe' : 'fa fa-users'} />
+            </div>
           </div>
+
         </div>
 
-        <div>
-          <i className='btn bi bi-three-dots taskheaderbtn' onClick={() => setithreedots(!ithreedots)} />
-          <div id="task-dots-dropdown-content" style={!ithreedots ? displaynone : null}>
+
+        <div className="dropdown">
+          <i className='btn bi bi-three-dots taskheaderbtn' data-bs-toggle="dropdown" aria-expanded="false" />
+          <ul className="dropdown-menu">
             <button className='tdbtn'>Edit</button>
             <button className='tdbtndel' onClick={handleDelPost}>Delete</button>
-          </div>
+          </ul>
         </div>
+
       </div>
 
       <hr />
 
       <div style={{ maxHeight: "59px" }}>
-        <p style={{ padding: "0px 0px 20px 50px" }}>{textToEmoji(message).split(':').join('')}</p>
+        <p style={{ padding: "20px 0px 0px 60px", fontSize: "20px", fontWeight: "500px" }}>{textToEmoji(message).split(':').join('')}</p>
       </div>
 
       <div style={message && message.length ? null : marTop}>
-        <div style={{ width: "450px", padding: "0px 0px 20px 50px" }}>
+        <div style={{ padding: "0px 0px 0px 50px" }}>
 
-          <img src="/img.jpg" alt='' height={300} width={300} className="card-img-top" /></div>
+          {/* <img src={imgUrl} alt='' height={300} width={300} className="card-img-top" /> */}
+        </div>
 
-        {/* <img
-          src={`https://circlenowdev.xyz/file/file/download?variant=preview-image&guid=550fdfdb-7800-4098-845f-f9a20f70fa58&hash_sha1=f971967c`} alt=""
+        <img
+          alt=""
+          src={`https://circlenowdev.xyz/file/file/download?variant=preview-image&guid=550fdfdb-7800-4098-845f-f9a20f70fa58&hash_sha1=f971967c`}
           onError={(e) =>
           (
             (e.target.src =
-              "./img.jpg")
+              null)
           )
           }
-        /> */}
+        />
       </div>
 
       <hr />
@@ -212,29 +224,33 @@ const Card = (props) => {
           </div>
           <hr />
           <div>
-            <form onSubmit={addComment}>
+            <form onSubmit={addComment} style={{ display: "flex", justifyContent: "space-evenly" }}>
               <input
                 value={commentValue}
                 onChange={(e) => setCommentValue(e.target.value)}
                 placeholder='Add comment..'
-                style={{ margin: "8px 0px 0px" }}
+                style={{ margin: "4px 0px 0px 0px" }}
               />
-              <button style={{ margin: "4px 20px" }} className='globalbtn' onClick={addComment}>
+              <button style={{ margin: "4px 2px" }} className='globalbtn' onClick={addComment}>
                 {isPostingComment ?
                   <div className="globalbtnspin">
                     <Spinner />
                   </div> :
                   'Comment'}
               </button>
-              <button className="globalbtn" ><label style={{ cursor: 'pointer' }} htmlFor="showimage"><i className="bi bi-upload" /></label></button>
+              <button style={{ margin: "4px 2px" }} className="globalbtn" ><label style={{ cursor: 'pointer' }} htmlFor="showimage"><i className="bi bi-upload" /></label></button>
               <input onChange={onImageChange} type="file" accept="image/*" id="showimage" style={{ display: "none", visibility: "none" }}>
               </input>
 
-              <div className='d-flex'>
+              <div className=''>
 
-                {image ? <p onMouseEnter={handlehovertrue} onMouseLeave={handlehoverfalse}>{filename}<i onClick={handledelete} class="bi bi-trash"></i></p> : null}
+                {image ?
+                  <> <div style={{ display: 'flex', width: "70px", flexDirection: "column" }}>
+                    <p onMouseEnter={handlehovertrue} onMouseLeave={handlehoverfalse}>{filename}</p>
+                    <i onClick={handledelete} class="bi bi-trash"></i>
+                  </div></> : null}
 
-                {hover ? <img src={image} alt='' className="hoveredimg" style={{ width: "100px", height: "100px", marginLeft: "210px", marginTop: "-100px" }}></img> : null}
+                {/* {hover ? <img src={image} alt='' height={50} width={50} className="hoveredimg" style={{ marginLeft:"40px" }}></img> : null} */}
               </div>
 
             </form>

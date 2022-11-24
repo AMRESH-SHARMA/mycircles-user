@@ -10,7 +10,7 @@ import EditModal from './EditModal';
 export const TaskCard = (props) => {
 
   const { id, description, end_datetime, created_by, status, content, title } = props.obj
-  // console.log(props.obj)
+  console.log(props.obj)
   const bgColor = { backgroundColor: randomColor(created_by.display_name) };
 
   const navigate = useNavigate()
@@ -22,11 +22,6 @@ export const TaskCard = (props) => {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
-
-  //Dropdown
-  const displaynone = { display: "none" }
-  const [ithreedots, setithreedots] = useState(false);
-
 
   const handleDelTask = async () => {
     try {
@@ -103,22 +98,39 @@ export const TaskCard = (props) => {
     }
   };
 
+  const handleFileDownload = async (param) => {
+    console.log(param)
+    try {
+      const resapi = await axios.get(`/file/download/${param}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      })
+      console.log(resapi);
+    } catch (err) {
+      alert(err)
+      console.warn(err)
+    }
+  }
+
   return (
     <>
 
       <div className="gtaskpostcard">
 
-        <div style={{ display: "flex", justifyContent: "space-between", padding: "5px 8px 10px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", padding: "5px 8px 10px 5px" }}>
 
-          <div style={{ margin: "5px 5px 5px 5px" }}>
-            <i style={{ fontSize: "25px", border: "2.5px solid black", color: "black", }} className='bi bi-list-check' />
+          <div style={{ margin: "0px 5px 5px 5px", display: "flex" }}>
+            <i style={{ fontSize: "35px", color: "#21A1B3", margin: "5px 0px 25px 0px" }} className='fa fa-tasks' />
+
+            <div style={{ margin: "0px 0px 0px 10px" }}>
+              <strong>{title}</strong>
+              <p style={{ fontSize: "90%" }}>Prominds</p>
+              <button id='taskheadermarkcomp' onClick={handleTaskStatus}>{TaskStatus === 1 ? "Mark Complete" : "Mark Pending"}</button>
+            </div>
           </div>
 
-          <div>
-            <strong>{title}</strong>
-            <p style={{ fontSize: "90%" }}>Prominds</p>
-            <button id='taskheadermarkcomp' onClick={handleTaskStatus}>{TaskStatus === 1 ? "Mark Complete" : "Mark Pending"}</button>
-          </div>
+
 
           <div style={{ marginTop: "45px", minWidth: "100px" }}>
             <div className="row">
@@ -126,15 +138,19 @@ export const TaskCard = (props) => {
               <div className="col-auto"><i className='btn bi bi-paperclip taskheaderbtn' /></div>
               <div className="col-auto"><i className='btn bi bi-chat-right-dots-fill taskheaderbtn' /></div>
               <div className="col-auto">
-                <i className='btn bi bi-three-dots taskheaderbtn' onClick={() => setithreedots(!ithreedots)} />
-                <div id="task-dots-dropdown-content" style={!ithreedots ? displaynone : null}>
-                  <button className='tdbtn'  onClick={handleShow}>Edit</button>
-                  {show?<EditModal task_id = {id} show={show} handleClose={handleClose}></EditModal>:null}
-                  <button className='tdbtn'>Make&nbsp;public&#47;Make&nbsp;Private</button>
-                  <button className='tdbtn'>Add tags</button>
-                  <button className='tdbtn'>Move content</button>
-                  <button className='tdbtndel' onClick={handleDelTask}>Delete</button>
+
+                <div className="dropdown">
+                  <i className='btn bi bi-three-dots taskheaderbtn' data-bs-toggle="dropdown" aria-expanded="false" />
+                  <ul className="dropdown-menu">
+                    <button className='tdbtn' onClick={handleShow}>Edit</button>
+                    {show ? <EditModal task_id={id} show={show} handleClose={handleClose}></EditModal> : null}
+                    <button className='tdbtn'>Make&nbsp;public&#47;Make&nbsp;Private</button>
+                    <button className='tdbtn'>Add tags</button>
+                    <button className='tdbtn'>Move content</button>
+                    <button className='tdbtndel' onClick={handleDelTask}>Delete</button>
+                  </ul>
                 </div>
+
               </div>
             </div>
           </div>
@@ -143,13 +159,13 @@ export const TaskCard = (props) => {
         <hr />
 
         <div style={{ padding: "10px" }}>
-          <div className='subtitle'><span style={{marginRight:"10px"}}>Assignee:</span>
+          <div className='subtitle'><span style={{ marginRight: "10px" }}>Assignee:</span>
             <div className='subtitle-description d-flex'>
               <div className='Tasktxttoimgdiv' style={bgColor}>
                 <div className='Tasktxttoimg'>{letterGenerate(created_by.display_name)}</div>
               </div>
 
-              <label style={{paddingTop:"2px"}}>&nbsp;{created_by.display_name}</label>
+              <label style={{ paddingTop: "2px" }}>&nbsp;{created_by.display_name}</label>
             </div>
           </div>
 
@@ -162,17 +178,20 @@ export const TaskCard = (props) => {
           <p className='subtitle-description'>{description}</p>
         </div>
 
-
-        <div className='taskfileimg'>
-          <img src="/img.jpg" alt='' width="60" height="45" className="taskfile-img" />
-          <div className="task-file">
-            <img src="/adobe.png" alt='' width="40" height="30" className="taskfile-img" style={{ margin: "5px" }} />
-            <div className='task-file-text' style={{ marginTop: "5px" }}>
-              <p className='task-file-text'>Dummy File Name:{content.files.length}</p>
-              <a className='task-file-text' href='/' style={{ color: "#21A1B3", textDecoration: "none" }}>Download</a>
+        {content.files.length
+          ? <>
+            <div className='taskfileimg'>
+              <img src="/img.jpg" alt='' width="60" height="45" className="taskfile-img" />
+              <div className="task-file">
+                <img src={content.files[0].url} alt='' width="40" height="30" className="taskfile-img" style={{ margin: "5px" }} />
+                <div className='task-file-text' style={{ marginTop: "5px" }}>
+                  <p className='task-file-text'>{content.files[0].file_name}</p>
+                  <button className='task-file-text' style={{ color: "#21A1B3", backgroundColor: "white", textDecoration: "none" }} onClick={() => handleFileDownload(content.files[0].id)}>Download</button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </> : null}
+
 
         <hr />
 
@@ -194,14 +213,14 @@ export const TaskCard = (props) => {
             <hr />
 
             <div>
-              <form onSubmit={addComment}>
+              <form onSubmit={addComment} style={{ display: "flex" }}>
                 <input
                   value={commentValue}
                   onChange={(e) => setCommentValue(e.target.value)}
                   placeholder='Add comment..'
-                  style={{ margin: "8px 0px 0px" }}
+                  style={{ margin: "4px 4px" }}
                 />
-                <button style={{ margin: "4px 0px" }} className='globalbtn' onClick={addComment}>
+                <button style={{ margin: "4px 4px" }} className='globalbtn' onClick={addComment}>
                   {isPostingComment ?
                     <div className="globalbtnspin">
                       <Spinner />
