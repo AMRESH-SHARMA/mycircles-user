@@ -67,7 +67,6 @@ const EditModal = (props) => {
     if (event.target.files[0]) {
       setfiles(event.target.files[0]);
       console.log("Here is your file", event.target.files[0]);
-
     }
   }
   const handledelete = () => {

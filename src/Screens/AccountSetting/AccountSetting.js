@@ -45,7 +45,7 @@ const AccountSetting = () => {
       <div className="gcontainer">
         <div className="gtwo-column-layout">
 
-          <div className="gcard" style={{ minWidth: "20rem", height: "300px" }}>
+          {/* <div className="gcard" style={{ minWidth: "20rem", height: "300px" }}>
 
             <div style={{ marginBottom: "10px" }}>
               <strong>User </strong>Profile
@@ -71,7 +71,7 @@ const AccountSetting = () => {
                 Friends
               </a>
             </div>
-          </div>
+          </div> */}
 
           <div className="gcard" style={{ margin: "0px 10px" }}>
             <ProfileOpions />

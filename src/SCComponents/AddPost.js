@@ -33,7 +33,7 @@ const TaskandPostLayout = () => {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         });
-        console.log("Post", resapi.data.id);
+        console.log("Post", resapi);
         let resapis = await axios.post(`/post/${resapi.data.id}/upload-files`, image, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -94,10 +94,10 @@ const TaskandPostLayout = () => {
           <h1><strong>Task</strong></h1>
 
         </div>
-        <div className="d-flex justify-content-between card-body">
+        <div className="card-body">
           <p className="card-text">Create and assign tasks - organize and schedule individual and
             collaborative projects.</p>
-          <button className="globalbtn" onClick={handleShow}>
+          <button className="globalbtn" style={{marginTop:"10px"}} onClick={handleShow}>
             ADD
           </button>
           <PopupModal show={show} handleClose={handleClose}></PopupModal>
