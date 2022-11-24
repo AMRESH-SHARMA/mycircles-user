@@ -21,6 +21,14 @@ export const noofdays = (param) => {
   }
 }
 
+export const dateInMonths = (param) => {
+
+  const dum = param.split(' ')[0].split('-')
+  const index = dum[1]
+  const arr = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  return (arr.at(index - 1) + ' ' + dum[2] + ', ' + dum[0])
+}
+
 export const scpage = () => {
   let url = window.location.href;
   let slug = url.split("/")[3];

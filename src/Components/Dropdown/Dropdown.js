@@ -18,7 +18,7 @@ const Dropdown = (props) => {
   return (<>
     <div className="allcirdd-items" >
       <li>
-        <a className="d-flex" href={`/c/${name}/${contentcontainer_id}`} style={{ color: "black" }}>
+        <a className="d-flex" href={`/c/${name}/${contentcontainer_id}/SCwall`} style={{ color: "black" }}>
           {true
             &&
             <img

@@ -9,7 +9,7 @@ const WallComments = (props) => {
   const [replytocommentbtn, setreplytocommentbtn] = useState(false)
   const [CommentValue, setCommentValue] = useState('');
   const [isPostingComment, setIsPostingComment] = useState(false);
-  console.log('p', props.obj)
+  // console.log('p', props.obj)
 
   //handler replytocommentbtn BUTTON HANDLER
   const handlereplytocommentbtn = (e) => {

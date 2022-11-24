@@ -9,37 +9,7 @@ import Tabs from 'react-bootstrap/Tabs';
 
 
 const PopupModal = (props) => {
-  // const url = window.location.href;
-  // const id = url.split("/");
-
-  // async function handleSubmit() {
-  //   try {
-  //     let payLoad = {
-  //       Task: {
-  //         title: Title,
-  //         description: Description,
-  //       },
-  //       TaskForm: {
-  //         start_date: StartDate,
-  //         start_time: StartTime,
-  //         end_date: EndDate,
-  //         end_time: EndTime,
-  //       },
-  //     };
-  //     const result = await axios.post(`/tasks/container/${id[5]}`, payLoad, {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-  //       },
-  //     });
-  //     alert("done");
-  //     console.log(result);
-  //   } catch (ex) {
-  //     alert("Error", ex);
-  //     console.log(ex);
-  //   }
-  // }
   const [key, setKey] = useState('CreateTask');
-  const [popup, setpopup] = useState('')
   const [data, setdata] = useState('')
   const [selectvalue, setselectvalue] = useState('')
   const [isSubmittingMulti, setisSubmittingMulti] = useState(false)

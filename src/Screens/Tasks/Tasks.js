@@ -14,7 +14,6 @@ const Tasks = () => {
 
   const [task, setTask] = useState('');
   const [loading, setLoading] = useState(true)
-  // const container_iid = localStorage.getItem("container_iid");
 
   useEffect(() => {
     (async () => {
@@ -66,7 +65,7 @@ const Tasks = () => {
           <div className="gcontainer">
             <div className="gtwo-column-layout">
 
-              <div>
+            <div className='col-md-6'>
                 {task && task.length ? (
                   task.map((item, index) => (
                     <TaskCard obj={item} key={index} />
