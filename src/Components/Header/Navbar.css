@@ -209,7 +209,7 @@
 
 .error{
 color: red;
-float: left;
+/* float: left; */
 display: block;
 font-size: 12px;
 }

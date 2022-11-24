@@ -9,7 +9,7 @@ import EditModal from './EditModal';
 
 export const TaskCard = (props) => {
 
-  const { id, description, end_datetime, created_by, status, content } = props.obj
+  const { id, description, end_datetime, created_by, status, content, title } = props.obj
   // console.log(props.obj)
   const bgColor = { backgroundColor: randomColor(created_by.display_name) };
 
@@ -115,7 +115,7 @@ export const TaskCard = (props) => {
           </div>
 
           <div>
-            <strong>Run Marketing Programs to Promote This Circle </strong>
+            <strong>{title}</strong>
             <p style={{ fontSize: "90%" }}>Prominds</p>
             <button id='taskheadermarkcomp' onClick={handleTaskStatus}>{TaskStatus === 1 ? "Mark Complete" : "Mark Pending"}</button>
           </div>

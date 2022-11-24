@@ -158,7 +158,7 @@ export default function Navbar() {
                         <label className="d-flex justify-content-start">Name*</label>
                         <input type="text" name="name" className="forminput" value={name}
                           onChange={(e) => setName(e.target.value)} placeholder="Circle name" required />
-                        {NerrorMessage && <div className="error"> {NerrorMessage} </div>}
+                        {NerrorMessage && <div className="error" style={{float:"left"}}> {NerrorMessage} </div>}
                       </div>
                       <div className="mb-3">
                         <label className="d-flex justify-content-start">Description</label>

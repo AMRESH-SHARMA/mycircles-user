@@ -24,7 +24,7 @@ export default function MembersCard(props) {
 
 
   return (<>
-    <div key={props.unique} className="col gcard" style={{ minWidth: "19rem", margin: "10px" }}>
+    <div key={props.unique} className="col gcard" style={{ minWidth: "24rem", maxWidth:"24rem", margin: "10px" }}>
       <div className="card-cover-photo2 ">
 
         <img

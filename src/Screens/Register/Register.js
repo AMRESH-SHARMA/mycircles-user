@@ -37,7 +37,7 @@ const Register = () => {
   return (
     <>
       {loading ?
-        <div className="">
+        <div className='gspin' style={{ marginTop: "2.5rem" }}>
           <Spinner />
         </div> :
         error ?
