@@ -73,7 +73,7 @@ const ActivityCard = () => {
                 <hr />
               </div>
             </>
-          )) : null}
+          )) : "No Activities Yet"}
       </div>
 
     </div>

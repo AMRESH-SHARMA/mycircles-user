@@ -69,8 +69,8 @@ const WallComments = (props) => {
         <a className="likereply" href='/'>Like ({likes.total})</a>
         <a className="likereply" href='/' onClick={(e) => handlereplytocommentbtn(e)}>Reply</a>
         {replytocommentbtn ?
-          <div id='taskcmtreplybox'>
-            <form id="taskcmtreplybox-form">
+          <div id='taskcmtreplybox' >
+            <form id="taskcmtreplybox-form" style={{display:"flex"}}>
               <input
                 id='taskcmtreplybox-input'
                 value={CommentValue}

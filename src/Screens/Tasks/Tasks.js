@@ -14,6 +14,7 @@ const Tasks = () => {
 
   const [task, setTask] = useState('');
   const [loading, setLoading] = useState(true)
+  const [circles, setCircles] = useState([])
 
   useEffect(() => {
     (async () => {
@@ -26,7 +27,7 @@ const Tasks = () => {
           })
           setTask(res.data.results)
           setLoading(false)
-          console.log("result:", res.data.results)
+          // console.log("result:", res.data.results)
         } catch (err) {
           setLoading(false)
           console.warn(err)
@@ -41,14 +42,29 @@ const Tasks = () => {
           })
           setTask(res.data.results)
           setLoading(false)
-          console.log("result:", res)
+          // console.log("result:", res)
         } catch (err) {
           setLoading(false)
           console.warn(err)
         }
       }
-
     })()
+
+    const getSpaces = async () => {
+      try {
+        const result = await axios.get(`http://206.189.133.189/api/spaces`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        })
+        if (result.data) {
+          setCircles(result.data)
+        }
+      } catch (err) {
+        console.warn(err)
+      }
+    }
+    getSpaces()
   }, [])
 
 
@@ -65,10 +81,10 @@ const Tasks = () => {
           <div className="gcontainer">
             <div className="gtwo-column-layout">
 
-            <div className='col-md-6'>
+              <div className='col-md-6'>
                 {task && task.length ? (
                   task.map((item, index) => (
-                    <TaskCard obj={item} key={index} />
+                    <TaskCard obj={item} key={index} allcircles={circles} />
                   ))
                 ) : "NO TASK EXIST"}
               </div>
@@ -94,8 +110,8 @@ const Tasks = () => {
                       </div>
                     </div>
 
-                    <ActivityCard/>
-                    
+                    <ActivityCard />
+
                   </div>
                 </>
 

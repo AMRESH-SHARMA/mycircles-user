@@ -10,11 +10,12 @@ import EditModal from './EditModal';
 export const TaskCard = (props) => {
 
   const { id, description, end_datetime, created_by, status, content, title } = props.obj
-  console.log(props.obj)
+  // console.log(props.obj)
   const bgColor = { backgroundColor: randomColor(created_by.display_name) };
 
   const navigate = useNavigate()
   const [TaskStatus, setTaskStatus] = useState(status);
+  const [visibility, setVisibility] = useState(content.metadata.visibility);
   const [commentButton, setCommentButton] = useState(false);
   const [commentValue, setCommentValue] = useState('');
   const [isPostingComment, setIsPostingComment] = useState(false);
@@ -22,41 +23,6 @@ export const TaskCard = (props) => {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
-
-  const handleDelTask = async () => {
-    try {
-      console.log('del', id)
-      const resapi = await axios.delete(`/tasks/task/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-        },
-      })
-      console.log("resapi", resapi)
-      if (resapi.data.code === 200) {
-        setrendercomp(!rendercomp)
-        navigate(0);
-      }
-    } catch (err) {
-      alert(err.response.data.message)
-      console.log(err)
-    }
-  }
-
-  const handleTaskStatus = async () => {
-    try {
-      if (TaskStatus === 1) setTaskStatus(5)
-      var input = { title: TaskStatus }
-      // console.log("as",id,values, TaskStatus)
-      await axios.patch(`tasks/task/${id}/processed`, input, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-        },
-      })
-    } catch (err) {
-      console.warn(err.response.status)
-      if (err.response.status === 403) alert("Forbidden access")
-    }
-  }
 
   //COMMENT BUTTON HANDLER
   const handleCommentButton = () => {
@@ -113,6 +79,84 @@ export const TaskCard = (props) => {
     }
   }
 
+  const getSpaceNamebyID = (param) => {
+    for (let i = 0; i < props.allcircles.length; i++) {
+      if (props.allcircles[i].contentcontainer_id == param) {
+        return ('i', props.allcircles[i].name)
+      }
+    }
+  }
+
+  const handleDelTask = async () => {
+    try {
+      console.log('del', id)
+      const resapi = await axios.delete(`/tasks/task/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      })
+      console.log("resapi", resapi)
+      if (resapi.data.code === 200) {
+        setrendercomp(!rendercomp)
+        navigate(0);
+      }
+    } catch (err) {
+      alert(err.response.data.message)
+      console.log(err)
+    }
+  }
+
+  const handleTaskStatus = async () => {
+    try {
+      if (TaskStatus === 1) {
+        var payload = { title: 5 }
+        await axios.patch(`tasks/task/${id}/processed`, payload, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        })
+        setTaskStatus(5)
+      }
+    } catch (err) {
+      console.warn(err)
+      alert(err)
+    }
+  }
+
+  const handleVisibility = async () => {
+
+    try {
+      if (visibility) {
+        const payLoad = {
+          Task: {
+            content: { metadata: { visibility: 0 } }
+          }
+        };
+        const result = await axios.put(`/tasks/task/${id}`, payLoad, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        });
+        setVisibility(0)
+      } else {
+        const payLoad = {
+          Task: {
+            content: { metadata: { visibility: 1 } }
+          }
+        };
+        const result = await axios.put(`/tasks/task/${id}`, payLoad, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        });
+        setVisibility(1)
+      }
+    } catch (err) {
+      console.warn(err)
+      alert(err)
+    }
+  }
+
   return (
     <>
 
@@ -125,8 +169,11 @@ export const TaskCard = (props) => {
 
             <div style={{ margin: "0px 0px 0px 10px" }}>
               <strong>{title}</strong>
-              <p style={{ fontSize: "90%" }}>Prominds</p>
-              <button id='taskheadermarkcomp' onClick={handleTaskStatus}>{TaskStatus === 1 ? "Mark Complete" : "Mark Pending"}</button>
+              <p style={{ fontSize: "90%" }}>
+                {props.allcircles && getSpaceNamebyID(content.metadata.contentcontainer_id)}<i style={{ margin: "0px 5px", fontSize: "12px" }} className={visibility ? 'fa fa-globe' : 'fa fa-users'} data-bs-toggle="tooltip" title={visibility ? 'Public'  : 'Private'} />
+              </p>
+
+              <button id='taskheadermarkcomp' onClick={handleTaskStatus}>{TaskStatus === 1 ? "Mark Complete":"Completed"}</button>
             </div>
           </div>
 
@@ -141,11 +188,11 @@ export const TaskCard = (props) => {
 
                 <div className="dropdown">
                   <i className='btn bi bi-three-dots taskheaderbtn' data-bs-toggle="dropdown" aria-expanded="false" />
-                  <ul className="dropdown-menu">
+                  <ul className="dropdown-menu" style={{minWidth:"210px"}}>
                     <button className='tdbtn' onClick={handleShow}>Edit</button>
                     {show ? <EditModal task_id={id} show={show} handleClose={handleClose}></EditModal> : null}
-                    <button className='tdbtn'>Make&nbsp;public&#47;Make&nbsp;Private</button>
-                    <button className='tdbtn'>Add tags</button>
+                    <button className='tdbtn' onClick={handleVisibility}>Make&nbsp;public&#47;Make&nbsp;Private</button>
+                    {/* <button className='tdbtn'>Add tags</button> */}
                     <button className='tdbtn'>Move content</button>
                     <button className='tdbtndel' onClick={handleDelTask}>Delete</button>
                   </ul>

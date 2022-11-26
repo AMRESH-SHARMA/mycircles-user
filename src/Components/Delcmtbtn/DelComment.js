@@ -31,7 +31,8 @@ const DelComment = (props) => {
       <div style={{marginLeft:"5px"}} >
         <div className="dropdown dropend">
           <i className='btn bi bi-three-dots taskheaderbtn' data-bs-toggle="dropdown" aria-expanded="false" />
-          <ul className="dropdown-menu" style={{marginTop:"-100px"}}>
+
+          <ul className="dropdown-menu" style={{marginTop:"-100px", padding:"5px"}}>
             <button className='tdbtndel' style={{fontSize:"12px", padding:"0px 2px", margin:"0px"}} onClick={handleDelComment}>Delete</button>
           </ul>
         </div>

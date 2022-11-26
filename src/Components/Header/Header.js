@@ -81,7 +81,6 @@ export default function Header() {
                 <ul className="dropdown-menu text-small" id='header-profile-dd' style={{ background: "#4D6D7F" }}>
                   <li><a href={`/user/profile`}>My Profile</a></li>
                   <li><a href="/user/account/edit">Account Settings</a></li>
-                  <li><a href="/">Administration</a></li>
                   <li><hr className="dropdown-divider" /></li>
                   <li><a href="/" onClick={handleLogOut}>Log out</a></li>
                 </ul>

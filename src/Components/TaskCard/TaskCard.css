@@ -8,9 +8,10 @@
 #taskheadermarkcomp {
   max-height: 30px;
   background-color: rgb(34, 80, 230);
+  font-weight: 600;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 2px;
 }
 
 .subtitle {
@@ -105,15 +106,14 @@
   position: absolute;
   background-color: #f9f9f9;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
-  margin-top: 10px;
+  margin-top: 25px;
   padding: 2px 2px;
   z-index: 1;
-  /* border: 1px solid black; */
   border-radius: 5px;
   width: fit-content;
 }
 #taskcmtreplybox-input{
-  margin: 3px 0px;
+  margin: 0px 0px;
   max-width: 350px;
   min-width: 300px;
 }

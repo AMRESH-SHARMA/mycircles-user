@@ -29,8 +29,8 @@
 .gcard {
   display: block;
   background-color: white;
-  padding: 8px 12px;
-  border-radius: 5px;
+  padding: 12px 12px;
+  border-radius: 2px;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
 }
 
@@ -38,10 +38,10 @@
   word-break: break-word;
   display: block;
   background-color: white;
-  border-radius: 5px;
+  border-radius: 2px;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
   margin-bottom: 2.5rem;
-  padding-top: 5px;
+  padding-top: 4px;
 }
 
 .gcontainer {
@@ -74,7 +74,7 @@ i {
 /* CARDS */
 .gtaskpost-commentcontent {
   margin: 0% 2%;
-  max-height: 265px;
+  max-height: 200px;
 }
 
 .gshowallcmt-btn {
@@ -96,8 +96,9 @@ i {
 }
 
 .gcmtbodyheight {
-  overflow: clip;
-  max-height: 190px;
+  display: block;
+  overflow: hidden;
+  max-height: 200px;
 }
 
 /*  */
@@ -115,7 +116,6 @@ i {
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 3px;
-  /* border: 2px solid #d7dcdf; */
   border: 1px solid #999fa1;
   display: block;
   width: 100%;

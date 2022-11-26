@@ -35,7 +35,7 @@ const MyProfile = () => {
     <Navbar />
     {loading ?
       <div className='gspin' style={{ marginTop: "2.5rem" }}><Spinner /></div> :
-      <div className='gcontainer'>
+      <div className='gcontainer' style={{marginLeft:"2.5rem", marginRight:"2.5rem"}}>
 
         <div className="gtaskpostcard" style={{ maxWidth: "80rem", padding: "6px" }}>
 
@@ -62,16 +62,16 @@ const MyProfile = () => {
 
             <div className='row'>
               <div className='col'>
-                <span style={{ margin: "0px", padding: "0px" }} className="text">1026</span>
-                <span style={{ margin: "-2px 0px 0px 0px", padding: "0px", fontSize: "12px" }}>Friends</span>
+                <label style={{ margin: "0px", padding: "0px" }} className="text">1026</label>
+                <label style={{ margin: "-2px 0px 0px 0px", padding: "0px", fontSize: "12px", width:"45px" }}>Friends</label>
               </div>
               <div className='col'>
                 <label style={{ margin: "0px", padding: "0px" }} className="text">1026</label>
-                <label style={{ margin: "-2px 0px 0px 0px", padding: "0px", fontSize: "12px" }}>Followers</label>
+                <label style={{ margin: "-2px 0px 0px 0px", padding: "0px", fontSize: "12px",width:"50px" }}>Followers</label>
               </div>
               <div className='col'>
                 <label style={{ margin: "0px", padding: "0px" }} className="text">1026</label>
-                <label style={{ margin: "-2px 0px 0px 0px", padding: "0px", fontSize: "12px" }}>Following</label>
+                <label style={{ margin: "-2px 0px 0px 0px", padding: "0px", fontSize: "12px",width:"52px" }}>Following</label>
               </div>
               <div className='col'>
                 <label style={{ margin: "0px", padding: "0px" }} className="text">1026</label>
@@ -84,9 +84,6 @@ const MyProfile = () => {
               <button style={{ marginRight: "10px", backgroundColor: "#FC314F", color: "white" }}><i className='fa fa-pencil'></i></button>
               <button className='globalbtn' onClick={() => navigate('/user/account/edit')}>Edit account</button>
             </div>
-
-
-
           </div>
 
         </div>

@@ -5,21 +5,15 @@ import Form from "react-bootstrap/Form";
 import axios from "axios";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import { useNavigate } from "react-router-dom";
 
 
 
 const EditModal = (props) => {
 
-  const [Title, setTitle] = useState();
-  const [StartDate, setStartDate] = useState();
-  const [StartTime, setStartTime] = useState();
-  const [EndDate, setEndDate] = useState();
-  const [EndTime, setEndTime] = useState();
-  const [Description, setDescription] = useState();
+  const navigate = useNavigate();
   const [key, setKey] = useState('General');
   const [files, setfiles] = useState();
-  const [createdTaskId, setCreatedTaskId] = useState('');
-
   const [initialData, setinitialData] = useState({});
 
   useEffect(() => {
@@ -40,40 +34,29 @@ const EditModal = (props) => {
     getTaskById();
   }, [props.task_id])
 
-
-
-  async function handleSubmit() {
-    try {
-      let payLoad = {
-        Task: {
-          title: Title,
-          description: Description,
-        },
-        TaskForm: {
-          start_date: StartDate,
-          start_time: StartTime,
-          end_date: EndDate,
-          end_time: EndTime,
-        },
-      };
-      const result = await axios.post(`/tasks/container/${localStorage.getItem("container_iid")}`, payLoad, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-        },
-      });
-      alert("done");
-      console.log(result);
-    } catch (ex) {
-      alert("Error", ex);
-      console.log(ex);
-    }
-  }
   const onFileUpload = (event) => {
 
-    if (event.target.files[0]) {
-      setfiles(event.target.files[0]);
-      console.log("Here is your file", event.target.files[0]);
-    }
+    // if (event.target.files[0]) {
+    //   setfiles(event.target.files[0]);
+    //   console.log("Here is your file", event.target.files[0]);
+    // }
+
+    const formData = new FormData();
+    // formData.append('avatar', event.target.files[0]);
+    formData.append('avatar', event.target.files[0]);
+
+    fetch(`https://circlenowdev.xyz/api/v1/tasks/task/${props.task_id}/upload-files`, {
+      method: 'POST',
+      body: formData
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log('Success:', result);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
   }
   const handledelete = () => {
     setfiles(null);
@@ -108,7 +91,7 @@ const EditModal = (props) => {
     <>
       <Modal show={props.show} onHide={props.handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Task</Modal.Title>
+          <Modal.Title>Update Task</Modal.Title>
         </Modal.Header>
         <Tabs
           id="controlled-tab-example"
@@ -116,7 +99,6 @@ const EditModal = (props) => {
           onSelect={(k) => setKey(k)}
           className="mb-3">
           <Tab eventKey="General" title="General">
-            {true ? <><div style={{ color: "green" }}>&nbsp;You can update further details</div></> : null}
             <Modal.Body>
 
               <Formik
@@ -137,14 +119,14 @@ const EditModal = (props) => {
                   setTimeout(async () => {
                     try {
                       console.log("resapi", payLoad)
-                      let resapi = await axios.post(`/tasks/task/${props.task_id}`, payLoad, {
+                      let resapi = await axios.put(`/tasks/task/${props.task_id}`, payLoad, {
                         headers: {
                           Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                         },
                       })
                       console.log("resapi", resapi)
                       if (resapi.data.id) {
-                        setCreatedTaskId(resapi.data.id)
+                        navigate(0)
                       }
                     } catch (err) {
                       console.warn(err)
@@ -230,17 +212,8 @@ const EditModal = (props) => {
 
             </Modal.Body>
 
-            {/* <Modal.Footer>
-              <button className="globalbtn" onClick={handleSubmit}>
-                Done
-              </button>
-              <button className="globalbtn" onClick={props.handleClose}>
-                Close
-              </button>
-            </Modal.Footer> */}
           </Tab>
           <Tab eventKey="Attachment" title="Attachment">
-            {createdTaskId ? <><div style={{ color: "green" }}>&nbsp;You can update further details</div></> : null}
             <div className="d-flex">
               <button className="uploadbtn" >
                 <label style={{ cursor: 'pointer' }} htmlFor="showfile"><i class="bi bi-upload" style={{ marginRight: "5px" }}></i>Upload</label>

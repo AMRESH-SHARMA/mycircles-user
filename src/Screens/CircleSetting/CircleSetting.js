@@ -26,7 +26,7 @@ const CircleSetting = () => {
           },
         })
         // setZCurrentUser(resapi.data)
-        // setbasicValues(resapi.data.profile)
+        setbasicValues(resapi.data.profile)
         console.log("resapi", resapi)
 
       } catch (err) {
@@ -39,9 +39,9 @@ const CircleSetting = () => {
   return (<>
     <Header />
     <SCNavbar />
-    <div className='gcontainer'>
+    <div className='gcontainer' style={{ marginLeft: "2.5rem", marginRight: "2.5rem", marginBottom: "2.5rem" }}>
       <div className='gcard'>
-        <p style={{ fontSize: "20px" }}><strong>Space</strong>&nbsp;&nbsp;Settings</p>
+        <p style={{ fontSize: "20px" }}><strong>Circle</strong>&nbsp;&nbsp;Settings</p>
 
         <div style={{ maxWidth: "60rem", padding: "15px" }}>
 
@@ -112,7 +112,7 @@ const CircleSetting = () => {
                         style={{ marginBottom: "0px" }}
                       />
                       <span style={{ fontSize: "12px" }}>Max. 100 characters.</span>
-                      
+
                       <label className='gformlabel' htmlFor="about">About</label>
                       <input
                         name="about"
@@ -121,18 +121,18 @@ const CircleSetting = () => {
                         onChange={handleChange}
                       />
 
-                      {/* <label className='gformlabel' htmlFor="username">Tags</label>
-                    <input
-                      name="username"
-                      type="text"
-                      value={values.username}
-                      onChange={handleChange}
-                    /> */}
-
-
-                      <div className="d-flex justify-content-between">
-                        <button className="globalbtn" style={disableStyle} type="submit" disabled={isSubmitting}>Save</button>
+                      <label className='gformlabel' htmlFor="color">Color</label>
+                      <div style={{ display: "flex" }}>
+                        <input
+                          name="color"
+                          type="color"
+                          value={values.color}
+                          onChange={handleChange}
+                          style={{ height: "50px", width: "50px" }}
+                        />
+                        {<p style={{ display: "inline-flex", marginTop: "25px", paddingLeft: "10px" }}>{values.color}</p>}
                       </div>
+
 
                     </Form>
                   );
@@ -198,6 +198,7 @@ const CircleSetting = () => {
                         value={values.username}
                         onChange={handleChange}
                       />
+
                       <div className="d-flex justify-content-between">
                         <button className="globalbtn" style={disableStyle} type="submit" disabled={isSubmitting}>Save</button>
                       </div>
@@ -208,7 +209,6 @@ const CircleSetting = () => {
               </Formik>
 
             </Tab>
-
 
           </Tabs>
 

@@ -5,7 +5,6 @@ import Wall from "./Screens/Wall/Wall";
 import Members from "./Screens/Members/Members";
 import Tasks from "./Screens/Tasks/Tasks";
 import Login from './Screens/Login/Login';
-import SingleCircle from './Screens/SingleCircle/SingleCircle';
 import Register from './Screens/Register/Register';
 import Page404 from './Screens/Error/Page404';
 import TokenSend from './Screens/Error/TokenSend';
@@ -24,7 +23,6 @@ function App() {
         <Route exact path="/wall" name="wall" element={<Wall />} />
         <Route exact path="/members" name="members" element={<Members />} />
         <Route exact path="/tasks" name="tasks" element={<Tasks />} />
-        <Route exact path="/c/:circle/:id" element={<SingleCircle />} />
         <Route exact path="/c/:circle/:id/SCwall" name="SCwall" element={<Wall />} />
         <Route exact path="/c/:circle/:id/SCmembers" name="SCmembers" element={<Members />} />
         <Route exact path="/c/:circle/:id/SCtasks" name="SCtasks" element={<Tasks />} />
