@@ -35,6 +35,7 @@ const EditModal = (props) => {
   }, [props.task_id])
 
   const onFileUpload = (event) => {
+
     // if (event.target.files[0]) {
     //   setfiles(event.target.files[0]);
     //   console.log("Here is your file", event.target.files[0]);
@@ -64,6 +65,25 @@ const EditModal = (props) => {
     if (files) {
       setKey("General");
     }
+    console.log(files);
+    const payLoad = {
+      files
+    }
+    try{
+      const res = axios.post('/tasks/task/'+props.task_id+"/upload-files",payLoad,{
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      });
+      alert(res);
+      console.log(res);
+
+
+    }
+    catch(err){
+        alert(err);
+    }
+
   }
 
 

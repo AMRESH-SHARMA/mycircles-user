@@ -58,16 +58,21 @@ const CircleSetting = () => {
                 enableReinitialize={true}
                 onSubmit={(values, { setSubmitting }) => {
                   setTimeout(async () => {
+                    const payLoad = {
+                      name:values.name,
+                      description:values.description
+                    }
                     try {
-                      // let resapi = await axios.post(`https://circlenowdev.xyz/api/v1/user/${localStorage.getItem("current_user_id")}`, values, {
-                      //   headers: {
-                      //     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-                      //   },
-                      // })
-                      // console.log("resapi2", resapi)
+                      let resapi = await axios.put(`https://circlenowdev.xyz/api/v1/space/${localStorage.getItem("container_id")}`, payLoad, {
+                        headers: {
+                          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                        },
+                      })
+                      console.log("resapi2", resapi)
                       console.log("basicValues", basicValues)
                       console.log("Values", values)
                     } catch (err) {
+                      alert(err.response.data.message);
                       console.warn(err)
                     }
                     console.log("Logging in", values);
@@ -128,6 +133,71 @@ const CircleSetting = () => {
                         {<p style={{ display: "inline-flex", marginTop: "25px", paddingLeft: "10px" }}>{values.color}</p>}
                       </div>
 
+
+                    </Form>
+                  );
+                }}
+              </Formik>
+
+            </Tab>
+
+            <Tab eventKey="Topics" title="Topics">
+
+              <p className="gtextgrey" style={{ marginTop: "20px", marginBottom: "20px" }}>
+                Your current username is <strong>{zcurrentUser ? (zcurrentUser.account.username) : ""}</strong>. You can change your current username here.</p>
+
+              <Formik
+                initialValues={basicValues}
+                enableReinitialize={true}
+                onSubmit={(values, { setSubmitting }) => {
+                  setTimeout(async () => {
+                    try {
+                      // let resapi = await axios.post(`https://circlenowdev.xyz/api/v1/user/${localStorage.getItem("current_user_id")}`, values, {
+                      //   headers: {
+                      //     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                      //   },
+                      // })
+                      // console.log("resapi2", resapi)
+                      console.log("basicValues", basicValues)
+                      console.log("Values", values)
+                    } catch (err) {
+                      console.warn(err)
+                    }
+                    console.log("Logging in", values);
+
+                    setSubmitting(false);
+                  }, 500);
+                }}
+              >
+
+                {props => {
+                  const {
+                    values, isSubmitting, handleChange, handleSubmit
+                  } = props;
+
+                  if (isSubmitting) {
+                    var disableStyle = { cursor: "not-allowed", }
+                  }
+
+                  return (
+
+                    <Form onSubmit={handleSubmit} style={{ margin: "0px" }}>
+
+                      <label className='gformlabel' htmlFor="url">Current password *</label>
+                      <input
+                        name="url"
+                        type="text"
+                        value={values.url}
+                        onChange={handleChange}
+                      />
+
+                      <label className='gformlabel' htmlFor="username">New User name *</label>
+                      <input
+                        name="username"
+                        type="text"
+                        value={values.username}
+                        onChange={handleChange}
+                      />
 
                       <div className="d-flex justify-content-between">
                         <button className="globalbtn" style={disableStyle} type="submit" disabled={isSubmitting}>Save</button>
