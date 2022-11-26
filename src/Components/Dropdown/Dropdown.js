@@ -11,12 +11,9 @@ const Dropdown = (props) => {
   const { color, name, contentcontainer_id, guid, description } = props.obj;
   const bgColor = { backgroundColor: color };
   const ImgStyle = { display: "block", height: "auto" }
-  const handleImgError = () => {
-    setImgError(true)
-  }
 
   return (<>
-    <div className="allcirdd-items" >
+    <div className="allcirdd-items" key={props.key}>
       <li>
         <a className="d-flex" href={`/c/${name}/${contentcontainer_id}/SCwall`} style={{ color: "black" }}>
           {true
@@ -26,7 +23,7 @@ const Dropdown = (props) => {
               alt=""
               width="25"
               height="25"
-              onError={() => handleImgError()}
+              onError={() => setImgError(true)}
               style={ImgError ? { display: "none" } : ImgStyle}
             />
           }

@@ -117,7 +117,7 @@ export default function SCNavbar() {
     // getSpaceById()
 
     getSpaces()
-  }, [circleIId])
+  }, [])
 
   const Filteredcircles =
     circles?.filter(item =>
@@ -319,8 +319,8 @@ export default function SCNavbar() {
             <label style={{ margin: "-2px 0px 0px 0px", padding: "0px" }}>Followers</label>
           </NavItem>
           <NavItem className='navitems' >
-            <div className='navinvitebtn' style={{display:'flex'}}>
-              
+            <div className='navinvitebtn' style={{ display: 'flex' }}>
+
               <button className='globalbtn' onClick={handleShow}><i className="bi bi-cursor-fill">Invite</i></button>
 
               <div className="dropdown">
@@ -332,9 +332,8 @@ export default function SCNavbar() {
                 </button>
 
 
-                <ul className="dropdown-menu">
+                <ul className="dropdown-menu" style={{ minWidth: "230px" }}>
                   <button className='tdbtn' onClick={() => navigate(`/c/${localStorage.getItem("containerName")}/circle/manage`)}><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;&nbsp;Settings</button>
-                  <button className='tdbtn'><i className="fa fa-lock" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Security</button>
                   <button className='tdbtn'><i className="fa fa-bell" aria-hidden="true"></i>&nbsp;&nbsp;Receive&nbsp;Notification</button>
                   <button className='tdbtn'><i className="fa fa-eye" aria-hidden="true"></i>&nbsp;&nbsp;Hide&nbsp;posts&nbsp;on&nbsp;dashboard</button>
                   <button className='tdbtn' onClick={() => navigate(`/c/${localStorage.getItem('containerName')}/about`)}><i className="fa fa-info-circle" aria-hidden="true"></i>&nbsp;&nbsp;About</button>

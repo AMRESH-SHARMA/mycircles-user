@@ -120,13 +120,13 @@ const Wall = () => {
                     posts.map((posts, index) => (
                       <WallCard posts={posts} key={index} />
                     ))
-                  ) : "NO POST EXIST"}
+                  ) : "NO CONTENT EXIST"}
 
                   {task && task.length ? (
                     task.map((item, index) => (
                       <TaskCard obj={item} key={index} />
                     ))
-                  ) : "NO TASK EXIST"}
+                  ) : "NO CONTENT EXIST"}
                 </div>
 
                 <div>

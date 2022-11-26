@@ -45,7 +45,7 @@ const TaskCommentBody = (props) => {
       {commentData && commentData.length > 2 && <a style={overflow === true ? {color:"red"} : {color:"black"}} className='gshowallcmt-btn' href='/' onClick={(e) => handlecmtstyle(e)} >Show all {commentData.length} comments</a>}
       {commentData && commentData.length > 0 &&
         commentData.map((item, index) => (
-          <TaskComments obj={item} key={index} />
+          <TaskComments obj={item} key={index} style={{margin:"10px"}} />
         ))}
     </div>
   </>

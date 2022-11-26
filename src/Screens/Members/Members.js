@@ -33,9 +33,9 @@ const Members = () => {
     }
     getAllusers();
   }, [])
+
   function handleChange(e) {
     setSearch(e.target.value);
-
   }
   const Filteredusers =
     users?.filter(data =>

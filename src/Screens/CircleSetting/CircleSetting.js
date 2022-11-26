@@ -26,7 +26,7 @@ const CircleSetting = () => {
           },
         })
         // setZCurrentUser(resapi.data)
-        // setbasicValues(resapi.data.profile)
+        setbasicValues(resapi.data.profile)
         console.log("resapi", resapi)
 
       } catch (err) {
@@ -39,9 +39,9 @@ const CircleSetting = () => {
   return (<>
     <Header />
     <SCNavbar />
-    <div className='gcontainer'>
+    <div className='gcontainer' style={{ marginLeft: "2.5rem", marginRight: "2.5rem", marginBottom: "2.5rem" }}>
       <div className='gcard'>
-        <p style={{ fontSize: "20px" }}><strong>Space</strong>&nbsp;&nbsp;Settings</p>
+        <p style={{ fontSize: "20px" }}><strong>Circle</strong>&nbsp;&nbsp;Settings</p>
 
         <div style={{ maxWidth: "60rem", padding: "15px" }}>
 
@@ -107,7 +107,7 @@ const CircleSetting = () => {
                         style={{ marginBottom: "0px" }}
                       />
                       <span style={{ fontSize: "12px" }}>Max. 100 characters.</span>
-                      
+
                       <label className='gformlabel' htmlFor="about">About</label>
                       <input
                         name="about"
@@ -116,13 +116,17 @@ const CircleSetting = () => {
                         onChange={handleChange}
                       />
 
-                      {/* <label className='gformlabel' htmlFor="username">Tags</label>
-                    <input
-                      name="username"
-                      type="text"
-                      value={values.username}
-                      onChange={handleChange}
-                    /> */}
+                      <label className='gformlabel' htmlFor="color">Color</label>
+                      <div style={{ display: "flex" }}>
+                        <input
+                          name="color"
+                          type="color"
+                          value={values.color}
+                          onChange={handleChange}
+                          style={{ height: "50px", width: "50px" }}
+                        />
+                        {<p style={{ display: "inline-flex", marginTop: "25px", paddingLeft: "10px" }}>{values.color}</p>}
+                      </div>
 
 
                       <div className="d-flex justify-content-between">
@@ -135,77 +139,6 @@ const CircleSetting = () => {
               </Formik>
 
             </Tab>
-
-            <Tab eventKey="Topics" title="Topics">
-
-              <p className="gtextgrey" style={{ marginTop: "20px", marginBottom: "20px" }}>
-                Your current username is <strong>{zcurrentUser ? (zcurrentUser.account.username) : ""}</strong>. You can change your current username here.</p>
-
-              <Formik
-                initialValues={basicValues}
-                enableReinitialize={true}
-                onSubmit={(values, { setSubmitting }) => {
-                  setTimeout(async () => {
-                    try {
-                      // let resapi = await axios.post(`https://circlenowdev.xyz/api/v1/user/${localStorage.getItem("current_user_id")}`, values, {
-                      //   headers: {
-                      //     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-                      //   },
-                      // })
-                      // console.log("resapi2", resapi)
-                      console.log("basicValues", basicValues)
-                      console.log("Values", values)
-                    } catch (err) {
-                      console.warn(err)
-                    }
-                    console.log("Logging in", values);
-
-                    setSubmitting(false);
-                  }, 500);
-                }}
-              >
-
-                {props => {
-                  const {
-                    values, isSubmitting, handleChange, handleSubmit
-                  } = props;
-
-                  if (isSubmitting) {
-                    var disableStyle = { cursor: "not-allowed", }
-                  }
-
-                  return (
-
-                    <Form onSubmit={handleSubmit} style={{ margin: "0px" }}>
-
-                      <label className='gformlabel' htmlFor="url">Current password *</label>
-                      <input
-                        name="url"
-                        type="text"
-                        value={values.url}
-                        onChange={handleChange}
-                      />
-
-                      <label className='gformlabel' htmlFor="username">New User name *</label>
-                      <input
-                        name="username"
-                        type="text"
-                        value={values.username}
-                        onChange={handleChange}
-                      />
-
-
-                      <div className="d-flex justify-content-between">
-                        <button className="globalbtn" style={disableStyle} type="submit" disabled={isSubmitting}>Save</button>
-                      </div>
-
-                    </Form>
-                  );
-                }}
-              </Formik>
-
-            </Tab>
-
 
           </Tabs>
 

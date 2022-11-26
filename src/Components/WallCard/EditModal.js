@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Formik } from "formik";
+import * as Yup from "yup";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
@@ -17,9 +18,9 @@ const EditModal = (props) => {
   const [initialData, setinitialData] = useState({});
 
   useEffect(() => {
-    async function getTaskById() {
+    async function getPostById() {
       try {
-        const resapi = await axios.get("/tasks/task/" + props.task_id, {
+        const resapi = await axios.get(`/post/${props.post_id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
@@ -31,31 +32,14 @@ const EditModal = (props) => {
         console.log(err);
       }
     }
-    getTaskById();
-  }, [props.task_id])
+    getPostById();
+  }, [props.post_id])
 
   const onFileUpload = (event) => {
-    // if (event.target.files[0]) {
-    //   setfiles(event.target.files[0]);
-    //   console.log("Here is your file", event.target.files[0]);
-    // }
-
-    const formData = new FormData();
-    // formData.append('avatar', event.target.files[0]);
-    formData.append('avatar', event.target.files[0]);
-
-    fetch(`https://circlenowdev.xyz/api/v1/tasks/task/${props.task_id}/upload-files`, {
-      method: 'POST',
-      body: formData
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log('Success:', result);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-
+    if (event.target.files[0]) {
+      setfiles(event.target.files[0]);
+      console.log("Here is your file", event.target.files[0]);
+    }
   }
   const handledelete = () => {
     setfiles(null);
@@ -71,7 +55,7 @@ const EditModal = (props) => {
     <>
       <Modal show={props.show} onHide={props.handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Update Task</Modal.Title>
+          <Modal.Title>Update Post</Modal.Title>
         </Modal.Header>
         <Tabs
           id="controlled-tab-example"
@@ -80,26 +64,19 @@ const EditModal = (props) => {
           className="mb-3">
           <Tab eventKey="General" title="General">
             <Modal.Body>
-
               <Formik
                 initialValues={initialData}
                 enableReinitialize={true}
                 onSubmit={(values, { setSubmitting }) => {
                   const payLoad = {
-                    Task: {
-                      title: values.title,
-                      description: values.description,
-                    },
-                    TaskForm: {
-                      is_public: values.is_public,
-                      end_date: values.end_date,
-                      end_time: values.end_time
+                    data: {
+                      message: values.message,
                     }
                   }
                   setTimeout(async () => {
                     try {
                       console.log("resapi", payLoad)
-                      let resapi = await axios.put(`/tasks/task/${props.task_id}`, payLoad, {
+                      let resapi = await axios.put(`/post/${props.post_id}`, payLoad, {
                         headers: {
                           Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                         },
@@ -112,15 +89,19 @@ const EditModal = (props) => {
                       console.warn(err)
                       alert(err)
                     }
-
                     setSubmitting(false);
                   }, 500);
                 }}
+
+                validationSchema={Yup.object().shape({
+                  message: Yup.string()
+                    .required("Required"),
+                })}
               >
 
                 {props => {
                   const {
-                    values, isSubmitting, handleChange, handleBlur, handleSubmit
+                    values, touched, errors, isSubmitting, handleChange, handleBlur, handleSubmit
                   } = props;
 
                   if (isSubmitting) {
@@ -131,58 +112,24 @@ const EditModal = (props) => {
 
                     <Form onSubmit={handleSubmit} style={{ margin: "0px" }}>
 
-                      <label className='gformlabel' htmlFor="title">Title<span style={{ color: "#21A1B3", fontSize: "18px" }}>*</span></label>
-                      <input
-                        name="title"
-                        type="text"
-                        value={values.title}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        required
-                      />
+                      <label className='gformlabel' htmlFor="message">Message<span style={{ color: "#21A1B3", fontSize: "18px" }}>*</span></label>
 
-                      <label className='gformlabel' htmlFor="description">Description</label>
                       <textarea
-                        name="description"
+                        name="message"
                         type="text"
                         rows="3"
                         cols="50"
-                        value={values.description}
-                        onChange={handleChange}
-                        className="gtextarea"
-                      />
-
-                      {/* <div style={{ display: "flex", margin: "10px 0px 0px 0px" }}>
-                        <input
-                          name="is_public"
-                          type="checkbox"
-                          value={values.is_public ? parseInt(1) : parseInt(0)}
-                          onChange={handleChange}
-                          style={{ margin: "2px 5px 0px 0px", fontSize: "5px", height: "20px", width: "20px" }}
-                        />
-                        <label htmlFor="is_public">Public (Also visible to non-members of this space)</label>
-                      </div> */}
-
-                      <label className='gformlabel' htmlFor="end_date">End Date<span style={{ color: "#21A1B3", fontSize: "18px" }}>*</span></label>
-                      <input
-                        name="end_date"
-                        type="Date"
-                        value={values.end_date}
+                        value={values.message}
                         onChange={handleChange}
                         onBlur={handleBlur}
+                        className={errors.email && touched.email && "error"}
                       />
-
-                      <label className='gformlabel' htmlFor="end_time">End Time<span style={{ color: "#21A1B3", fontSize: "18px" }}>*</span></label>
-                      <input
-                        name="end_time"
-                        type="Time"
-                        value={values.end_time}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
+                      {errors.message && touched.message && (
+                        <div className="input-feedback" style={{marginTop:"1px"}}>{errors.message}</div>
+                      )}
 
                       <div className="d-flex justify-content-between">
-                        <button className="globalbtn" style={disableStyle} type="submit" disabled={isSubmitting}>{isSubmitting ? "Wait" : "Update Task"}</button>
+                        <button className="globalbtn" style={disableStyle} type="submit" disabled={isSubmitting}>{isSubmitting ? "Wait" : "Update Post"}</button>
                       </div>
 
                     </Form>

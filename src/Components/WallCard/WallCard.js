@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react'
+import { React, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Likebtn from '../Likebtn/Likebtn';
 import WallCommentBody from './WallCommentBody';
@@ -7,16 +7,17 @@ import emoji from 'emoji-dictionary'
 import './WallCard.css';
 import Spinner from '../../aspinner/Spinner';
 import { dateInMonths } from '../../aHelper/Helper';
-import { backendBaseUrl } from '../../API';
+import EditModal from './EditModal';
 
 
 const Card = (props) => {
 
-  console.log(props)
+  // console.log(props)
   const { id, message, content } = props.posts
 
   const navigate = useNavigate();
   const [commentButton, setCommentButton] = useState(false);
+  const [visibility, setVisibility] = useState(content.metadata.visibility);
   const [commentValue, setCommentValue] = useState('');
   const [isPostingComment, setIsPostingComment] = useState(false);
   const [rendercomp, setrendercomp] = useState(false);
@@ -24,39 +25,43 @@ const Card = (props) => {
   const [image, setimage] = useState();
   const [filename, setfilename] = useState();
   const [hover, sethover] = useState(false);
-  const [imgUrl, setimgUrl] = useState('');
+  // const [imgUrl, setimgUrl] = useState('');
+  const [displayImg, setDisplayImg] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    async function getImgeurl() {
-      try {
-        if (props.posts.content.files.length !== 0) {
-          if (!props.posts.content.files[0].mime_type.includes('video')) {
-            // console.log(props.posts.content.files[0].mime_type)
-            var blob = await axios.get(`${backendBaseUrl}/file/file/download?guid=${props.posts.content.files[0].guid}`, {
-              headers: {
-                'Authorization': `Bearer ${localStorage.getItem("authToken")}`
-              },
-              responseType: 'blob'
-            })
-            var fr = new FileReader();
-            fr.readAsDataURL(blob.data)
-            fr.onloadend = () => {
-              var base64Url = fr.result
-              console.log('b64', base64Url);
-              if (base64Url) setimgUrl(base64Url)
-              // getUrls(base64Url, props.posts.content.id)
-              // imageUrl = imageUrl + "OUT" + base64Url
-              // ids = ids + "OUT" + props.posts.content.id
-            }
-          }
-        }
-      } catch (err) {
-        console.log(err)
-      }
-    }
-    getImgeurl();
-  })
+  // async function getImgeurl() {
+  //   try {
+  //     if (props.posts.content.files.length !== 0) {
+  //       if (!props.posts.content.files[0].mime_type.includes('video')) {
+  //         // console.log(props.posts.content.files[0].mime_type)
+  //         var blob = await axios.get(`${backendBaseUrl}/file/file/download?guid=${props.posts.content.files[0].guid}`, {
+  //           headers: {
+  //             'Authorization': `Bearer ${localStorage.getItem("authToken")}`
+  //           },
+  //           responseType: 'blob'
+  //         })
+  //         var fr = new FileReader();
+  //         fr.readAsDataURL(blob.data)
+  //         fr.onloadend = () => {
+  //           var base64Url = fr.result
+  //           console.log('b64', base64Url);
+  //           if (base64Url) setimgUrl(base64Url)
+  //           // getUrls(base64Url, props.posts.content.id)
+  //           // imageUrl = imageUrl + "OUT" + base64Url
+  //           // ids = ids + "OUT" + props.posts.content.id
+  //         }
+  //       }
+  //     }
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // }
+  // getImgeurl();
+  // })
 
 
   //TEXT TO EMOJI 
@@ -144,6 +149,40 @@ const Card = (props) => {
     }
   }
 
+  const handleVisibility = async () => {
+
+    try {
+      if (visibility) {
+        const payLoad = {
+          data: {
+            content: { metadata: { visibility: 0 } }
+          }
+        };
+        const result = await axios.put(`/post/${id}`, payLoad, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        });
+        setVisibility(0)
+      } else {
+        const payLoad = {
+          data: {
+            content: { metadata: { visibility: 0 } }
+          }
+        };
+        const result = await axios.put(`/post/${id}`, payLoad, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        });
+        setVisibility(1)
+      }
+    } catch (err) {
+      console.warn(err)
+      alert(err)
+    }
+  }
+
   let marTop = { marginBottom: "65px" }
 
   return (<>
@@ -165,7 +204,8 @@ const Card = (props) => {
             <strong>{content.metadata.created_by.display_name}</strong>
             <div style={{ margin: "-4px 0px - 5px 0px", fontSize: "12px", fontWeight: "400", display: "flex" }}>
               {dateInMonths(content.metadata.created_at)}
-              <i style={{ margin: "5px 0px 0px 5px" }} className={content.metadata.visibility ? 'fa fa-globe' : 'fa fa-users'} />
+
+              <i style={{ margin: "5px 0px 0px 5px" }} className={visibility ? 'fa fa-globe'  : 'fa fa-users'} data-bs-toggle="tooltip" title={visibility ? 'Public'  : 'Private'} />
             </div>
           </div>
 
@@ -174,8 +214,10 @@ const Card = (props) => {
 
         <div className="dropdown">
           <i className='btn bi bi-three-dots taskheaderbtn' data-bs-toggle="dropdown" aria-expanded="false" />
-          <ul className="dropdown-menu">
-            <button className='tdbtn'>Edit</button>
+          <ul className="dropdown-menu" style={{minWidth:"210px"}}>
+            <button className='tdbtn' onClick={handleShow}>Edit</button>
+            {show ? <EditModal post_id={id} show={show} handleClose={handleClose}></EditModal> : null}
+            <button className='tdbtn' onClick={handleVisibility}>Make&nbsp;public&#47;Make&nbsp;Private</button>
             <button className='tdbtndel' onClick={handleDelPost}>Delete</button>
           </ul>
         </div>
@@ -197,12 +239,8 @@ const Card = (props) => {
         <img
           alt=""
           src={`https://circlenowdev.xyz/file/file/download?variant=preview-image&guid=550fdfdb-7800-4098-845f-f9a20f70fa58&hash_sha1=f971967c`}
-          onError={(e) =>
-          (
-            (e.target.src =
-              null)
-          )
-          }
+          onError={(e) => setDisplayImg(true)}
+          style={displayImg ? { visibility: "none" } : { visibility: "block" }}
         />
       </div>
 
