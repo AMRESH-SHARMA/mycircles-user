@@ -31,9 +31,7 @@ export default function SCNavbar() {
   const [visibility, setVisibility] = useState(0);
   const [joinPolicy, setJoinPolicy] = useState(0);
   const [show, setShow] = useState(false);
-  const [circleIId, setcircleIId] = useState('');
   const [search, setSearch] = useState('');
-  const [circleSettingbtn, setCircleSettingbtn] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   const [ImgError, setImgError] = useState(false);
@@ -186,7 +184,7 @@ export default function SCNavbar() {
                   autoComplete="off" />
               </div>
               <div id='createcircledropdown'>
-                <a href='/' style={{ textDecoration: "none", color: "black", margin: "0px 5px", display: "flex" }}>
+                <a href='/' style={{ textDecoration: "none", color: "black", margin: "15px 0px 5px 5px", display: "flex" }}>
 
                   <div className='txttoimgdiv' style={{ backgroundColor: 'grey' }}>
                     <div className='txttoimg'  >
@@ -194,7 +192,7 @@ export default function SCNavbar() {
                     </div>
 
                   </div>
-                  <span style={{ marginLeft: "5px", marginBottom: "5px" }} >Circles</span>
+                  <span style={{ marginLeft: "5px", marginBottom: "5px", fontWeight:"500" }} >Circles</span>
                 </a>
                 <hr />
                 {loading ?
@@ -340,7 +338,7 @@ export default function SCNavbar() {
                 </ul>
               </div>
 
-              {show && <InviteModal show={show} id={circleIId} handleClose={handleClose} />}
+              {show && <InviteModal show={show} id={localStorage.getItem("container_iid")} handleClose={handleClose} />}
             </div>
           </NavItem>
         </div>

@@ -91,7 +91,8 @@ const PopupModal = (props) => {
 
   return (
     <>
-      <Modal show={props.show} onHide={props.handleClose}>
+      <Modal 
+      show={props.show} onHide={props.handleClose}>
 
         <Modal.Header closeButton>
           <Modal.Title>Add Task</Modal.Title>
@@ -132,6 +133,7 @@ const PopupModal = (props) => {
                       console.log("resapi", resapi)
                       if (resapi.data.id) {
                         setCreatedTaskId(resapi.data.id)
+                        props.setTaskIDExist(resapi.data.id)
                       }
                     } catch (err) {
                       console.warn(err)
@@ -195,7 +197,7 @@ const PopupModal = (props) => {
                         value={values.end_date}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        required
+                        // required
                       />
 
                       <label className='gformlabel' htmlFor="end_time">End Time<span style={{ color: "#21A1B3", fontSize: "18px" }}>*</span></label>
@@ -205,7 +207,7 @@ const PopupModal = (props) => {
                         value={values.end_time}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        required
+                        // required
                       />
 
                       <div className="d-flex justify-content-between">

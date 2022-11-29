@@ -87,8 +87,8 @@
 #createcircledropdown {
   padding: 5px;
   position: relative;
-  max-height: 150px;
-  width: 260px;
+  max-height: 400px;
+  width: 320px;
   overflow-y: auto;
   overflow-x: hidden;
 }

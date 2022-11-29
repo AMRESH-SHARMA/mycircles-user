@@ -17,7 +17,7 @@ const ActivityCard = () => {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
             },
           })
-          console.log(resapi);
+          // console.log(resapi);
           setActivites(resapi.data.results)
         } catch (error) {
           console.warn(error)
@@ -30,7 +30,7 @@ const ActivityCard = () => {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
             },
           })
-          console.log(resapi);
+          // console.log(resapi);
           setActivites(resapi.data.results)
         } catch (error) {
           console.warn(error)

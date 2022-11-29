@@ -188,7 +188,7 @@ export const TaskCard = (props) => {
 
                 <div className="dropdown">
                   <i className='btn bi bi-three-dots taskheaderbtn' data-bs-toggle="dropdown" aria-expanded="false" />
-                  <ul className="dropdown-menu" style={{minWidth:"210px"}}>
+                  <ul className="dropdown-menu" style={{minWidth:"210px", borderRadius:"2px"}}>
                     <button className='tdbtn' onClick={handleShow}>Edit</button>
                     {show ? <EditModal task_id={id} show={show} handleClose={handleClose}></EditModal> : null}
                     <button className='tdbtn' onClick={handleVisibility}>Make&nbsp;public&#47;Make&nbsp;Private</button>
