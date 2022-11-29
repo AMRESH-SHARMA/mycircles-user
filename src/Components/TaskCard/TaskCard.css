@@ -86,7 +86,7 @@
  .tdbtn {
   display: block;
   background-color: white;
-  font-weight: 600;
+  font-weight: 400;
 }
  .tdbtn:hover {
   color: #176a75;
@@ -94,7 +94,7 @@
  .tdbtndel {
   display: block;
   background-color: white;
-  font-weight: 600;
+  font-weight: 400;
 
 }
  .tdbtndel:hover {

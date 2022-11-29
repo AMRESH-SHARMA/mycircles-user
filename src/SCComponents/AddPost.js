@@ -1,20 +1,27 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import PopupModal from "./PopupModal";
 import "./TaskandPost.css";
 import Spinner from "../aspinner/Spinner";
 
-const TaskandPostLayout = () => {
+const TaskandPostLayout = (props) => {
 
+  const navigate = useNavigate();
   let { id } = useParams();
-  const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
   const [Message, setMessage] = useState('');
   const [isPostingMessage, setIsPostingMessage] = useState(false);
   const [image, setimage] = useState();
-  
+  const [taskIDExist, setTaskIDExist] = useState('');
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
+  const handleClose = () => {
+    setShow(false);
+    if(taskIDExist){
+       navigate(0)
+    }
+  }
+
   // MESSAGE SUBMIT HANDLER
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,22 +30,23 @@ const TaskandPostLayout = () => {
       setIsPostingMessage(true);
       console.log(Message.trim())
       try {
-        let payload = {data: {message: Message.trim()}};
+        let payload = { data: { message: Message.trim() } };
         let resapi = await axios.post(`/post/container/${localStorage.getItem("container_iid", id)}`, payload, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         });
         console.log("Post", resapi);
-        let resapis = await axios.post(`/post/${resapi.data.id}/upload-files`, image, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
-        });
-        
-        console.log("Post2", resapis);
+        // let resapis = await axios.post(`/post/${resapi.data.id}/upload-files`, image, {
+        //   headers: {
+        //     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        //   },
+        // });
+
+        // console.log("Post2", resapis);
         if (resapi.data.id) {
           alert("done");
+          props.setrendercomp(true)
         }
       } catch (ex) {
         alert(ex);
@@ -55,7 +63,7 @@ const TaskandPostLayout = () => {
       console.log(image)
     }
   }
-  
+
   // console.log("Image", image);
 
   return (
@@ -92,10 +100,10 @@ const TaskandPostLayout = () => {
         <div className="card-body">
           <p className="card-text">Create and assign tasks - organize and schedule individual and
             collaborative projects.</p>
-          <button className="globalbtn" style={{marginTop:"10px"}} onClick={handleShow}>
+          <button className="globalbtn" style={{ marginTop: "10px" }} onClick={handleShow}>
             ADD
           </button>
-          <PopupModal show={show} handleClose={handleClose}></PopupModal>
+          <PopupModal show={show} handleClose={handleClose} setTaskIDExist={setTaskIDExist}></PopupModal>
         </div>
 
       </div>

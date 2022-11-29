@@ -14,7 +14,7 @@ const Notification = (props) => {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         })
-        console.log('r',result)
+        console.log('ro',result)
         setData(result.data)
       } catch (err) {
         console.warn(err)

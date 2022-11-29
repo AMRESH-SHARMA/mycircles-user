@@ -22,7 +22,8 @@ const Wall = () => {
   const [posts, setPosts] = useState('')
   const [loading, setLoading] = useState(true);
   const [task, setTask] = useState('');
-  const [loadingtask, setLoadingTask] = useState(true)
+  const [loadingtask, setLoadingTask] = useState(true);
+  const [rendercomp, setrendercomp] = useState(false);
 
 
   useEffect(() => {
@@ -60,7 +61,7 @@ const Wall = () => {
         setLoading(false)
       }
     })()
-  }, [])
+  }, [rendercomp])
 
 
 
@@ -96,7 +97,7 @@ const Wall = () => {
       }
 
     })()
-  }, [])
+  }, [rendercomp])
 
   return (
     <>
@@ -114,7 +115,7 @@ const Wall = () => {
 
                 <div className='col-md-6'>
 
-                  {scpage() ? <AddPost /> : null}
+                  {scpage() ? <AddPost setrendercomp={setrendercomp}/> : null}
 
                   {posts && posts.length ? (
                     posts.map((posts, index) => (

@@ -1,26 +1,26 @@
 import React from 'react'
-import axios from 'axios';
+// import axios from 'axios';
 import "./MembersCard.css";
 
 export default function MembersCard(props) {
   // console.log('t', props)
   const { guid, display_name, profile } = props.obj
 
-  const handleFollowUser = async () => {
-    try {
-      const resapi = await axios.post(`https://circlenowdev.xyz/u/adminauditya/user/profile/follow`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-        },
-      })
-      console.log(resapi)
-      // if (result.data) {
-      //   setCircles(result.data.reverse())
-      // }
-    } catch (err) {
-      console.warn(err)
-    }
-  }
+  // const handleFollowUser = async () => {
+  //   try {
+  //     const resapi = await axios.post(`https://circlenowdev.xyz/u/adminauditya/user/profile/follow`, {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+  //       },
+  //     })
+  //     console.log(resapi)
+  //     // if (result.data) {
+  //     //   setCircles(result.data.reverse())
+  //     // }
+  //   } catch (err) {
+  //     console.warn(err)
+  //   }
+  // }
 
 
   return (<>
@@ -53,11 +53,11 @@ export default function MembersCard(props) {
       
       <div style={{ display: "flex", justifyContent: "space-between" }}>
 
-        <button className="globalbtn" onClick={handleFollowUser}>Follow</button>
+        {/* <button className="globalbtn" onClick={handleFollowUser}>Follow</button>
 
         <button style={{ backgroundColor: "#21A1B3", color: "white", borderRadius: "4px" }}>
           <i className='fa fa-plus' style={{ padding: "5px" }}></i>Friends
-        </button>
+        </button> */}
 
       </div>
     </div>

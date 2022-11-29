@@ -5,6 +5,7 @@
 .allcirdd-items>li>a {
   text-decoration: none;
   padding: 5px;
+  margin-top: 15px;
 }
 
 .allcirdd-items>li:hover {
@@ -25,7 +26,6 @@
   display: flex;
   justify-content: center;
   position: "absolute";
-  /* padding: "15px"; */
   color: white;
   font-size: 12px;
   font-weight: 600;

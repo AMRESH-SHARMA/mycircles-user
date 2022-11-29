@@ -34,10 +34,10 @@ const Dropdown = (props) => {
                 <div className='txttoimg'>{letterGenerate(name)}</div>
               </div>
             </>}
-            
+
           <div style={{ margin: "0px 5px" }}>
-            {name}
-            <p style={{ margin: "0px 0px", fontSize: "10px" }}>{description}</p>
+            <span style={{ fontSize: "14px", fontWeight: "600" }}>{name}</span>
+            <p style={{ paddingTop: "0px", margin: "0px 0px", fontSize: "12px", fontWeight: "500", color: "#555555" }}>{description}</p>
           </div>
         </a>
         <hr />

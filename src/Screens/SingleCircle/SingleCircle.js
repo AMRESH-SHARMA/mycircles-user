@@ -1,5 +1,4 @@
 import React from 'react';
-// import Navbar from "../../Components/Header/Navbar";
 import Header from "../../Components/Header/Header";
 import AddPost from "../../SCComponents/AddPost";
 import SCNavbar from '../../Components/Header/SCNavbar';
