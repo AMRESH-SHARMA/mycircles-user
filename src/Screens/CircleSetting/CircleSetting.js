@@ -8,6 +8,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import axios from "axios";
 import "./CircleSetting.css"
+import NotAuthorized from '../Error/NotAuthorized';
 
 const CircleSetting = () => {
 
@@ -16,6 +17,7 @@ const CircleSetting = () => {
 
   // Input fields
   const [basicValues, setbasicValues] = useState({});
+  const [unAuthorized, setUnAuthorized] = useState(false);
 
   useEffect(() => {
     const getCurrentSpace = async () => {
@@ -26,8 +28,13 @@ const CircleSetting = () => {
           },
         })
         // setZCurrentUser(resapi.data)
-        setbasicValues(resapi.data.profile)
-        console.log("resapi", resapi)
+        console.log('res', resapi)
+        if (resapi.data.profile) {
+          return setbasicValues(resapi.data.profile)
+        }
+        if (resapi.data.code == 403) {
+          return setUnAuthorized(true)
+        }
 
       } catch (err) {
         console.warn(err)
@@ -39,185 +46,124 @@ const CircleSetting = () => {
   return (<>
     <Header />
     <SCNavbar />
-    <div className='gcontainer' style={{ marginLeft: "2.5rem", marginRight: "2.5rem", marginBottom: "2.5rem" }}>
-      <div className='gcard'>
-        <p style={{ fontSize: "20px" }}><strong>Circle</strong>&nbsp;&nbsp;Settings</p>
 
-        <div style={{ maxWidth: "60rem", padding: "15px" }}>
-
-          <Tabs
-            id="controlled-tab-example"
-            activeKey={key}
-            onSelect={(k) => setKey(k)}
-            className="mb-3">
-
-            <Tab eventKey="Basic" title="Basic">
-
-              <Formik
-                initialValues={basicValues}
-                enableReinitialize={true}
-                onSubmit={(values, { setSubmitting }) => {
-                  setTimeout(async () => {
-                    const payLoad = {
-                      name:values.name,
-                      description:values.description
-                    }
-                    try {
-                      let resapi = await axios.put(`https://circlenowdev.xyz/api/v1/space/${localStorage.getItem("container_id")}`, payLoad, {
-                        headers: {
-                          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-                        },
-                      })
-                      console.log("resapi2", resapi)
-                      console.log("basicValues", basicValues)
-                      console.log("Values", values)
-                    } catch (err) {
-                      alert(err.response.data.message);
-                      console.warn(err)
-                    }
-                    console.log("Logging in", values);
-
-                    setSubmitting(false);
-                  }, 500);
-                }}
-              >
-
-                {props => {
-                  const {
-                    values, isSubmitting, handleChange, handleSubmit
-                  } = props;
-
-                  if (isSubmitting) {
-                    var disableStyle = { cursor: "not-allowed", }
-                  }
-
-                  return (
-
-                    <Form onSubmit={handleSubmit} style={{ margin: "0px" }}>
-
-                      <label className='gformlabel' htmlFor="name">Name *</label>
-                      <input
-                        name="name"
-                        type="text"
-                        value={values.name}
-                        onChange={handleChange}
-                      />
-
-                      <label className='gformlabel' htmlFor="description">Description</label>
-                      <input
-                        name="description"
-                        type="text"
-                        value={values.description}
-                        onChange={handleChange}
-                        style={{ marginBottom: "0px" }}
-                      />
-                      <span style={{ fontSize: "12px" }}>Max. 100 characters.</span>
-
-                      <label className='gformlabel' htmlFor="about">About</label>
-                      <input
-                        name="about"
-                        type="text"
-                        value={values.about}
-                        onChange={handleChange}
-                      />
-
-                      <label className='gformlabel' htmlFor="color">Color</label>
-                      <div style={{ display: "flex" }}>
-                        <input
-                          name="color"
-                          type="color"
-                          value={values.color}
-                          onChange={handleChange}
-                          style={{ height: "50px", width: "50px" }}
-                        />
-                        {<p style={{ display: "inline-flex", marginTop: "25px", paddingLeft: "10px" }}>{values.color}</p>}
-                      </div>
-
-
-                    </Form>
-                  );
-                }}
-              </Formik>
-
-            </Tab>
-
-            <Tab eventKey="Topics" title="Topics">
-
-              <p className="gtextgrey" style={{ marginTop: "20px", marginBottom: "20px" }}>
-                Your current username is <strong>{zcurrentUser ? (zcurrentUser.account.username) : ""}</strong>. You can change your current username here.</p>
-
-              <Formik
-                initialValues={basicValues}
-                enableReinitialize={true}
-                onSubmit={(values, { setSubmitting }) => {
-                  setTimeout(async () => {
-                    try {
-                      // let resapi = await axios.post(`https://circlenowdev.xyz/api/v1/user/${localStorage.getItem("current_user_id")}`, values, {
-                      //   headers: {
-                      //     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-                      //   },
-                      // })
-                      // console.log("resapi2", resapi)
-                      console.log("basicValues", basicValues)
-                      console.log("Values", values)
-                    } catch (err) {
-                      console.warn(err)
-                    }
-                    console.log("Logging in", values);
-
-                    setSubmitting(false);
-                  }, 500);
-                }}
-              >
-
-                {props => {
-                  const {
-                    values, isSubmitting, handleChange, handleSubmit
-                  } = props;
-
-                  if (isSubmitting) {
-                    var disableStyle = { cursor: "not-allowed", }
-                  }
-
-                  return (
-
-                    <Form onSubmit={handleSubmit} style={{ margin: "0px" }}>
-
-                      <label className='gformlabel' htmlFor="url">Current password *</label>
-                      <input
-                        name="url"
-                        type="text"
-                        value={values.url}
-                        onChange={handleChange}
-                      />
-
-                      <label className='gformlabel' htmlFor="username">New User name *</label>
-                      <input
-                        name="username"
-                        type="text"
-                        value={values.username}
-                        onChange={handleChange}
-                      />
-
-                      <div className="d-flex justify-content-between">
-                        <button className="globalbtn" style={disableStyle} type="submit" disabled={isSubmitting}>Save</button>
-                      </div>
-
-                    </Form>
-                  );
-                }}
-              </Formik>
-
-            </Tab>
-
-          </Tabs>
-
-        </div >
-
+    {unAuthorized ?
+      <div style={{ margin: "2.5rem" }}>
+        <NotAuthorized msg={"You are not authorized To Edit these Settings"} />
       </div>
 
+      : <>
+        <div className='gcontainer' style={{ marginLeft: "2.5rem", marginRight: "2.5rem", marginBottom: "2.5rem" }}>
+          <div className='gcard'>
+            <p style={{ fontSize: "20px" }}><strong>Circle</strong>&nbsp;&nbsp;Settings</p>
 
-    </div>
+            <div style={{ maxWidth: "60rem", padding: "15px" }}>
+
+              <Tabs
+                id="controlled-tab-example"
+                activeKey={key}
+                onSelect={(k) => setKey(k)}
+                className="mb-3">
+
+                <Tab eventKey="Basic" title="Basic">
+
+                  <Formik
+                    initialValues={basicValues}
+                    enableReinitialize={true}
+                    onSubmit={(values, { setSubmitting }) => {
+                      setTimeout(async () => {
+                        try {
+                          // let resapi = await axios.post(`https://circlenowdev.xyz/api/v1/user/${localStorage.getItem("current_user_id")}`, values, {
+                          //   headers: {
+                          //     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                          //   },
+                          // })
+                          // console.log("resapi2", resapi)
+                          console.log("basicValues", basicValues)
+                          console.log("Values", values)
+                        } catch (err) {
+                          console.warn(err)
+                        }
+                        console.log("Logging in", values);
+
+                        setSubmitting(false);
+                      }, 500);
+                    }}
+                  >
+
+                    {props => {
+                      const {
+                        values, isSubmitting, handleChange, handleSubmit
+                      } = props;
+
+                      if (isSubmitting) {
+                        var disableStyle = { cursor: "not-allowed", }
+                      }
+
+                      return (
+
+                        <Form onSubmit={handleSubmit} style={{ margin: "0px" }}>
+
+                          <label className='gformlabel' htmlFor="name">Name *</label>
+                          <input
+                            name="name"
+                            type="text"
+                            value={values.name}
+                            onChange={handleChange}
+                          />
+
+                          <label className='gformlabel' htmlFor="description">Description</label>
+                          <input
+                            name="description"
+                            type="text"
+                            value={values.description}
+                            onChange={handleChange}
+                            style={{ marginBottom: "0px" }}
+                          />
+                          <span style={{ fontSize: "12px" }}>Max. 100 characters.</span>
+
+                          <label className='gformlabel' htmlFor="about">About</label>
+                          <input
+                            name="about"
+                            type="text"
+                            value={values.about}
+                            onChange={handleChange}
+                          />
+
+                          <label className='gformlabel' htmlFor="color">Color</label>
+                          <div style={{ display: "flex" }}>
+                            <input
+                              name="color"
+                              type="color"
+                              value={values.color}
+                              onChange={handleChange}
+                              style={{ height: "50px", width: "50px" }}
+                            />
+                            {<p style={{ display: "inline-flex", marginTop: "25px", paddingLeft: "10px" }}>{values.color}</p>}
+                          </div>
+
+
+                          <div className="d-flex justify-content-between">
+                            <button className="globalbtn" style={disableStyle} type="submit" disabled={isSubmitting}>Save</button>
+                          </div>
+
+                        </Form>
+                      );
+                    }}
+                  </Formik>
+
+                </Tab>
+
+              </Tabs>
+
+            </div >
+
+          </div>
+
+        </div>
+      </>
+    }
+
   </>
   )
 }

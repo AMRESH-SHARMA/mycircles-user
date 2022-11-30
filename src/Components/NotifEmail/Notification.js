@@ -5,7 +5,7 @@ import axios from "axios";
 
 const Notification = (props) => {
   // const id = props.currentUserID
-  const [data, setData] = useState('')
+  const [data, setData] = useState([])
   useEffect(() => {
     const currentUserNotifications = async () => {
       try {
