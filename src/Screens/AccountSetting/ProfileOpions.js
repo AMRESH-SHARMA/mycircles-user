@@ -15,6 +15,9 @@ export default function ProfileOpions() {
   const [innerkey, setinnerkey] = useState('General')
   const [zcircles, setZCircles] = useState([]);
   const [zcurrentUser, setZCurrentUser] = useState('')
+  const [pass,setPass]  =useState('');
+  const [correct,setcorrect] = useState(false);
+  const [click,setclick] = useState(false);
 
   // Input fields
   const [generalValues, setgeneralValues] = useState({});
@@ -66,7 +69,7 @@ export default function ProfileOpions() {
     e.preventDefault()
   }
   //  
-
+  
   // handleDelCircle
   const handleDelCircle = async() => {
     try {
@@ -106,14 +109,31 @@ export default function ProfileOpions() {
                 initialValues={generalValues}
                 enableReinitialize={true}
                 onSubmit={(values, { setSubmitting }) => {
+                  const payLoad = {
+                    profile: {
+                          firstname: values.firstname,
+                          lastname: values.lastname,
+                          title: values.title,
+                          gender: values.gender,
+                          street: values.street,
+                          zip: values.zip,
+                          city: values.city,
+                          country: values.country,
+                          state: values.state,
+                          birthday_hide_year:values.birthday_hide_year,
+                          birthday: values.birthday,
+                          about: values.about,
+                        }
+                                            
+                  }
                   setTimeout(async () => {
                     try {
-                      // let resapi = await axios.post(`https://circlenowdev.xyz/api/v1/user/${localStorage.getItem("current_user_id")}`, values, {
-                      //   headers: {
-                      //     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-                      //   },
-                      // })
-                      // console.log("resapi2", resapi)
+                      let resapi = await axios.put(`https://circlenowdev.xyz/api/v1/user/${localStorage.getItem("current_user_id")}`, payLoad, {
+                        headers: {
+                          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                        },
+                      })
+                      console.log("resapi2", resapi)
                       console.log("generalValues", generalValues)
                       console.log("Values", values)
                     } catch (err) {
@@ -291,13 +311,35 @@ export default function ProfileOpions() {
                 enableReinitialize={true}
                 onSubmit={(values, { setSubmitting }) => {
                   setTimeout(async () => {
+                    const payLoad = {
+                      profile:{
+                        firstname: values.firstname,
+                          lastname: values.lastname,
+                          title: values.title,
+                          gender: values.gender,
+                          street: values.street,
+                          zip: values.zip,
+                          city: values.city,
+                          country: values.country,
+                          state: values.state,
+                          birthday_hide_year:values.birthday_hide_year,
+                          birthday: values.birthday,
+                          about: values.about,
+                        phone_private: values.phone_private,
+                          phone_work: values.phone_work,
+                          mobile: values.mobile,
+                          fax: values.fax,
+                          im_skype: values.im_skype,
+                          im_xmpp: values.im_xmpp,
+                      }
+                    }
                     try {
-                      // let resapi = await axios.post(`https://circlenowdev.xyz/api/v1/user/${localStorage.getItem("current_user_id")}`, values, {
-                      //   headers: {
-                      //     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-                      //   },
-                      // })
-                      // console.log("resapi2", resapi)
+                      let resapi = await axios.post(`https://circlenowdev.xyz/api/v1/user/${localStorage.getItem("current_user_id")}`, payLoad, {
+                        headers: {
+                          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                        },
+                      })
+                      console.log("resapi2", resapi)
                       console.log("generalValues", generalValues)
                       console.log("Values", values)
                     } catch (err) {
@@ -389,13 +431,42 @@ export default function ProfileOpions() {
                 enableReinitialize={true}
                 onSubmit={(values, { setSubmitting }) => {
                   setTimeout(async () => {
+                    const payLoad = {
+                          firstname: values.firstname,
+                          lastname: values.lastname,
+                          title: values.title,
+                          gender: values.gender,
+                          street: values.street,
+                          zip: values.zip,
+                          city: values.city,
+                          country: values.country,
+                          state: values.state,
+                          birthday_hide_year:values.birthday_hide_year,
+                          birthday: values.birthday,
+                          about: values.about,
+                          phone_private: values.phone_private,
+                          phone_work: values.phone_work,
+                          mobile: values.mobile,
+                          fax: values.fax,
+                          im_skype: values.im_skype,
+                          im_xmpp: values.im_xmpp,
+                          url: values.url,
+                          url_facebook: values.url_facebook,
+                          url_linkedin: values.url_linkedin,
+                          url_xing: values.url_xing,
+                          url_youtube: values.youtube,
+                          url_vimeo: values.url_vimeo,
+                          url_flickr: values.url_flickr,
+                          url_myspace: values.url_myspace,
+                          url_twitter: values.url_twitter,
+                    }
                     try {
-                      // let resapi = await axios.post(`https://circlenowdev.xyz/api/v1/user/${localStorage.getItem("current_user_id")}`, values, {
-                      //   headers: {
-                      //     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-                      //   },
-                      // })
-                      // console.log("resapi2", resapi)
+                      let resapi = await axios.post(`https://circlenowdev.xyz/api/v1/user/${localStorage.getItem("current_user_id")}`, payLoad, {
+                        headers: {
+                          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                        },
+                      })
+                      console.log("resapi2", resapi)
                       console.log("generalValues", generalValues)
                       console.log("Values", values)
                     } catch (err) {
@@ -518,33 +589,64 @@ export default function ProfileOpions() {
             enableReinitialize={true}
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(async () => {
-                try {
-                  // let resapi = await axios.post(`https://circlenowdev.xyz/api/v1/user/${localStorage.getItem("current_user_id")}`, values, {
-                  //   headers: {
-                  //     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-                  //   },
-                  // })
-                  // console.log("resapi2", resapi)
-                  console.log("generalValues", generalValues)
-                  console.log("Values", values)
-                } catch (err) {
-                  console.warn(err)
-                }
+                 try{
+                     const res = await axios.post("/auth/login",{
+                        username:zcurrentUser.account.username,
+                        password:values.url,
+                      })
+                    if(res.data.auth_token){
+                      console.log(values.username)
+                      const payLoad = {
+                        account :{
+                          username:values.username
+                        }
+                      }
+                      try {
+
+                        let resapi = await axios.put(`https://circlenowdev.xyz/api/v1/user/${localStorage.getItem("current_user_id")}`,payLoad , {
+                                          headers: {
+                                              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                                              },
+                        })
+                        console.log("resapi2", resapi)
+                        console.log("generalValues", generalValues)
+                        console.log("Values", values)
+                        if(resapi){
+                          alert("Username Changed Successfully")
+                          window.location.reload();                        
+                          }
+                        } catch (err) {
+                            console.warn(err)
+                          }
+                       
+                     }else{
+                       alert("Incorrect Password")
+                     }
+                   
+                   }catch(err){
+                     alert("Incorrect Password")
+                    }  
+
+                
+
+                
                 console.log("Logging in", values);
 
                 setSubmitting(false);
               }, 500);
             }}
           >
+            
 
             {props => {
               const {
-                values, isSubmitting, handleChange, handleSubmit
+                values, isSubmitting, handleChange, handleSubmit 
               } = props;
 
               if (isSubmitting) {
                 var disableStyle = { cursor: "not-allowed", }
               }
+              
 
               return (
 
@@ -553,10 +655,13 @@ export default function ProfileOpions() {
                   <label className='gformlabel' htmlFor="url">Current password *</label>
                   <input
                     name="url"
-                    type="text"
+                    type="password"
+
                     value={values.url}
                     onChange={handleChange}
+
                   />
+                  
 
                   <label className='gformlabel' htmlFor="username">New User name *</label>
                   <input
@@ -589,18 +694,43 @@ export default function ProfileOpions() {
             enableReinitialize={true}
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(async () => {
-                try {
-                  // let resapi = await axios.post(`https://circlenowdev.xyz/api/v1/user/${localStorage.getItem("current_user_id")}`, values, {
-                  //   headers: {
-                  //     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-                  //   },
-                  // })
-                  // console.log("resapi2", resapi)
-                  console.log("generalValues", generalValues)
-                  console.log("Values", values)
-                } catch (err) {
-                  console.warn(err)
-                }
+                try{
+                     const res = await axios.post("/auth/login",{
+                        username:zcurrentUser.account.username,
+                        password:values.url,
+                      })
+                    if(res.data.auth_token){
+                      console.log(values.username)
+                      const payLoad = {
+                        account :{
+                          email:values.email
+                        }
+                      }
+                      try {
+
+                        let resapi = await axios.put(`https://circlenowdev.xyz/api/v1/user/${localStorage.getItem("current_user_id")}`,payLoad , {
+                                          headers: {
+                                              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                                              },
+                        })
+                        console.log("resapi2", resapi)
+                        console.log("generalValues", generalValues)
+                        console.log("Values", values)
+                        if(resapi){
+                          alert("Email Changed Successfully")
+                          window.location.reload();                        
+                          }
+                        } catch (err) {
+                            console.warn(err)
+                          }
+                       
+                     }else{
+                       alert("Incorrect Password")
+                     }
+                   
+                   }catch(err){
+                     alert("Incorrect Password")
+                    }  
                 console.log("Logging in", values);
 
                 setSubmitting(false);
@@ -655,24 +785,112 @@ export default function ProfileOpions() {
           <p className="gtextgrey" style={{ marginTop: "20px", marginBottom: "20px" }}>
             Your current password can be changed here.
           </p>
+          <Formik
+            initialValues={generalValues}
+            enableReinitialize={true}
+            onSubmit={(values, { setSubmitting }) => {
+              setTimeout(async () => {
+                try{
+                     const res = await axios.post("/auth/login",{
+                        username:zcurrentUser.account.username,
+                        password:values.password,
+                      })
+                    if(res.data.auth_token){
 
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Current Password *</Form.Label>
-            <input type="name" />
-          </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>New Password *</Form.Label>
-            <input type="name" />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Confirm new Password *</Form.Label>
-            <input type="name" />
-          </Form.Group>
-          <button className='globalbtn' variant="primary" type="submit">
-            Save
-          </button>
 
+                      if(values.new_password == values.confirm_new_password){
+                        const payLoad = {
+                        password :{
+                          newPassword:values.new_password
+                          
+                        }
+                      }
+                        try {
+
+                        let resapi = await axios.put(`https://circlenowdev.xyz/api/v1/user/${localStorage.getItem("current_user_id")}`,payLoad , {
+                                          headers: {
+                                              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                                              },
+                        })
+                        console.log("resapi2", resapi)
+                        console.log("generalValues", generalValues)
+                        console.log("Values", values)
+                        if(resapi){
+                          alert("Password Changed Successfully")
+                          window.location.reload();                        
+                          }
+                        } catch (err) {
+                            console.warn(err)
+                          }
+                       
+
+                      }else{
+                        alert("Password Mismatch!")
+                      }
+                      
+                      
+                     }else{
+                       alert("Incorrect Password")
+                     }
+                   
+                   }catch(err){
+                     alert("Incorrect Password")
+                    }  
+                console.log("Logging in", values);
+
+
+                setSubmitting(false);
+              }, 500);
+            }}
+          >
+
+            {props => {
+              const {
+                values, isSubmitting, handleChange, handleSubmit
+              } = props;
+
+              if (isSubmitting) {
+                var disableStyle = { cursor: "not-allowed", }
+              }
+
+              return (
+
+
+          <Form onSubmit={handleSubmit} style={{ margin: "0px" }}>
+
+                  <label className='gformlabel' htmlFor="url">Current password *</label>
+                  <input
+                    name="password"
+                    type="password"
+                    value={values.password}
+                    onChange={handleChange}
+                  />
+
+                  <label className='gformlabel' htmlFor="email">New Password *</label>
+                  <input
+                    name="new_password"
+                    type="password"
+                    value={values.new_password}
+                    onChange={handleChange}
+                  />
+                  <label className='gformlabel' htmlFor="email">Confirm New Password *</label>
+                  <input
+                    name="confirm_new_password"
+                    type="password"
+                    value={values.confirm_new_password}
+                    onChange={handleChange}
+                  />
+
+
+                  <div className="d-flex justify-content-between">
+                    <button className="globalbtn" style={disableStyle} type="submit" disabled={isSubmitting}>Save</button>
+                  </div>
+
+                </Form>
+              );
+               }}
+          </Formik>
         </Tab>
 
         <Tab eventKey="DeleteAccount" title="Delete Account">
