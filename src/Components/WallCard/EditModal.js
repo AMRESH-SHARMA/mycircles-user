@@ -20,7 +20,7 @@ const EditModal = (props) => {
   useEffect(() => {
     async function getPostById() {
       try {
-        const resapi = await axios.get(`/post/${props.post_id}`, {
+        const resapi = await axios.get(`https://circlenowdev.xyz/api/v1/post/${props.post_id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
