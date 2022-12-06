@@ -11,16 +11,24 @@ const TaskandPostLayout = (props) => {
   let { id } = useParams();
   const [Message, setMessage] = useState('');
   const [isPostingMessage, setIsPostingMessage] = useState(false);
-  const [image, setimage] = useState();
+  const [image, setImage] = useState(null);
   const [taskIDExist, setTaskIDExist] = useState('');
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => {
     setShow(false);
-    if(taskIDExist){
-       navigate(0)
+    if (taskIDExist) {
+      navigate(0)
     }
   }
+  //IMAGE UPLOADER
+  const onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setImage((event.target.files[0]));
+      console.log(image)
+    }
+  }
+
 
   // MESSAGE SUBMIT HANDLER
   const handleSubmit = async (e) => {
@@ -37,13 +45,26 @@ const TaskandPostLayout = (props) => {
           },
         });
         console.log("Post", resapi);
-        // let resapis = await axios.post(`/post/${resapi.data.id}/upload-files`, image, {
-        //   headers: {
-        //     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-        //   },
-        // });
+        
+//IMAGE UPLOAD POST API
+        // if (resapi.data.id && image) {
+        //   var idofpost = resapi.data.id
+        //   fetch(`https://circlenowdev.xyz/api/v1/post/${idofpost}/upload-files`, {
+        //     method: 'POST',
+        //     body: createFormData(image),
+        //     headers:
+        //     {
+        //       'Content-type': 'multipart/form-data',
+        //       'Authorization': `Bearer ${localStorage.getItem("authToken")}`
+        //     },
+        //   }).then(r => (r.json().then(out2 => {
+        //     //alert('here')
+        //     console.log("out2", out2);
+        //   }))).catch(err => {
+        //     console.log(err)
+        //   })
+        // }
 
-        // console.log("Post2", resapis);
         if (resapi.data.id) {
           alert("done");
           props.setrendercomp(true)
@@ -57,14 +78,6 @@ const TaskandPostLayout = (props) => {
     }
   };
 
-  const onImageChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      setimage(URL.createObjectURL(event.target.files[0]));
-      console.log(image)
-    }
-  }
-
-  // console.log("Image", image);
 
   return (
     <>
